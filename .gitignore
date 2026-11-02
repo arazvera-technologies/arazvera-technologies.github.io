@@ -1,0 +1,5 @@
+tests/
+*-preview.png
+*.log
+__pycache__/
+.DS_Store
