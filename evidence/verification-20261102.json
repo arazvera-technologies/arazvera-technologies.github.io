@@ -1,0 +1,51 @@
+{
+  "report_date": "2026-11-02",
+  "test_environment": "Local, read-only clones of public GitHub repositories; standard test runners; no external production integration.",
+  "total_passed": 47,
+  "total_failed": 0,
+  "external_certification": false,
+  "scope_notice": "Public sample code only. This does not validate private AERON, deployed AI agents, customer usage, security guarantees, commercial readiness, or investment performance.",
+  "repos": [
+    {
+      "repo": "arazvera-workflow-studio",
+      "display_en": "Workflow Studio",
+      "display_fa": "استودیوی گردش‌کار",
+      "description_en": "Browser-local decision routing, approval gates and audit history.",
+      "description_fa": "مسیریابی تصمیم‌ها، دروازه‌های تأیید و تاریخچه ثبت رویداد در مرورگر.",
+      "commit": "416c8acf059fa802874834032d0948d54d6b18db",
+      "source_url": "https://github.com/arazvera-technologies/arazvera-workflow-studio/tree/416c8acf059fa802874834032d0948d54d6b18db",
+      "command": "node --test",
+      "passed": 20,
+      "failed": 0,
+      "exit_code": 0,
+      "build_command": "node scripts/build.mjs",
+      "build_exit_code": 0
+    },
+    {
+      "repo": "agentic-ai-architecture-notes",
+      "display_en": "Agentic Architecture Notes",
+      "display_fa": "یادداشت‌های معماری ایجنتی",
+      "description_en": "Offline, deterministic routing examples with explicit rejection rules.",
+      "description_fa": "نمونه‌های آفلاین مسیریابی تعیین‌پذیر همراه با قواعد رد صریح.",
+      "commit": "f84beb31eb744966311856e6c9afee4515e9b4d4",
+      "source_url": "https://github.com/arazvera-technologies/agentic-ai-architecture-notes/tree/f84beb31eb744966311856e6c9afee4515e9b4d4",
+      "command": "python -m unittest discover -s tests -v",
+      "passed": 12,
+      "failed": 0,
+      "exit_code": 0
+    },
+    {
+      "repo": "secure-automation-patterns",
+      "display_en": "Secure Automation Patterns",
+      "display_fa": "الگوهای اتوماسیون امن",
+      "description_en": "Defensive role/permission policy examples and approval boundaries.",
+      "description_fa": "نمونه‌های دفاعی سیاست نقش و مجوز و مرزبندی تأیید انسانی.",
+      "commit": "bf12cbbeebc4cd37e5cae91b294f408a78be5ee6",
+      "source_url": "https://github.com/arazvera-technologies/secure-automation-patterns/tree/bf12cbbeebc4cd37e5cae91b294f408a78be5ee6",
+      "command": "python -m unittest discover -s tests -v",
+      "passed": 15,
+      "failed": 0,
+      "exit_code": 0
+    }
+  ]
+}
