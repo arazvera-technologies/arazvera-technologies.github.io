@@ -1,5 +1,6 @@
 tests/
 *-preview.png
+!assets/social-preview.png
 *.log
 __pycache__/
 .DS_Store
