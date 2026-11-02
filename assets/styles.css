@@ -152,3 +152,37 @@ html[lang="fa"] .hero-description{font-size:17px}
  .visual-caption{font-size:10px}
  .contact-links a span:first-child,.contact-links a span:last-child{font-size:12px}
 }
+
+/* Contact-area legibility pass — keep the gold/black layout, enlarge supporting text. */
+.contact-section .kicker{font-size:14px;font-weight:700;letter-spacing:.08em}
+.contact-section p:not(.kicker){font-size:18px;line-height:1.95;max-width:600px}
+.contact-section .btn{font-size:14px;min-height:56px}
+.contact-links a{min-height:76px;padding:20px 0;gap:12px 18px}
+.contact-links a span:first-child{font-size:16px;line-height:1.55;font-weight:800}
+.contact-links a span:last-child{font-size:15px;line-height:1.65;color:#43301c}
+.footer{font-size:14px;line-height:1.8;letter-spacing:.035em}
+.footer>span{font-size:13px;color:#aea498}
+.footer-logo{font-size:15px}
+.footer-logo small{font-size:10px}
+html[lang="fa"] .contact-section .kicker{font-size:14px}
+html[lang="fa"] .contact-section p:not(.kicker){font-size:18px}
+html[lang="fa"] .contact-links a span:first-child{font-size:16px}
+html[lang="fa"] .contact-links a span:last-child{font-size:15px}
+html[lang="fa"] .footer{font-size:14px}
+@media(max-width:760px){
+  .contact-section .kicker{font-size:14px}
+  .contact-section p:not(.kicker),html[lang="fa"] .contact-section p:not(.kicker){font-size:17px}
+  .contact-links a{min-height:72px;padding:18px 0}
+  .contact-links a span:first-child,html[lang="fa"] .contact-links a span:first-child{font-size:15px}
+  .contact-links a span:last-child,html[lang="fa"] .contact-links a span:last-child{font-size:14px}
+  .footer,.footer>span{font-size:13px}
+  .footer-logo{font-size:14px}
+}
+@media(max-width:420px){
+  .contact-links a span:first-child,html[lang="fa"] .contact-links a span:first-child{font-size:15px}
+  .contact-links a span:last-child,html[lang="fa"] .contact-links a span:last-child{font-size:14px}
+  .footer>span{font-size:13px}
+}
+
+/* Make the Persian contact button match the English button's readability. */
+html[lang="fa"] .contact-section .btn{font-size:14px}
