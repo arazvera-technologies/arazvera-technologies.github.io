@@ -1,15 +1,16 @@
 'use strict';
 (function(){
+  const isFa=document.documentElement.lang==='fa';
   const menu=document.querySelector('.menu-toggle');
   const nav=document.querySelector('.site-nav');
   if(menu&&nav){
     menu.addEventListener('click',()=>{
       const opened=nav.classList.toggle('open');
       menu.setAttribute('aria-expanded',String(opened));
-      menu.setAttribute('aria-label',opened?'Close navigation':'Open navigation');
+      menu.setAttribute('aria-label',opened?(isFa?'بستن منو':'Close navigation'):(isFa?'باز کردن منو':'Open navigation'));
     });
     nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{
-      nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open navigation');
+      nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label',isFa?'باز کردن منو':'Open navigation');
     }));
   }
   const year=document.getElementById('year'); if(year)year.textContent=String(new Date().getFullYear());
