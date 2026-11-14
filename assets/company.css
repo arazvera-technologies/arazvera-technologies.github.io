@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap');
-:root{--bg:#0a0b0d;--panel:#131416;--gold:#cba46a;--goldhi:#f0cd96;--text:#f0ede7;--muted:#bdb4a7;--line:rgba(213,174,111,.24)}
+:root{--bg:#0b0b0d;--panel:#131416;--gold:#d3ad72;--goldhi:#f0cd96;--text:#f6efe5;--muted:#bcb4a8;--line:rgba(213,174,111,.24)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;color:var(--text);background:radial-gradient(ellipse at 86% 0%,rgba(166,124,65,.115),transparent 39%),var(--bg);font:400 16px/1.82 'Manrope',Arial,sans-serif}

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content="Explore ARAZVERA's free, browser-only engineering illustrations: supplier data checks, webhook deduplication and agent access policy. Apply for a limited free micro-pilot."/>
+  <meta name="theme-color" content="#0b0b0d"/>
+  <title>Specialist Engineering Lab | ARAZVERA TECHNOLOGIES</title>
+  <link rel="icon" type="image/png" href="assets/logo.png"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="ARAZVERA TECHNOLOGIES"/>
+  <meta property="og:title" content="ARAZVERA | Specialist Engineering Lab"/>
+  <meta property="og:description" content="Synthetic specialist engineering demonstrations and limited no-fee micro-pilot enquiries."/>
+  <link rel="stylesheet" href="styles.css">
+  
+<link rel="canonical" href="https://arazvera-technologies.github.io/lab/">
+  <meta property="og:url" content="https://arazvera-technologies.github.io/lab/">
+  <meta property="og:image" content="https://arazvera-technologies.github.io/assets/social-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://arazvera-technologies.github.io/assets/social-preview.png">
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <header class="site-head">
+    <div class="shell head-content">
+      <a class="wordmark" href="https://arazvera-technologies.github.io/" aria-label="ARAZVERA TECHNOLOGIES official company website"><img class="brand-mark" src="assets/logo.png" alt="ARAZVERA gold circuit-tree logo" width="48" height="48"/><span>ARAZVERA <small>TECHNOLOGIES</small></span></a>
+      <nav aria-label="Primary navigation"><a href="https://arazvera-technologies.github.io/links/">Official directory</a><a href="#lab">Specialist demos</a><a href="#pilot">Free micro-pilot</a><a class="nav-contact" href="mailto:contact.arazvera@gmail.com?subject=ARAZVERA%20Engineering%20Enquiry">Contact <span aria-hidden="true">↗</span></a></nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> ARAZVERA / SPECIALIST ENGINEERING LAB</p>
+        <h1 id="hero-title">Reliable systems.<br><em>Visible evidence.</em></h1>
+        <p class="hero-lede">Explore how we reason about broken data, duplicate events and unsafe agent actions. Three small interactive illustrations, built to be tested in your browser.</p>
+        <div class="hero-actions"><a class="primary-button" href="#lab">Run the illustrations <span aria-hidden="true">↘</span></a><a class="quiet-link" href="https://github.com/arazvera-technologies/arazvera-engineering-portfolio" target="_blank" rel="noopener noreferrer">View engineering portfolio <span aria-hidden="true">↗</span></a></div>
+        <p class="hero-footnote">Zero login. Zero hosted API calls. Synthetic inputs only.</p>
+      </div>
+      <div class="hero-visual" aria-label="Illustration of a deterministic evidence pipeline">
+        <div class="visual-top"><span>ENGINEERING EVIDENCE</span><span>SPECIMEN / 001</span></div><img class="hero-brand-seal" src="assets/logo.png" alt="" aria-hidden="true" width="64" height="64"/>
+        <div class="signal-art">
+          <div class="axis-lines" aria-hidden="true"></div>
+          <div class="signal-stream" aria-hidden="true"><span class="s1"></span><span class="s2"></span><span class="s3"></span><span class="s4"></span><span class="s5"></span><span class="s6"></span><span class="s7"></span></div>
+          <div class="signal-core"><span>TEST</span><strong>PASS</strong><small>BOUNDARY VERIFIED</small></div>
+        </div>
+        <div class="visual-bottom"><span><b class="lime-dot"></b> SYNTHETIC ONLY</span><span>NO PRODUCTION ACCESS</span></div>
+      </div>
+    </section>
+    <section class="proof-strip" aria-label="Documented scope"><div class="shell proof-inner"><div><strong>09</strong><span>public synthetic engineering cases</span></div><div><strong>75</strong><span>documented public case-study tests</span></div><div><strong>03</strong><span>browser-only illustrations below</span></div><p>Tests refer to the linked public portfolio. These browser samples are separate, simplified logic and do not run private production code.</p></div></section>
+    <section id="lab" class="lab-section shell" aria-labelledby="lab-heading">
+      <div class="section-heading"><div><p class="eyebrow">01 / OPEN LAB</p><h2 id="lab-heading">Try the edge cases.</h2><p>Switch scenarios. See deterministic output. Every input stays inside your browser.</p></div><div class="section-index">READ / TEST / VERIFY</div></div>
+      <article class="demo-card" id="battery-demo">
+        <div class="demo-info"><div class="number-line"><span class="num">01</span><span class="subject">DATA INTEGRITY</span></div><h3>Battery supplier<br>evidence check</h3><p>Detect a missing evidence reference or duplicate pack identifier in a fictional supplier export. This is a small illustration of the kind of preflight checks a buyer might need.</p><div class="scenario-controls" role="group" aria-label="Battery sample data"><button type="button" data-battery="errors" aria-pressed="true">With issues</button><button type="button" data-battery="valid" aria-pressed="false">Clean sample</button></div><a class="source-link" href="https://github.com/arazvera-technologies/arazvera-engineering-portfolio/blob/main/docs/level6/BESS_SPECIALIST_EVIDENCE_20261112_EN.md" target="_blank" rel="noopener noreferrer">Read bounded Level 6 lab evidence ↗</a></div>
+        <div class="demo-terminal"><div class="terminal-head"><span><i></i><i></i><i></i></span><span>supplier_preflight / synthetic.json</span><span>LOCAL</span></div><div class="terminal-body"><div class="terminal-caption">INPUT RECORDS</div><pre id="battery-input" aria-live="polite"></pre><div class="terminal-caption output-caption">ILLUSTRATIVE FINDINGS</div><div id="battery-output" class="result-list" aria-live="polite"></div></div></div>
+      </article>
+      <article class="demo-card reverse" id="webhook-demo">
+        <div class="demo-info"><div class="number-line"><span class="num">02</span><span class="subject">RELIABILITY</span></div><h3>Webhook event<br>deduplication</h3><p>Feed repeated event IDs into a miniature in-memory queue. Repeated deliveries are counted but do not create additional work items.</p><div class="scenario-controls" role="group" aria-label="Webhook events"><button type="button" data-webhook="duplicate" aria-pressed="true">Repeated event</button><button type="button" data-webhook="unique" aria-pressed="false">Unique events</button></div><a class="source-link" href="https://github.com/arazvera-technologies/arazvera-engineering-portfolio/tree/main/projects/06_resilient_webhook_pipeline" target="_blank" rel="noopener noreferrer">Explore public webhook case study ↗</a></div>
+        <div class="demo-terminal"><div class="terminal-head"><span><i></i><i></i><i></i></span><span>event_queue / illustration</span><span>LOCAL</span></div><div class="terminal-body"><div class="terminal-caption">DELIVERY IDS</div><pre id="webhook-input" aria-live="polite"></pre><div class="terminal-caption output-caption">QUEUE RESULT</div><pre id="webhook-output" class="result-pre" aria-live="polite"></pre></div></div>
+      </article>
+      <article class="demo-card" id="agent-demo">
+        <div class="demo-info"><div class="number-line"><span class="num">03</span><span class="subject">ACCESS CONTROL</span></div><h3>Agent tool<br>permission gate</h3><p>Compare a requested tool action with a tiny explicit allowlist. When the role lacks permission, the result is denied by default.</p><a class="source-link" href="https://github.com/arazvera-technologies/arazvera-engineering-portfolio" target="_blank" rel="noopener noreferrer">See public security engineering evidence ↗</a></div>
+        <div class="demo-terminal agent-panel"><div class="terminal-head"><span><i></i><i></i><i></i></span><span>tool_policy / dry_run</span><span>LOCAL</span></div><div class="terminal-body"><label class="control-label" for="agent-role">ACTOR ROLE</label><select id="agent-role"><option value="reviewer">Reviewer</option><option value="operator">Operator</option><option value="guest">Guest</option></select><label class="control-label" for="agent-action">REQUESTED TOOL ACTION</label><select id="agent-action"><option value="read-report">read-report</option><option value="view-audit">view-audit</option><option value="queue-retry">queue-retry</option><option value="delete-database">delete-database</option></select><div id="agent-output" class="agent-status ok" role="status" aria-live="polite"></div></div></div>
+      </article>
+      <p class="lab-note"><strong>Scope note.</strong> These demos are educational client-side examples using synthetic inputs. They do not execute proprietary ARAZVERA engines, connect to customer systems, demonstrate certified compliance, or imply enterprise production readiness.</p>
+    </section>
+    <section id="pilot" class="pilot-section"><div class="shell pilot-grid"><div class="pilot-title"><p class="eyebrow">02 / COLLABORATE</p><h2>Let's prove the fit.<br><em>Not build for free forever.</em></h2><p>We are considering up to <strong>three</strong> carefully scoped no-fee micro-pilots with eligible clients, each addressing one small, real technical question. No subscriptions or paid infrastructure are bundled.</p><a class="primary-button light-button" href="mailto:contact.arazvera@gmail.com?subject=ARAZVERA%20-%20Free%20micro-pilot%20enquiry&body=Company%20%2F%20country%3A%0AProblem%20to%20test%3A%0ASynthetic%20sample%20available%3A%0AProposed%20acceptance%20criterion%3A%0AContact%20person%3A">Request a micro-pilot <span aria-hidden="true">↗</span></a><p class="pilot-fine">Requests are reviewed case by case. Sending an enquiry does not reserve a slot or create a delivery commitment.</p></div><div class="pilot-details"><div class="pilot-detail"><span>01 / INCLUDED</span><h3>A useful, bounded result</h3><p>One small bug reproduction, data-quality rule, API contract test, or synthetic workflow check, usually limited to <strong>two engineering hours</strong> after written scope approval.</p></div><div class="pilot-detail"><span>02 / NOT INCLUDED</span><h3>No hidden infrastructure bill</h3><p>No paid model/API, hosting, vendor account, production database, customer secrets, full application, indefinite revisions, or operational support.</p></div><div class="pilot-detail"><span>03 / BEFORE WORK</span><h3>Written safeguards</h3><p>Confirm scope, eligibility, intended use, ownership/licensing of any deliverable, confidentiality and acceptance criteria in writing. The provider is resident in Iran; relevant sanctions/export rules must be respected.</p></div><div class="pilot-detail"><span>04 / NEXT STEP</span><h3>Paid work is separate</h3><p>Any further development, source transfer, deployment, support and payment requires a new, lawful written agreement. A micro-pilot does not promise later paid engagement.</p></div></div></div></section>
+    <section class="connected shell" aria-label="Related official resources">
+      <p class="eyebrow">03 / CONNECTED PUBLIC RESOURCES</p>
+      <h2>Continue through the official ARAZVERA sites.</h2>
+      <div class="connected-grid">
+        <a href="https://arazvera-technologies.github.io/arazvera-workflow-studio/" target="_blank" rel="noopener noreferrer"><strong>Workflow Studio ↗</strong><small>Specialist routing and human approval — local simulation</small></a>
+        <a href="https://huggingface.co/spaces/arazvera-technologies/engineering-evidence-showcase" target="_blank" rel="noopener noreferrer"><strong>Battery evidence showcase ↗</strong><small>Existing Hugging Face synthetic illustration</small></a>
+        <a href="https://arazvera-technologies.github.io/links/"><strong>Official directory ↗</strong><small>Company website, public channels and technical briefs</small></a>
+      </div>
+    </section>
+    <section class="closing shell"><div><p class="eyebrow">PUBLIC PROOF. PRIVATE IMPLEMENTATION.</p><h2>One problem.<br>One measurable outcome.</h2></div><div class="closing-right"><p>Looking for a Python backend engineer for a narrowly defined integration, reliability issue or data check? Send a written brief; we will assess whether an existing tested foundation is a fit.</p><a href="mailto:contact.arazvera@gmail.com?subject=ARAZVERA%20-%20Scoped%20engineering%20request" class="closing-mail">contact.arazvera@gmail.com <span aria-hidden="true">↗</span></a><p class="closing-small">Written, asynchronous communication. Any project involving payment or source access is subject to legal and technical review.</p></div></section>
+  </main>
+  <footer><div class="shell foot-inner"><a class="footer-brand" href="https://arazvera-technologies.github.io/"><img src="assets/logo.png" alt="" width="32" height="32"/><span>© <span id="year">2026</span> ARAZVERA TECHNOLOGIES</span></a><span>ENGINEERING EVIDENCE / NOT A PRODUCTION SERVICE</span><a href="https://arazvera-technologies.github.io/links/">Official links ↗</a></div></footer>
+<script type="module" src="app.mjs"></script>
+</body>
+</html>
