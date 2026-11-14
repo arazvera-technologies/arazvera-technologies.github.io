@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071321">
+  <meta name="description" content="Interactive, fictional engineering scoping and acceptance planning demonstration by ARAZVERA.">
+  <meta http-equiv="Content-Security-Policy" content="default-src &#39;self&#39;; script-src &#39;self&#39;; style-src &#39;self&#39;; img-src &#39;self&#39; data:; connect-src &#39;none&#39;; object-src &#39;none&#39;; form-action &#39;none&#39;; base-uri &#39;self&#39;">
+  <title>Interactive Workshop Demo | ARAZVERA</title>
+  <link rel="icon" href="assets/company-crest.webp" type="image/webp">
+  <link rel="stylesheet" href="styles.css">
+  <script src="engine.js" defer></script>
+  <script src="demo.js" defer></script>
+</head>
+<body class="demo-page">
+  <a class="skip-link" href="#workspace">Skip to workspace</a>
+  <header class="site-header shell demo-header">
+    <a href="index.html" class="identity"><span class="brand-crest"><img src="assets/company-crest.webp" alt="" width="50" height="50"></span><span class="brand-name"><strong>ARAZVERA</strong><small>ENGINEERING · AUTOMATION · INTEGRATION</small></span></a>
+    <nav class="main-nav" aria-label="Demo navigation"><a href="index.html">← Portfolio</a><a href="#workspace">Workshop</a></nav>
+    <span class="demo-badge"><span class="signal-dot"></span> DEMO DATA · SESSION ONLY</span>
+  </header>
+  <main class="shell demo-main" id="workspace">
+    <div class="demo-intro"><div><p class="eyebrow">INTERACTIVE PORTFOLIO / 01</p><h1>Qualification <span>→</span> Delivery Workshop</h1><p>Explore qualification, scoped alternatives and acceptance evidence using only fictional scenarios.</p></div><button class="button button-ghost" id="reset-demo" type="button">↺ Reset all examples</button></div>
+    <div class="demo-notice"><span aria-hidden="true">◈</span><span><strong>Demonstration environment.</strong> Changes exist only in this browser tab. No real customers, running tests, quotes, approvals, payments or outbound actions.</span></div>
+    <div class="kpi-strip" id="kpi-strip" aria-label="Demonstration status overview"><div><span>EXAMPLE OPPORTUNITIES</span><strong>03</strong><small>All synthetic</small></div><div><span>QUALIFICATION</span><strong>—</strong><small>Pending review</small></div><div><span>SCOPING</span><strong>—</strong><small>Chosen approach</small></div><div><span>QUALITY GATE</span><strong>—</strong><small>Manual evidence</small></div></div>
+    <section class="planning-section"><div class="section-mini-head"><span class="eyebrow">FIVE-STAGE DELIVERY PLANNING</span><span class="mini-key">Preparation only · No implementation executed</span></div><div class="planning-steps" aria-label="Planning workflow"><div><span>01</span><b>Discover</b><small>Qualification</small></div><div><span>02</span><b>Specify</b><small>Scope</small></div><div><span>03</span><b>Implement</b><small>Plan</small></div><div><span>04</span><b>Verify</b><small>Document</small></div><div><span>05</span><b>Hand Over</b><small>Internal draft</small></div></div></section>
+    <div class="demo-layout">
+      <aside class="demo-sidebar panel" aria-labelledby="queue-title"><div class="panel-header"><div><p class="eyebrow">PIPELINE CONTROL</p><h2 id="queue-title">Example review queue</h2></div><span class="count-pill">03</span></div><div class="queue-search"><label class="sr-only" for="lead-search">Search fictional opportunities</label><input id="lead-search" type="search" placeholder="Search examples…" autocomplete="off"></div><div class="queue-items" id="lead-list" aria-label="Synthetic opportunity list"></div><div class="queue-foot"><span class="signal-dot"></span> No customer database connected</div></aside>
+      <section class="panel dossier" aria-labelledby="dossier-title"><div class="dossier-header"><div><p class="eyebrow" id="selected-id">DEMO-001 / SYNTHETIC</p><h2 id="dossier-title">Loading demonstration…</h2><p id="selected-meta">Simulated engineering intake</p></div><span id="selected-status" class="status-badge">REVIEW</span></div>
+        <div class="tabs" role="tablist" aria-label="Opportunity dossier sections"><button type="button" role="tab" aria-controls="tab-content" id="tab-overview" aria-selected="true" data-tab="overview">Overview</button><button type="button" role="tab" aria-controls="tab-content" id="tab-scenarios" aria-selected="false" data-tab="scenarios">Scenario lab</button><button type="button" role="tab" aria-controls="tab-content" id="tab-evidence" aria-selected="false" data-tab="evidence">Evidence & acceptance</button><button type="button" role="tab" aria-controls="tab-content" id="tab-approval" aria-selected="false" data-tab="approval">Approval gate</button></div>
+        <div id="tab-content" class="tab-content" role="tabpanel" aria-labelledby="tab-overview" aria-live="polite"></div>
+      </section>
+    </div>
+    <div class="demo-secondary"><section class="panel readiness-panel"><div class="panel-header"><div><p class="eyebrow">QUALITY / BOUNDARY CONTROL</p><h2>Readiness checks</h2></div><span id="readiness-indicator" class="count-pill">0 / 7</span></div><div id="readiness-body" class="readiness-body"></div></section><section class="panel activity-panel"><div class="panel-header"><div><p class="eyebrow">LOCAL SESSION</p><h2>Decision history</h2></div><span class="tiny muted">Fictional actions only</span></div><div id="activity-body" class="activity-body"></div><div class="activity-footer"><button class="button button-secondary" type="button" id="export-button">↓ Export demo JSON</button><span>Export is local to your browser, not a client delivery.</span></div></section></div>
+    <div class="demo-bottom"><div><strong>No data leaves this demonstration.</strong><p>Refresh to reset. The full private workshop remains separate on the owner's computer, with Python, SQLite and approval-controlled operations.</p></div><a href="index.html" class="text-link">Back to portfolio <span aria-hidden="true">↗</span></a></div>
+  </main>
+  <footer class="site-footer shell"><div class="footer-brand"><img src="assets/company-crest.webp" alt="" width="35" height="35"><span>ARAZVERA <small>PUBLIC-SAFE PORTFOLIO DEMO</small></span></div><span>© 2026 ARAZVERA · All example data is fictional</span><nav class="ecosystem-mini" aria-label="Other official ARAZVERA resources"><a href="https://arazvera-technologies.github.io/links/" target="_blank" rel="noopener noreferrer">Official company links ↗</a><a href="https://huggingface.co/spaces/arazvera-technologies/engineering-evidence-showcase" target="_blank" rel="noopener noreferrer">Battery evidence showcase ↗</a></nav></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
