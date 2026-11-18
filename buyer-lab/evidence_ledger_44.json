@@ -1036,5 +1036,96 @@
         "sale_license_approved": false
       }
     }
-  ]
+  ],
+  "postgres_docker_20261118": {
+    "date": "2026-11-18",
+    "scope": "Local cached Docker + disposable PostgreSQL 16, synthetic datasets, SHA-matched owner archives; selected suites only",
+    "registered_skus": 44,
+    "previous_selected_passing_executions": 714,
+    "new_passing_executions": 104,
+    "latest_passing_executions": 818,
+    "new_green_suites": 8,
+    "total_selected_green_suites": 44,
+    "partially_covered_suites": 4,
+    "environment_blocked_suites": 0,
+    "production_approved": 0,
+    "commercial_license_approved": 0,
+    "customer_accepted": 0,
+    "source_archive_shared": false,
+    "counting_note": "Test executions, not unique tests: shared modules in composite bundles are run more than once. Not production certification.",
+    "suites": [
+      {
+        "sku": "ARAZVERA-L3-B2B-INTEGRATION-HUB-001",
+        "status": "PASS",
+        "passed": 13,
+        "failed": 0,
+        "skipped": 0,
+        "errors": 0,
+        "sha_verified": true
+      },
+      {
+        "sku": "ARAZVERA-L3-DATA-QUALITY-ETL-001",
+        "status": "PASS",
+        "passed": 12,
+        "failed": 0,
+        "skipped": 0,
+        "errors": 0,
+        "sha_verified": true
+      },
+      {
+        "sku": "ARAZVERA-L3-POSTGRES-CDC-RECON-001",
+        "status": "PASS",
+        "passed": 9,
+        "failed": 0,
+        "skipped": 0,
+        "errors": 0,
+        "sha_verified": true
+      },
+      {
+        "sku": "ARAZVERA-L3-SAGA-COMPENSATION-001",
+        "status": "PASS",
+        "passed": 11,
+        "failed": 0,
+        "skipped": 0,
+        "errors": 0,
+        "sha_verified": true
+      },
+      {
+        "sku": "ARAZVERA-L3-ZERO-DOWNTIME-MIGRATION-001",
+        "status": "PASS",
+        "passed": 10,
+        "failed": 0,
+        "skipped": 0,
+        "errors": 0,
+        "sha_verified": true
+      },
+      {
+        "sku": "ARAZVERA-L4-DEVELOPER-PLATFORM-001",
+        "status": "PASS",
+        "passed": 11,
+        "failed": 0,
+        "skipped": 0,
+        "errors": 0,
+        "sha_verified": true
+      },
+      {
+        "sku": "ARAZVERA-L4-POSTGRES-PITR-DR-001",
+        "status": "PASS",
+        "passed": 10,
+        "failed": 0,
+        "skipped": 0,
+        "errors": 0,
+        "sha_verified": true
+      },
+      {
+        "sku": "ARAZVERA-BUNDLE-TENANT-RLS-001",
+        "status": "PASS",
+        "passed": 28,
+        "failed": 0,
+        "skipped": 0,
+        "errors": 0,
+        "sha_verified": true
+      }
+    ]
+  }
 }
