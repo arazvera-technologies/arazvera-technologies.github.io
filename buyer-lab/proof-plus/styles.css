@@ -22,3 +22,5 @@
 .approved-brand-art{display:block;width:min(100%,286px);margin:0 0 20px;background:#050403;border:1px solid rgba(230,182,85,.23);border-radius:12px;overflow:hidden;box-shadow:0 7px 35px rgba(0,0,0,.24)}
 .approved-brand-art img{display:block;width:100%;height:auto;aspect-ratio:1448/1086;object-fit:contain}
 @media (max-width:700px){.approved-brand-art{width:min(100%,244px);margin-bottom:18px}}
+
+.handoff-note{font-size:12px;color:#687d86;line-height:1.7;max-width:950px;margin:20px 2px 0;padding-left:14px;border-left:3px solid #94dbc0}

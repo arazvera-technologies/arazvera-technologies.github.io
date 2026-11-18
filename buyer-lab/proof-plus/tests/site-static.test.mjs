@@ -69,3 +69,17 @@ test('Approved company brand is also the social share preview without changing t
 test('Proof Plus declares the existing company favicon to avoid broken default favicon lookups',()=>{
  assert.match(html,/<link rel="icon" type="image\/png" href="\.\.\/\.\.\/assets\/logo\.png">/);
 });
+
+
+test('Commercial handoff separates bespoke freelance projects from adapting a tested starter',()=>{
+ assert.match(html,/Freelance engineering for new projects/);
+ assert.match(html,/Customize an existing tested starter/);
+ assert.match(html,/Buyer-specific API and data integrations/);
+ assert.match(html,/New builds, bug fixes and regression tests/);
+});
+test('Product adaptation offer retains the verified rights and contracting caveats',()=>{
+ assert.match(html,/44 source-backed lab packages/);
+ assert.match(html,/No pre-approved resale rights for private source/);
+ assert.match(html,/buyer acceptance and lawful contracting/);
+ assert.match(html,/mailto:contact\.arazvera@gmail\.com\?subject=Written%20engineering%20pilot%20request/);
+});
