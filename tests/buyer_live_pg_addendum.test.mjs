@@ -30,7 +30,7 @@ test('public evidence never reveals private repository, paths or synthetic conne
  const md=read('../buyer-lab/evidence_addendum_20261118.md');
  for(const s of ['private-44','D:\\','repo_path','postgresql://','PGPASSWORD','ghp_'])
    assert.ok(!ledger.includes(s) && !md.includes(s),'restricted text: '+s);
- assert.match(read('../buyer-lab/index.html'),/828 selected test executions/);
+ assert.match(read('../buyer-lab/index.html'),/858 selected test executions/);
  assert.match(md,/NOT production-ready/);
 });
 test('OIDC full database rerun increases latest tally by ten, retains prior proofs and caveats',()=>{
@@ -51,4 +51,20 @@ test('OIDC full database rerun increases latest tally by ten, retains prior proo
  const md=read('../buyer-lab/evidence_oidc_addendum_20261118.md');
  assert.match(md,/828/);
  assert.match(md,/not production certification/i);
+});
+test('latest all-44 selected-suite evidence is 858 passes without skipped tests or commercial overclaims',()=>{
+ const l=JSON.parse(read('../buyer-lab/evidence_ledger_44.json'));
+ const b=l.selected_suites_final_20261118;
+ assert.equal(l.summary.fresh_selected_passing_cases,714);
+ assert.equal(l.postgres_docker_20261118.latest_passing_executions,818);
+ assert.equal(l.oidc_20261118.current_passing_executions,828);
+ assert.equal(b.current_passing_executions,858);
+ assert.equal(b.total_selected_green_suites,44);
+ assert.equal(b.selected_suite_skips,0);
+ assert.equal(b.partial_selected_suites,0);
+ assert.equal(b.commercial_source_licence_approvals,0);
+ assert.equal(b.customer_production_acceptances,0);
+ assert.deepEqual(b.closure.map(x=>x.passed).sort((x,y)=>x-y),[6,52,129]);
+ assert.match(read('../buyer-lab/evidence_final_20261118.md'),/858/);
+ assert.match(read('../buyer-lab/index.html'),/858 selected test executions/);
 });

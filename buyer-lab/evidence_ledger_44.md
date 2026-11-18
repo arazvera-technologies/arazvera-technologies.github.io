@@ -1,7 +1,7 @@
 # ARAZVERA — Source-safe public technical evidence ledger
 **Snapshot: 18 November 2026 · 44 archived L2–L4 / bundled product SKUs**
 
-**Newest local test extension (18 November):** [Full OIDC/JWKS PostgreSQL suite passed 49/49, increasing the selected-suite total from 818 to 828 across 44 green suites; three remain partial](evidence_oidc_addendum_20261118.md). The [earlier 818-execution PostgreSQL/Docker checkpoint](evidence_addendum_20261118.md) and original 714/36/8 preflight figures below are historical and preserved for audit.
+**Latest selected lab validation (18 November):** [858 passing test executions across all 44 selected suites; no latest-suite skips or failures](evidence_final_20261118.md). This is not production acceptance or a commercial licence. Earlier checkpoints [828](evidence_oidc_addendum_20261118.md), [818](evidence_addendum_20261118.md) and the original 714/36/8 preflight figures below are historical and preserved for audit.
 
 This ledger is limited to **archive/package verification and Python syntax**, not a customer production test, sales certification, third-party code audit or legal approval. Product SKUs overlap and composites may share source.
 
