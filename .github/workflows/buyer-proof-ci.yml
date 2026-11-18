@@ -6,6 +6,7 @@ on:
       - "buyer-lab/**"
       - "tests/buyer_proof_engine.test.mjs"
       - "tests/buyer_matcher.test.mjs"
+      - "tests/buyer_evidence_ledger.test.mjs"
       - "tools/build_buyer_proof_samples.mjs"
       - ".github/workflows/buyer-proof-ci.yml"
   workflow_dispatch:
@@ -23,7 +24,7 @@ jobs:
         with:
           node-version: "22"
       - name: Execute public synthetic engine regression tests
-        run: node --test tests/buyer_proof_engine.test.mjs tests/buyer_matcher.test.mjs
+        run: node --test tests/buyer_proof_engine.test.mjs tests/buyer_matcher.test.mjs tests/buyer_evidence_ledger.test.mjs
       - name: Rebuild deterministic scenario outputs
         run: node tools/build_buyer_proof_samples.mjs
       - name: Detect sample-result regression
