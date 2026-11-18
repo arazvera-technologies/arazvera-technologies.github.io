@@ -1,0 +1,56 @@
+{
+  "demo": "webhook",
+  "fixture": "issues",
+  "generated": "2026-11-18",
+  "evidenceClass": "browser-side synthetic illustration (not proprietary production software)",
+  "input": {
+    "events": [
+      {
+        "tenant": "alpha",
+        "id": "invoice-101",
+        "payload": {
+          "amount": 90
+        }
+      },
+      {
+        "tenant": "alpha",
+        "id": "invoice-101",
+        "payload": {
+          "amount": 99
+        }
+      },
+      {
+        "tenant": "",
+        "id": "broken",
+        "payload": {}
+      }
+    ]
+  },
+  "result": {
+    "decision": "REVIEW",
+    "findings": [
+      {
+        "code": "KEY_CONFLICT",
+        "message": "Same tenant/event ID with a different payload",
+        "detail": "alpha::invoice-101"
+      },
+      {
+        "code": "INVALID_EVENT",
+        "message": "Missing tenant, event ID or object payload",
+        "detail": "item 3"
+      }
+    ],
+    "received": 3,
+    "accepted": 1,
+    "replayed": 0,
+    "conflicts": 1,
+    "invalid": 1,
+    "queue": [
+      {
+        "tenant": "alpha",
+        "id": "invoice-101"
+      }
+    ],
+    "scope": "public synthetic illustration only"
+  }
+}

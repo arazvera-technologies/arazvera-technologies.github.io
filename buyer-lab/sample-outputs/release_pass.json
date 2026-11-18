@@ -1,0 +1,34 @@
+{
+  "demo": "release",
+  "fixture": "pass",
+  "generated": "2026-11-18",
+  "evidenceClass": "browser-side synthetic illustration (not proprietary production software)",
+  "input": {
+    "metrics": {
+      "errorRate": 0.004,
+      "p95Ms": 140,
+      "queueLag": 8
+    },
+    "limits": {
+      "errorRate": 0.02,
+      "p95Ms": 450,
+      "queueLag": 100
+    }
+  },
+  "result": {
+    "decision": "PASS",
+    "findings": [],
+    "metrics": {
+      "errorRate": 0.004,
+      "p95Ms": 140,
+      "queueLag": 8
+    },
+    "limits": {
+      "errorRate": 0.02,
+      "p95Ms": 450,
+      "queueLag": 100
+    },
+    "gate": "ADVANCE",
+    "scope": "public synthetic illustration only"
+  }
+}

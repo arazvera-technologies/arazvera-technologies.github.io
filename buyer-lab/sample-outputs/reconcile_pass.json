@@ -1,0 +1,40 @@
+{
+  "demo": "reconcile",
+  "fixture": "pass",
+  "generated": "2026-11-18",
+  "evidenceClass": "browser-side synthetic illustration (not proprietary production software)",
+  "input": {
+    "source": [
+      {
+        "tenant": "alpha",
+        "id": "001",
+        "amount": 12
+      },
+      {
+        "tenant": "beta",
+        "id": "001",
+        "amount": 7
+      }
+    ],
+    "target": [
+      {
+        "tenant": "alpha",
+        "id": "001",
+        "amount": 12
+      },
+      {
+        "tenant": "beta",
+        "id": "001",
+        "amount": 7
+      }
+    ]
+  },
+  "result": {
+    "decision": "PASS",
+    "findings": [],
+    "sourceRows": 2,
+    "targetRows": 2,
+    "matched": 2,
+    "scope": "public synthetic illustration only"
+  }
+}

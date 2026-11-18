@@ -1,0 +1,26 @@
+{
+  "demo": "agent",
+  "fixture": "issues",
+  "generated": "2026-11-18",
+  "evidenceClass": "browser-side synthetic illustration (not proprietary production software)",
+  "input": {
+    "role": "guest",
+    "tool": "delete-database",
+    "approved": true
+  },
+  "result": {
+    "decision": "REVIEW",
+    "findings": [
+      {
+        "code": "DENY_BY_DEFAULT",
+        "message": "Tool is not permitted for this role",
+        "detail": ""
+      }
+    ],
+    "role": "guest",
+    "tool": "delete-database",
+    "approved": true,
+    "allowed": false,
+    "scope": "public synthetic illustration only"
+  }
+}

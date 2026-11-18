@@ -1,0 +1,45 @@
+{
+  "demo": "release",
+  "fixture": "issues",
+  "generated": "2026-11-18",
+  "evidenceClass": "browser-side synthetic illustration (not proprietary production software)",
+  "input": {
+    "metrics": {
+      "errorRate": 0.033,
+      "p95Ms": 490,
+      "queueLag": 8
+    },
+    "limits": {
+      "errorRate": 0.02,
+      "p95Ms": 450,
+      "queueLag": 100
+    }
+  },
+  "result": {
+    "decision": "HOLD",
+    "findings": [
+      {
+        "code": "SLO_EXCEEDED",
+        "message": "Synthetic release threshold exceeded",
+        "detail": "errorRate 0.033 > 0.02"
+      },
+      {
+        "code": "SLO_EXCEEDED",
+        "message": "Synthetic release threshold exceeded",
+        "detail": "p95Ms 490 > 450"
+      }
+    ],
+    "metrics": {
+      "errorRate": 0.033,
+      "p95Ms": 490,
+      "queueLag": 8
+    },
+    "limits": {
+      "errorRate": 0.02,
+      "p95Ms": 450,
+      "queueLag": 100
+    },
+    "gate": "HOLD",
+    "scope": "public synthetic illustration only"
+  }
+}

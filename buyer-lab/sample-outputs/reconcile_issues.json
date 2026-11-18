@@ -1,0 +1,56 @@
+{
+  "demo": "reconcile",
+  "fixture": "issues",
+  "generated": "2026-11-18",
+  "evidenceClass": "browser-side synthetic illustration (not proprietary production software)",
+  "input": {
+    "source": [
+      {
+        "tenant": "alpha",
+        "id": "001",
+        "amount": 12
+      },
+      {
+        "tenant": "alpha",
+        "id": "002",
+        "amount": 15
+      }
+    ],
+    "target": [
+      {
+        "tenant": "alpha",
+        "id": "001",
+        "amount": 11
+      },
+      {
+        "tenant": "alpha",
+        "id": "003",
+        "amount": 8
+      }
+    ]
+  },
+  "result": {
+    "decision": "REVIEW",
+    "findings": [
+      {
+        "code": "AMOUNT_MISMATCH",
+        "message": "Values differ between source and target",
+        "detail": "alpha::001"
+      },
+      {
+        "code": "MISSING_IN_TARGET",
+        "message": "Source row is missing in target",
+        "detail": "alpha::002"
+      },
+      {
+        "code": "ORPHAN_IN_TARGET",
+        "message": "Target has no matching source row",
+        "detail": "alpha::003"
+      }
+    ],
+    "sourceRows": 2,
+    "targetRows": 2,
+    "matched": 0,
+    "scope": "public synthetic illustration only"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "demo": "webhook",
+  "fixture": "pass",
+  "generated": "2026-11-18",
+  "evidenceClass": "browser-side synthetic illustration (not proprietary production software)",
+  "input": {
+    "events": [
+      {
+        "tenant": "alpha",
+        "id": "invoice-101",
+        "payload": {
+          "amount": 90
+        }
+      },
+      {
+        "tenant": "alpha",
+        "id": "invoice-101",
+        "payload": {
+          "amount": 90
+        }
+      },
+      {
+        "tenant": "beta",
+        "id": "invoice-101",
+        "payload": {
+          "amount": 12
+        }
+      }
+    ]
+  },
+  "result": {
+    "decision": "PASS",
+    "findings": [],
+    "received": 3,
+    "accepted": 2,
+    "replayed": 1,
+    "conflicts": 0,
+    "invalid": 0,
+    "queue": [
+      {
+        "tenant": "alpha",
+        "id": "invoice-101"
+      },
+      {
+        "tenant": "beta",
+        "id": "invoice-101"
+      }
+    ],
+    "scope": "public synthetic illustration only"
+  }
+}

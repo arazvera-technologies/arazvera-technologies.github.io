@@ -1,0 +1,48 @@
+{
+  "demo": "supplier",
+  "fixture": "issues",
+  "generated": "2026-11-18",
+  "evidenceClass": "browser-side synthetic illustration (not proprietary production software)",
+  "input": {
+    "packs": [
+      {
+        "packId": "PACK-001",
+        "supplier": "Vendor A",
+        "documentRef": "DOC-10"
+      },
+      {
+        "packId": "PACK-001",
+        "supplier": "",
+        "documentRef": "DOC-404"
+      }
+    ],
+    "documents": [
+      {
+        "ref": "DOC-10"
+      }
+    ]
+  },
+  "result": {
+    "decision": "REVIEW",
+    "findings": [
+      {
+        "code": "DUPLICATE_PACK",
+        "message": "Duplicate supplier pack ID",
+        "detail": "PACK-001"
+      },
+      {
+        "code": "MISSING_SUPPLIER",
+        "message": "Supplier is required",
+        "detail": "pack 2"
+      },
+      {
+        "code": "UNKNOWN_DOCUMENT",
+        "message": "Reference not in supplied evidence index",
+        "detail": "DOC-404"
+      }
+    ],
+    "checkedPacks": 2,
+    "knownEvidence": 1,
+    "scope": "public synthetic illustration only"
+  }
+}

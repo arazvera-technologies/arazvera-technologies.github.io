@@ -1,0 +1,39 @@
+{
+  "demo": "workflow",
+  "fixture": "issues",
+  "generated": "2026-11-18",
+  "evidenceClass": "browser-side synthetic illustration (not proprietary production software)",
+  "input": {
+    "steps": [
+      {
+        "id": "notification",
+        "retry": 3,
+        "idempotent": false,
+        "credentialInline": true,
+        "timeoutMs": 0
+      }
+    ]
+  },
+  "result": {
+    "decision": "REVIEW",
+    "findings": [
+      {
+        "code": "UNSAFE_RETRY",
+        "message": "Retries require a demonstrated idempotent step",
+        "detail": "notification"
+      },
+      {
+        "code": "INLINE_SECRET",
+        "message": "Synthetic workflow embeds an inline credential",
+        "detail": "notification"
+      },
+      {
+        "code": "NO_TIMEOUT",
+        "message": "A positive timeout is required",
+        "detail": "notification"
+      }
+    ],
+    "checkedSteps": 1,
+    "scope": "public synthetic illustration only"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "demo": "agent",
+  "fixture": "pass",
+  "generated": "2026-11-18",
+  "evidenceClass": "browser-side synthetic illustration (not proprietary production software)",
+  "input": {
+    "role": "operator",
+    "tool": "queue-retry",
+    "approved": true
+  },
+  "result": {
+    "decision": "PASS",
+    "findings": [],
+    "role": "operator",
+    "tool": "queue-retry",
+    "approved": true,
+    "allowed": true,
+    "scope": "public synthetic illustration only"
+  }
+}
