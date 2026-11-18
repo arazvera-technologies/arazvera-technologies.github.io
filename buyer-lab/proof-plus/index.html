@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101820">
+<meta name="description" content="ARAZVERA interactive evidence lab: inspect and run deterministic synthetic engineering boundary cases in your browser.">
+<meta property="og:title" content="ARAZVERA TECHNOLOGIES | Engineering Proof Plus">
+<meta property="og:image" content="https://arazvera-technologies.github.io/buyer-lab/proof-plus/assets/arazvera_approved_gold_brand.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>Engineering Proof Lab Plus | ARAZVERA</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#lab">Skip to interactive lab</a>
+<header class="header"><div class="wrap nav">
+ <a class="brand" href="https://arazvera-technologies.github.io/buyer-lab/" aria-label="ARAZVERA buyer lab home"><span>ARAZVERA <small>TECHNOLOGIES</small></span></a>
+ <nav aria-label="Main navigation"><a href="#proof">Technical proof</a><a href="#lab">Run scenarios</a><a href="#handoff">Handoff</a><a href="https://github.com/arazvera-technologies/arazvera-engineering-portfolio">Portfolio</a></nav>
+</div></header>
+<main>
+<section class="hero"><div class="wrap hero-grid"><div>
+ <div class="approved-brand-art"><img src="assets/arazvera_approved_gold_brand.png" width="1448" height="1086" alt="ARAZVERA TECHNOLOGIES gold circuit-tree emblem and wordmark" decoding="async" fetchpriority="high"></div>
+ <div class="kicker"><span class="dot" aria-hidden="true"></span> INDEPENDENT ENGINEERING EVIDENCE • SYNTHETIC DATA</div>
+ <h1>Don't take the<br><em>architecture</em><br>on faith.</h1>
+ <p class="lead">Change the input. Trigger a failure. Inspect the decision. Four self-contained engineering boundary simulations you can run without an account or backend. No account or login is required.</p>
+ <div class="cta"><a class="btn primary" href="#lab">Run the proof lab <span aria-hidden="true">↘</span></a><a class="btn secondary" href="#proof">Read the limitations</a></div>
+ <div class="confidence"><span class="line"></span> Local-only client preview. No source-code sales or production security certifications implied.</div>
+ </div><div class="hero-panel" aria-label="Recorded source-backed engineering evidence">
+ <div class="panel-head"><span>VERIFIABLE ENGINEERING</span><span class="live-tag">NOV 2026</span></div>
+ <div class="big-number">44 <small>/ 44</small></div><p class="big-label">Selected product lab suites passed with no latest-suite skips</p>
+ <div class="stat-grid"><div><strong>858</strong><span>Selected test executions*</span></div><div><strong>04</strong><span>Interactive proof scenarios</span></div></div>
+ <div class="panel-note">* Execution count may repeat tests across bundles. This is synthetic local evidence, not customer acceptance.</div>
+ <a class="text-link" href="https://arazvera-technologies.github.io/buyer-lab/evidence_final_20261118.md">See the published test scope ↗</a>
+ </div></div></section>
+<section id="proof" class="wrap evidence-section"><div class="section-heading"><span class="eyebrow">01 / REPRODUCIBLE, NOT THEATRICAL</span><h2>Proof that can fail.</h2><p>Each bench has a clean fixture and an intentionally unsafe fixture. Evidence remains inspectable in the input, result table, and export.</p></div>
+<div class="pillars">
+ <article><div class="index">01</div><h3>Negative tests first</h3><p>Try wrong tenants, duplicate events, missing scopes, and weak canaries. A reliable lab must refuse unsafe cases.</p></article>
+ <article><div class="index">02</div><h3>No secret infrastructure</h3><p>Everything below runs in your browser. No customer data, API keys, cookies, or server-side submission are needed.</p></article>
+ <article><div class="index">03</div><h3>Scope disclosed</h3><p>These are deterministic simulations, not production systems. They are not signed-JWT verification, a real database, or production failover.</p></article>
+</div></section>
+<section id="lab" class="lab-section"><div class="wrap"><div class="section-heading light"><span class="eyebrow">02 / INTERACTIVE CLIENT LAB</span><h2>Make the system<br>prove its boundary.</h2><p>Select a scenario, review editable fictional JSON, and run it. Inspect every decision—not only the green result.</p></div>
+<div class="workbench"><div class="bench-top"><div class="bench-title"><span class="tiny-led"></span><strong>TEST CONSOLE</strong><span>v1.0 • CLIENT-SAFE</span></div><div class="bench-tabs" id="tabs" role="tablist" aria-label="Engineering scenario"></div></div>
+<div class="bench-grid"><div class="editor-col"><div class="editor-toolbar"><label for="fixture">TEST INPUT · JSON</label><div class="fixture-actions"><button id="safe-button" class="chip" type="button">Load passing case</button><button id="risk-button" class="chip risk-chip" type="button">Load failing case</button></div></div>
+<p class="editor-caption" id="scenario-help">All values are fictional. No live systems are contacted.</p>
+<textarea id="fixture" rows="19" spellcheck="false" aria-label="Editable fictional test fixture"></textarea>
+<div class="editor-footer"><span><span class="code-dot"></span> Editable input</span><span id="byte-count">0 characters</span></div>
+<div class="runbar"><button class="btn run" id="run" type="button">Run scenario <span aria-hidden="true">↗</span></button><button class="btn outline" id="download" type="button" disabled>Export result JSON</button></div>
+</div><div class="results-col"><div class="results-head"><span>TEST RESULT</span><span id="run-time">NOT RUN</span></div><div class="result-status" id="status" role="status" aria-live="polite">AWAITING INPUT</div><p class="result-intro" id="result-intro">Run either fixture to inspect the decision and the evidence that produced it.</p><div class="result-metrics" id="metrics"></div>
+<h3 class="findings-label">DECISION TRACE</h3><div class="trace" id="trace"><p>No results yet.</p></div><h3 class="findings-label">LIMITATIONS / CLAIM BOUNDARY</h3><p class="scope-text" id="scope">No scenario has been run.</p></div></div>
+<div class="bench-foot"><span>Fixture-driven, local-only JavaScript • no tracking endpoints in this preview</span><span id="test-tag">No execution recorded</span></div></div>
+<div class="paired-proof" aria-label="Pairwise scenario comparison">
+ <div class="paired-head"><div><b>PAIRED PROOF</b><p>Run the fictional passing and failing fixtures side-by-side. This does not use or alter your edited input above.</p></div><div class="paired-actions"><button id="compare" type="button" class="btn secondary">Compare both outcomes</button><button id="download-comparison" type="button" class="btn outline" disabled>Export comparison JSON</button></div></div>
+ <div id="comparison" class="compare-results" role="status" aria-live="polite"><p>No paired run yet.</p></div>
+</div>
+<div class="after-lab"><p><strong>How to judge the result:</strong> Start with a passing fixture, introduce a negative case, and compare the trace. If the input is invalid or evidence is insufficient, the lab must fail closed. This is an engineering demonstration, not a substitute for approved client staging.</p></div>
+</div></section>
+<section id="handoff" class="wrap close-section"><div class="section-heading"><span class="eyebrow">03 / FROM PROOF TO DELIVERY</span><h2>Use the right starting point.<br><em>Then test your requirements.</em></h2></div><div class="handoff-grid"><div><h3>Three written-service engagements</h3><ul><li>Bounded API bugfix with regression tests</li><li>Webhook idempotency + retry pilot</li><li>CSV/API reconciliation proof with negative cases</li></ul></div><div><h3>What is not pre-approved</h3><ul><li>Production deployment or customer security sign-off</li><li>Redistribution rights for private source packages</li><li>Payment processing, residency/KYC, or contracting eligibility</li></ul></div></div><div class="end-bar"><div><b>ARAZVERA</b><span>Engineering evidence before sales claims.</span></div><a href="mailto:contact.arazvera@gmail.com?subject=Written%20engineering%20pilot%20request" class="btn primary">Request written project scope ↗</a></div></section>
+</main><footer><div class="wrap">ARAZVERA TECHNOLOGIES • Self-contained client-safe engineering demo • 2026 <span>Not an audit, warranty or production SLA</span></div></footer>
+<script type="module" src="app.mjs"></script>
+</body></html>
