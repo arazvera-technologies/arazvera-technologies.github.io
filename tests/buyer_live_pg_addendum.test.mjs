@@ -30,6 +30,25 @@ test('public evidence never reveals private repository, paths or synthetic conne
  const md=read('../buyer-lab/evidence_addendum_20261118.md');
  for(const s of ['private-44','D:\\','repo_path','postgresql://','PGPASSWORD','ghp_'])
    assert.ok(!ledger.includes(s) && !md.includes(s),'restricted text: '+s);
- assert.match(read('../buyer-lab/index.html'),/818 selected test executions/);
+ assert.match(read('../buyer-lab/index.html'),/828 selected test executions/);
  assert.match(md,/NOT production-ready/);
+});
+test('OIDC full database rerun increases latest tally by ten, retains prior proofs and caveats',()=>{
+ const l=JSON.parse(read('../buyer-lab/evidence_ledger_44.json'));
+ const a=l.oidc_20261118;
+ assert.equal(l.summary.fresh_selected_passing_cases,714);
+ assert.equal(l.postgres_docker_20261118.latest_passing_executions,818);
+ assert.equal(a.sku,'ARAZVERA-L2-OIDC-JWKS-BOUNDARY-001');
+ assert.equal(a.full_suite_passes,49);
+ assert.equal(a.extra_passing_executions,10);
+ assert.equal(a.current_passing_executions,828);
+ assert.equal(a.total_selected_green_suites,44);
+ assert.equal(a.total_partial_suites,3);
+ assert.equal(a.failed,0);assert.equal(a.skipped,0);
+ assert.equal(a.commercial_licenses_approved,0);
+ assert.equal(a.production_approvals,0);
+ assert.equal(a.customer_acceptances,0);
+ const md=read('../buyer-lab/evidence_oidc_addendum_20261118.md');
+ assert.match(md,/828/);
+ assert.match(md,/not production certification/i);
 });

@@ -1127,5 +1127,26 @@
         "sha_verified": true
       }
     ]
+  },
+  "oidc_20261118": {
+    "date": "2026-11-18",
+    "sku": "ARAZVERA-L2-OIDC-JWKS-BOUNDARY-001",
+    "scope": "Locally cached disposable PostgreSQL 16, synthetic data, SHA-matched reviewed private source",
+    "baseline_offline_passes": 39,
+    "full_suite_passes": 49,
+    "extra_passing_executions": 10,
+    "failed": 0,
+    "skipped": 0,
+    "errors": 0,
+    "sha_verified": true,
+    "temporary_postgres_removed": true,
+    "current_passing_executions": 828,
+    "total_selected_green_suites": 44,
+    "total_partial_suites": 3,
+    "environment_blocked_suites": 0,
+    "commercial_licenses_approved": 0,
+    "production_approvals": 0,
+    "customer_acceptances": 0,
+    "notes": "Pass counts are test executions and overlap in bundled suites; selected-suite evidence is not production acceptance, ownership licensing or settled income."
   }
 }
