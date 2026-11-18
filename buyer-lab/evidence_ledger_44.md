@@ -145,6 +145,10 @@ The other **25 SKUs (including six additional L2, all L3/L4, and bundled product
 
 **Commercial status:** no automatic grant of intellectual-property redistribution rights or lawful cross-border payout; contract-specific acceptance remains open.
 
+## Additional database-independent tests from blocked product archives
+
+**9 additional original pytest cases passed in five L3/L4 product archives**. These were deliberately selected to run **without** a PostgreSQL server and are not included in the 714-test green-suite figure. All five products **remain infrastructure blocked** for their database, migration or recovery integration cases. This is not evidence of successful PostgreSQL migration, CDC, recovery or customer deployment.
+
 ## Buyer handover requirements
 Actual contract-specific delivery depends on source ownership, dependency and licensing review, legal payment eligibility, authorized API/infrastructure integration, target environment performance and security testing, documentation, agreed warranty, and written customer acceptance.
 

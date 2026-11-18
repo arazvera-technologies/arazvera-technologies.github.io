@@ -21,7 +21,9 @@
     "fresh_L3_unittest_passes": 185,
     "fresh_L4_selected_pytest_passes": 140,
     "fresh_private_source_sales_approved": 0,
-    "fresh_bundle_selected_passing_cases": 135
+    "fresh_bundle_selected_passing_cases": 135,
+    "db_independent_tests_passing_inside_blocked_suites": 9,
+    "db_independent_partial_suites": 5
   },
   "products": [
     {
@@ -616,6 +618,12 @@
         "code": "POSTGRES_16_DISPOSABLE_INSTANCE_ABSENT",
         "status": "REQUIRES_SEPARATE_NONPRODUCTION_INFRASTRUCTURE",
         "not_counted_in_green_test_total": true
+      },
+      "db_independent_subset_recheck": {
+        "date": "2026-11-18",
+        "passed": 1,
+        "full_database_test": false,
+        "scope": "Original pytest nodes selected from verified source; infrastructure-backed tests still blocked"
       }
     },
     {
@@ -635,6 +643,12 @@
         "code": "POSTGRES_16_DISPOSABLE_INSTANCE_ABSENT",
         "status": "REQUIRES_SEPARATE_NONPRODUCTION_INFRASTRUCTURE",
         "not_counted_in_green_test_total": true
+      },
+      "db_independent_subset_recheck": {
+        "date": "2026-11-18",
+        "passed": 1,
+        "full_database_test": false,
+        "scope": "Original pytest nodes selected from verified source; infrastructure-backed tests still blocked"
       }
     },
     {
@@ -677,6 +691,12 @@
         "code": "POSTGRES_16_DISPOSABLE_INSTANCE_ABSENT",
         "status": "REQUIRES_SEPARATE_NONPRODUCTION_INFRASTRUCTURE",
         "not_counted_in_green_test_total": true
+      },
+      "db_independent_subset_recheck": {
+        "date": "2026-11-18",
+        "passed": 2,
+        "full_database_test": false,
+        "scope": "Original pytest nodes selected from verified source; infrastructure-backed tests still blocked"
       }
     },
     {
@@ -761,6 +781,12 @@
         "code": "POSTGRES_16_DISPOSABLE_INSTANCE_ABSENT",
         "status": "REQUIRES_SEPARATE_NONPRODUCTION_INFRASTRUCTURE",
         "not_counted_in_green_test_total": true
+      },
+      "db_independent_subset_recheck": {
+        "date": "2026-11-18",
+        "passed": 1,
+        "full_database_test": false,
+        "scope": "Original pytest nodes selected from verified source; infrastructure-backed tests still blocked"
       }
     },
     {
@@ -845,6 +871,12 @@
         "code": "POSTGRES_16_DISPOSABLE_INSTANCE_ABSENT",
         "status": "REQUIRES_SEPARATE_NONPRODUCTION_INFRASTRUCTURE",
         "not_counted_in_green_test_total": true
+      },
+      "db_independent_subset_recheck": {
+        "date": "2026-11-18",
+        "passed": 4,
+        "full_database_test": false,
+        "scope": "Original pytest nodes selected from verified source; infrastructure-backed tests still blocked"
       }
     },
     {

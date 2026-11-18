@@ -44,3 +44,14 @@ test('extended source recheck accurately counts 714 passed test executions witho
   assert.equal(ledger.products.filter(x=>x.environment_blocker).length,8);
   assert.ok(ledger.products.every(x=>x.production_approved===false));
 });
+
+test('database-independent reruns add nine real cases without converting blocked suites to green',()=>{
+  const ledger=load('../buyer-lab/evidence_ledger_44.json');
+  assert.equal(ledger.summary.fresh_selected_passing_cases,714);
+  assert.equal(ledger.summary.fresh_infrastructure_blocked_suites,8);
+  assert.equal(ledger.summary.db_independent_tests_passing_inside_blocked_suites,9);
+  const audited=ledger.products.filter(x=>x.db_independent_subset_recheck);
+  assert.equal(audited.length,5);
+  assert.ok(audited.every(x=>x.environment_blocker && !x.db_independent_subset_recheck.full_database_test));
+  assert.equal(audited.reduce((a,x)=>a+x.db_independent_subset_recheck.passed,0),9);
+});
