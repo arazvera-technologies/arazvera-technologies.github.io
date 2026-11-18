@@ -46,7 +46,8 @@ jobs:
           assert not any(t in payload for t in prohibited)
           assert len(list((root/"sample-outputs").glob("*.json")))==14
           zips=sorted((root/"downloads").glob("*.zip"))
-          assert len(zips)==8
+          assert len(zips)==9
+          assert (root/"downloads"/"ARAZVERA_Complete_Resume_Pack_20261118.zip").is_file()
           for path in zips:
               with zipfile.ZipFile(path) as z:
                   assert z.testzip() is None
