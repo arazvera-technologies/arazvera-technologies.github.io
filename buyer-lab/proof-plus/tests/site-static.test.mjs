@@ -64,3 +64,8 @@ test('Approved company brand is also the social share preview without changing t
  assert.match(html,/<meta property="og:image" content="https:\/\/arazvera-technologies\.github\.io\/buyer-lab\/proof-plus\/assets\/arazvera_approved_gold_brand\.png">/);
  assert.match(html,/<meta property="og:title" content="ARAZVERA TECHNOLOGIES \| Engineering Proof Plus">/);
 });
+
+
+test('Proof Plus declares the existing company favicon to avoid broken default favicon lookups',()=>{
+ assert.match(html,/<link rel="icon" type="image\/png" href="\.\.\/\.\.\/assets\/logo\.png">/);
+});
