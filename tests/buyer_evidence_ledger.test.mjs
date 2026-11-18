@@ -28,3 +28,19 @@ test('fresh real source reruns are attributed to exactly 19 L2 SKUs and 203 asse
   assert.equal(ledger.summary.fresh_rerun_l2_tests,203);
   assert.ok(ledger.products.filter(x=>!x.fresh_unit_test_recheck).length===25);
 });
+
+test('extended source recheck accurately counts 714 passed test executions without counting infrastructure errors',()=>{
+  const ledger=load('../buyer-lab/evidence_ledger_44.json');
+  const summary=ledger.summary;
+  assert.equal(summary.fresh_selected_passing_cases,714);
+  assert.equal(summary.fresh_selected_green_suites,36);
+  assert.equal(summary.fresh_selected_partial_suites,4);
+  assert.equal(summary.fresh_infrastructure_blocked_suites,8);
+  assert.equal(summary.unrerun_bundles,0);
+  const extended=ledger.products.filter(x=>x.extended_source_recheck);
+  assert.equal(extended.length,17);
+  assert.ok(extended.every(x=>x.extended_source_recheck.passed_tests>0));
+  assert.equal(extended.reduce((a,x)=>a+x.extended_source_recheck.passed_tests,0),511);
+  assert.equal(ledger.products.filter(x=>x.environment_blocker).length,8);
+  assert.ok(ledger.products.every(x=>x.production_approved===false));
+});

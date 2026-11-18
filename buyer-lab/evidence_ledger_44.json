@@ -1,7 +1,7 @@
 {
   "scope": "Source-free metadata from private owner-side archive audits; does not publish private packages or customer files.",
   "date": "2026-11-18",
-  "methodology": "Full-archive SHA-256 and ZIP CRC/path checks, Python syntax parse, test-source presence. Archived successful test counts were imported from prior lab records; they were NOT rerun in this scan. As a separate exercise, 19 allowlisted L2 unittest suites were executed from extracted SHA-matched owner archives in disposable directories with a Python-level socket guard; this is not a hardened OS sandbox or a customer deployment.",
+  "methodology": "Full-archive SHA-256 and ZIP CRC/path checks, Python syntax parse, test-source presence. Archived successful test counts were imported from prior lab records; they were NOT rerun in this scan. As a separate exercise, 19 allowlisted L2 unittest suites were executed from extracted SHA-matched owner archives in disposable directories with a Python-level socket guard; this is not a hardened OS sandbox or a customer deployment. Additional Python pytest rechecks cover six remaining L2 packages, three L3 unittest packages, and four L4 selected suites. 579 cases passed across 32 green-selected suites; 3 were partial coverage and 7 more environments were not available. Integration tests requiring PostgreSQL or Docker were NOT counted as passing. Five bundle suites were also attempted: four PASS selected tests (135 executions, one skip), one Tenant RLS skipped all 28 database tests. Shared source/test logic is counted per execution; these are not unique tests or certified products.",
   "summary": {
     "registered_skus": 44,
     "integrity_checked": 44,
@@ -11,7 +11,17 @@
     "customer_accepted": 0,
     "distinct_client_deployments_verified": 0,
     "fresh_rerun_l2_skus": 19,
-    "fresh_rerun_l2_tests": 203
+    "fresh_rerun_l2_tests": 203,
+    "fresh_selected_passing_cases": 714,
+    "fresh_selected_green_suites": 36,
+    "fresh_selected_partial_suites": 4,
+    "fresh_infrastructure_blocked_suites": 8,
+    "unrerun_bundles": 0,
+    "fresh_L2_additional_passes": 51,
+    "fresh_L3_unittest_passes": 185,
+    "fresh_L4_selected_pytest_passes": 140,
+    "fresh_private_source_sales_approved": 0,
+    "fresh_bundle_selected_passing_cases": 135
   },
   "products": [
     {
@@ -49,7 +59,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "extended_source_recheck": {
+        "date": "2026-11-18",
+        "outcome": "PASS_SELECTED_OFFLINE_SUITE",
+        "passed_tests": 2,
+        "skipped": 0,
+        "scope": "offline selected source-suite verification; some modules are shared between bundle and standalone packages",
+        "full_production_verification": false,
+        "sale_license_approved": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-BACKEND-HARDENING-001",
@@ -155,7 +174,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "extended_source_recheck": {
+        "date": "2026-11-18",
+        "outcome": "PASS_PARTIAL_ENV",
+        "passed_tests": 4,
+        "skipped": 2,
+        "scope": "offline selected source-suite verification; some modules are shared between bundle and standalone packages",
+        "full_production_verification": false,
+        "sale_license_approved": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-DOCUMENT-REPORTING-001",
@@ -261,7 +289,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "extended_source_recheck": {
+        "date": "2026-11-18",
+        "outcome": "PASS_SELECTED_OFFLINE_SUITE",
+        "passed_tests": 2,
+        "skipped": 0,
+        "scope": "offline selected source-suite verification; some modules are shared between bundle and standalone packages",
+        "full_production_verification": false,
+        "sale_license_approved": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-N8N-WORKFLOW-AUDIT-001",
@@ -321,7 +358,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "extended_source_recheck": {
+        "date": "2026-11-18",
+        "outcome": "PASS_PARTIAL_ENV",
+        "passed_tests": 39,
+        "skipped": 0,
+        "scope": "offline selected source-suite verification; some modules are shared between bundle and standalone packages",
+        "full_production_verification": false,
+        "sale_license_approved": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-OPERATIONS-MONITORING-001",
@@ -450,7 +496,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "extended_source_recheck": {
+        "date": "2026-11-18",
+        "outcome": "PASS_SELECTED_OFFLINE_SUITE",
+        "passed_tests": 2,
+        "skipped": 0,
+        "scope": "offline selected source-suite verification; some modules are shared between bundle and standalone packages",
+        "full_production_verification": false,
+        "sale_license_approved": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-RESILIENT-WEBHOOK-PIPELINE-001",
@@ -533,7 +588,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "extended_source_recheck": {
+        "date": "2026-11-18",
+        "outcome": "PASS_SELECTED_OFFLINE_SUITE",
+        "passed_tests": 2,
+        "skipped": 0,
+        "scope": "offline selected source-suite verification; some modules are shared between bundle and standalone packages",
+        "full_production_verification": false,
+        "sale_license_approved": false
+      }
     },
     {
       "sku": "ARAZVERA-L3-B2B-INTEGRATION-HUB-001",
@@ -547,7 +611,12 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "environment_blocker": {
+        "code": "POSTGRES_16_DISPOSABLE_INSTANCE_ABSENT",
+        "status": "REQUIRES_SEPARATE_NONPRODUCTION_INFRASTRUCTURE",
+        "not_counted_in_green_test_total": true
+      }
     },
     {
       "sku": "ARAZVERA-L3-DATA-QUALITY-ETL-001",
@@ -561,7 +630,12 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "environment_blocker": {
+        "code": "POSTGRES_16_DISPOSABLE_INSTANCE_ABSENT",
+        "status": "REQUIRES_SEPARATE_NONPRODUCTION_INFRASTRUCTURE",
+        "not_counted_in_green_test_total": true
+      }
     },
     {
       "sku": "ARAZVERA-L3-OUTBOX-RECOVERY-001",
@@ -575,7 +649,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "extended_source_recheck": {
+        "date": "2026-11-18",
+        "outcome": "PASS_SELECTED_OFFLINE_SUITE",
+        "passed_tests": 107,
+        "skipped": 0,
+        "scope": "offline selected source-suite verification; some modules are shared between bundle and standalone packages",
+        "full_production_verification": false,
+        "sale_license_approved": false
+      }
     },
     {
       "sku": "ARAZVERA-L3-POSTGRES-CDC-RECON-001",
@@ -589,7 +672,12 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "environment_blocker": {
+        "code": "POSTGRES_16_DISPOSABLE_INSTANCE_ABSENT",
+        "status": "REQUIRES_SEPARATE_NONPRODUCTION_INFRASTRUCTURE",
+        "not_counted_in_green_test_total": true
+      }
     },
     {
       "sku": "ARAZVERA-L3-RELEASE-SLO-001",
@@ -603,7 +691,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "extended_source_recheck": {
+        "date": "2026-11-18",
+        "outcome": "PASS_SELECTED_OFFLINE_SUITE",
+        "passed_tests": 61,
+        "skipped": 0,
+        "scope": "offline selected source-suite verification; some modules are shared between bundle and standalone packages",
+        "full_production_verification": false,
+        "sale_license_approved": false
+      }
     },
     {
       "sku": "ARAZVERA-L3-SAGA-COMPENSATION-001",
@@ -617,7 +714,12 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "environment_blocker": {
+        "code": "POSTGRES_16_DISPOSABLE_INSTANCE_ABSENT",
+        "status": "REQUIRES_SEPARATE_NONPRODUCTION_INFRASTRUCTURE",
+        "not_counted_in_green_test_total": true
+      }
     },
     {
       "sku": "ARAZVERA-L3-TENANT-RECOVERY-001",
@@ -631,7 +733,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "extended_source_recheck": {
+        "date": "2026-11-18",
+        "outcome": "PASS_SELECTED_OFFLINE_SUITE",
+        "passed_tests": 17,
+        "skipped": 0,
+        "scope": "offline selected source-suite verification; some modules are shared between bundle and standalone packages",
+        "full_production_verification": false,
+        "sale_license_approved": false
+      }
     },
     {
       "sku": "ARAZVERA-L3-ZERO-DOWNTIME-MIGRATION-001",
@@ -645,7 +756,12 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "environment_blocker": {
+        "code": "POSTGRES_16_DISPOSABLE_INSTANCE_ABSENT",
+        "status": "REQUIRES_SEPARATE_NONPRODUCTION_INFRASTRUCTURE",
+        "not_counted_in_green_test_total": true
+      }
     },
     {
       "sku": "ARAZVERA-L4-DEVELOPER-PLATFORM-001",
@@ -659,7 +775,12 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "environment_blocker": {
+        "code": "DOCKER_ENGINE_AND_CACHED_IMAGE_ABSENT",
+        "status": "REQUIRES_SEPARATE_NONPRODUCTION_INFRASTRUCTURE",
+        "not_counted_in_green_test_total": true
+      }
     },
     {
       "sku": "ARAZVERA-L4-K8S-GITOPS-001",
@@ -673,7 +794,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "extended_source_recheck": {
+        "date": "2026-11-18",
+        "outcome": "PASS_SELECTED_OFFLINE_SUITE",
+        "passed_tests": 13,
+        "skipped": 0,
+        "scope": "offline selected source-suite verification; some modules are shared between bundle and standalone packages",
+        "full_production_verification": false,
+        "sale_license_approved": false
+      }
     },
     {
       "sku": "ARAZVERA-L4-OTEL-SLO-OPERATIONS-001",
@@ -687,7 +817,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "extended_source_recheck": {
+        "date": "2026-11-18",
+        "outcome": "PASS_SELECTED_OFFLINE_SUITE",
+        "passed_tests": 11,
+        "skipped": 0,
+        "scope": "offline selected source-suite verification; some modules are shared between bundle and standalone packages",
+        "full_production_verification": false,
+        "sale_license_approved": false
+      }
     },
     {
       "sku": "ARAZVERA-L4-POSTGRES-PITR-DR-001",
@@ -701,7 +840,12 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "environment_blocker": {
+        "code": "POSTGRES_16_DISPOSABLE_INSTANCE_ABSENT",
+        "status": "REQUIRES_SEPARATE_NONPRODUCTION_INFRASTRUCTURE",
+        "not_counted_in_green_test_total": true
+      }
     },
     {
       "sku": "ARAZVERA-L4-RESILIENCE-LAB-001",
@@ -715,7 +859,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "extended_source_recheck": {
+        "date": "2026-11-18",
+        "outcome": "PASS_PARTIAL_ENV",
+        "passed_tests": 102,
+        "skipped": 0,
+        "scope": "offline selected source-suite verification; some modules are shared between bundle and standalone packages",
+        "full_production_verification": false,
+        "sale_license_approved": false
+      }
     },
     {
       "sku": "ARAZVERA-L4-SOFTWARE-SUPPLY-CHAIN-001",
@@ -729,7 +882,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "extended_source_recheck": {
+        "date": "2026-11-18",
+        "outcome": "PASS_SELECTED_OFFLINE_SUITE",
+        "passed_tests": 14,
+        "skipped": 0,
+        "scope": "offline selected source-suite verification; some modules are shared between bundle and standalone packages",
+        "full_production_verification": false,
+        "sale_license_approved": false
+      }
     },
     {
       "sku": "ARAZVERA-BUNDLE-OFFLINE-OPS-001",
@@ -743,7 +905,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "extended_source_recheck": {
+        "date": "2026-11-18",
+        "outcome": "PASS_PARTIAL_ENV",
+        "passed_tests": 51,
+        "skipped": 1,
+        "scope": "offline selected source-suite verification; some modules are shared between bundle and standalone packages",
+        "full_production_verification": false,
+        "sale_license_approved": false
+      }
     },
     {
       "sku": "ARAZVERA-BUNDLE-TENANT-RLS-001",
@@ -757,7 +928,12 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "environment_blocker": {
+        "code": "POSTGRES_16_DISPOSABLE_INSTANCE_ABSENT",
+        "status": "REQUIRES_SEPARATE_NONPRODUCTION_INFRASTRUCTURE",
+        "not_counted_in_green_test_total": true
+      }
     },
     {
       "sku": "ARAZVERA-BUNDLE-WEBHOOK-API-001",
@@ -771,7 +947,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "extended_source_recheck": {
+        "date": "2026-11-18",
+        "outcome": "PASS_SELECTED_OFFLINE_SUITE",
+        "passed_tests": 19,
+        "skipped": 0,
+        "scope": "offline selected source-suite verification; some modules are shared between bundle and standalone packages",
+        "full_production_verification": false,
+        "sale_license_approved": false
+      }
     },
     {
       "sku": "ARAZVERA-BUNDLE-WEBHOOK-APPROVAL-RECOVERY-001",
@@ -785,7 +970,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "extended_source_recheck": {
+        "date": "2026-11-18",
+        "outcome": "PASS_SELECTED_OFFLINE_SUITE",
+        "passed_tests": 46,
+        "skipped": 0,
+        "scope": "offline selected source-suite verification; some modules are shared between bundle and standalone packages",
+        "full_production_verification": false,
+        "sale_license_approved": false
+      }
     },
     {
       "sku": "ARAZVERA-BUNDLE-WEBHOOK-REVIEW-001",
@@ -799,7 +993,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "extended_source_recheck": {
+        "date": "2026-11-18",
+        "outcome": "PASS_SELECTED_OFFLINE_SUITE",
+        "passed_tests": 19,
+        "skipped": 0,
+        "scope": "offline selected source-suite verification; some modules are shared between bundle and standalone packages",
+        "full_production_verification": false,
+        "sale_license_approved": false
+      }
     }
   ]
 }

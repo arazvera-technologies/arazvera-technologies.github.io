@@ -88,6 +88,63 @@ The other **25 SKUs (including six additional L2, all L3/L4, and bundled product
 
 **Reproduction for the owner:** use the private repo's `python -B -m tools.run_real_source_tests` after reviewing the local code and the outbound network restriction. Exact SHA digest and private source remain owner-only.
 
+## Extended fresh source run — all 44 SKUs accounted for (18 November 2026)
+
+**714 successful selected test executions across 36 source suites.** Some tests and modules are duplicated by bundles; these are not 714 distinct features or software products.
+
+**Coverage limits:** 4 of 36 green suites are partial (skipped or selected unit-only). Eight more suites are infrastructure blocked (a disposable PostgreSQL 16 DB or cached Docker image), and their attempted checks were NOT counted as passing. All 44 archived packages have been attempted, but none has customer production or sale-licence approval.
+
+| Private product SKU | Tier | Latest selected test result | Passes counted | Skips |
+|---|---|---|---:|---:|
+| `ARAZVERA-L2-AI-EVALUATION-001` | L2 | PASS selected | 8 | 0 |
+| `ARAZVERA-L2-API-INTEGRATION-STARTER-001` | L2 | PASS selected | 2 | 0 |
+| `ARAZVERA-L2-BACKEND-HARDENING-001` | L2 | PASS selected | 9 | 0 |
+| `ARAZVERA-L2-CONSENT-LEAD-ROUTING-001` | L2 | PASS selected | 8 | 0 |
+| `ARAZVERA-L2-CRM-ERP-CONNECTORS-001` | L2 | PASS selected | 13 | 0 |
+| `ARAZVERA-L2-DATA-RECONCILIATION-LAB-001` | L2 | PASS selected | 21 | 0 |
+| `ARAZVERA-L2-DOCKER-DELIVERY-TOOLKIT-001` | L2 | PARTIAL selected | 4 | 2 |
+| `ARAZVERA-L2-DOCUMENT-REPORTING-001` | L2 | PASS selected | 10 | 0 |
+| `ARAZVERA-L2-INCIDENT-RECOVERY-001` | L2 | PASS selected | 10 | 0 |
+| `ARAZVERA-L2-INTERNAL-REPORTING-001` | L2 | PASS selected | 9 | 0 |
+| `ARAZVERA-L2-IOT-EVENT-GATEWAY-001` | L2 | PASS selected | 10 | 0 |
+| `ARAZVERA-L2-MULTI-TENANT-API-PLATFORM-001` | L2 | PASS selected | 2 | 0 |
+| `ARAZVERA-L2-N8N-WORKFLOW-AUDIT-001` | L2 | PASS selected | 11 | 0 |
+| `ARAZVERA-L2-NOTIFICATION-OUTBOX-001` | L2 | PASS selected | 12 | 0 |
+| `ARAZVERA-L2-OIDC-JWKS-BOUNDARY-001` | L2 | PARTIAL selected | 39 | 0 |
+| `ARAZVERA-L2-OPERATIONS-MONITORING-001` | L2 | PASS selected | 7 | 0 |
+| `ARAZVERA-L2-OPERATOR-REVIEW-001` | L2 | PASS selected | 8 | 0 |
+| `ARAZVERA-L2-POSTGRESQL-TENANT-BACKEND-001` | L2 | PASS selected | 11 | 0 |
+| `ARAZVERA-L2-PRIVATE-RETRIEVAL-LAB-001` | L2 | PASS selected | 11 | 0 |
+| `ARAZVERA-L2-PROVIDER-NEUTRAL-AI-001` | L2 | PASS selected | 10 | 0 |
+| `ARAZVERA-L2-RELIABLE-LEAD-AUTOMATION-001` | L2 | PASS selected | 2 | 0 |
+| `ARAZVERA-L2-RESILIENT-WEBHOOK-PIPELINE-001` | L2 | PASS selected | 16 | 0 |
+| `ARAZVERA-L2-SCAFFOLD-VERIFIER-001` | L2 | PASS selected | 8 | 0 |
+| `ARAZVERA-L2-SCHEDULED-ETL-001` | L2 | PASS selected | 11 | 0 |
+| `ARAZVERA-L2-SECURE-AI-INTAKE-ASSISTANT-001` | L2 | PASS selected | 2 | 0 |
+| `ARAZVERA-L3-B2B-INTEGRATION-HUB-001` | L3 | ENVIRONMENT BLOCKED — NOT PASS | 0 | 0 |
+| `ARAZVERA-L3-DATA-QUALITY-ETL-001` | L3 | ENVIRONMENT BLOCKED — NOT PASS | 0 | 0 |
+| `ARAZVERA-L3-OUTBOX-RECOVERY-001` | L3 | PASS selected | 107 | 0 |
+| `ARAZVERA-L3-POSTGRES-CDC-RECON-001` | L3 | ENVIRONMENT BLOCKED — NOT PASS | 0 | 0 |
+| `ARAZVERA-L3-RELEASE-SLO-001` | L3 | PASS selected | 61 | 0 |
+| `ARAZVERA-L3-SAGA-COMPENSATION-001` | L3 | ENVIRONMENT BLOCKED — NOT PASS | 0 | 0 |
+| `ARAZVERA-L3-TENANT-RECOVERY-001` | L3 | PASS selected | 17 | 0 |
+| `ARAZVERA-L3-ZERO-DOWNTIME-MIGRATION-001` | L3 | ENVIRONMENT BLOCKED — NOT PASS | 0 | 0 |
+| `ARAZVERA-L4-DEVELOPER-PLATFORM-001` | L4 | ENVIRONMENT BLOCKED — NOT PASS | 0 | 0 |
+| `ARAZVERA-L4-K8S-GITOPS-001` | L4 | PASS selected | 13 | 0 |
+| `ARAZVERA-L4-OTEL-SLO-OPERATIONS-001` | L4 | PASS selected | 11 | 0 |
+| `ARAZVERA-L4-POSTGRES-PITR-DR-001` | L4 | ENVIRONMENT BLOCKED — NOT PASS | 0 | 0 |
+| `ARAZVERA-L4-RESILIENCE-LAB-001` | L4 | PARTIAL selected | 102 | 0 |
+| `ARAZVERA-L4-SOFTWARE-SUPPLY-CHAIN-001` | L4 | PASS selected | 14 | 0 |
+| `ARAZVERA-BUNDLE-OFFLINE-OPS-001` | BUNDLE | PARTIAL selected | 51 | 1 |
+| `ARAZVERA-BUNDLE-TENANT-RLS-001` | BUNDLE | ENVIRONMENT BLOCKED — NOT PASS | 0 | 28 |
+| `ARAZVERA-BUNDLE-WEBHOOK-API-001` | BUNDLE | PASS selected | 19 | 0 |
+| `ARAZVERA-BUNDLE-WEBHOOK-APPROVAL-RECOVERY-001` | BUNDLE | PASS selected | 46 | 0 |
+| `ARAZVERA-BUNDLE-WEBHOOK-REVIEW-001` | BUNDLE | PASS selected | 19 | 0 |
+
+**Execution breakdown:** 203 previous L2 + 51 additional L2 + 185 L3 offline unit + 140 L4 selected + 135 bundle = 714 passing executions. Overlap can occur between standalone and bundled source suites.
+
+**Commercial status:** no automatic grant of intellectual-property redistribution rights or lawful cross-border payout; contract-specific acceptance remains open.
+
 ## Buyer handover requirements
 Actual contract-specific delivery depends on source ownership, dependency and licensing review, legal payment eligibility, authorized API/infrastructure integration, target environment performance and security testing, documentation, agreed warranty, and written customer acceptance.
 
