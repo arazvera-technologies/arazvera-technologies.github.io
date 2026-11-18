@@ -58,6 +58,36 @@ This ledger is limited to **archive/package verification and Python syntax**, no
 | `ARAZVERA-BUNDLE-WEBHOOK-APPROVAL-RECOVERY-001` | BUNDLE | 21 | 8 | 46 |
 | `ARAZVERA-BUNDLE-WEBHOOK-REVIEW-001` | BUNDLE | 4 | 1 | 19 |
 
+## Fresh source-code unit-test rechecks — 18 November 2026
+
+**19 Level 2 archived product suites were rerun** from verified private source ZIPs in temporary Python environments. **203/203 unit tests passed.** External network connections were blocked at the Python socket API; this does **not** constitute an operating-system isolation proof, customer integration, production security review or software license approval.
+
+The other **25 SKUs (including six additional L2, all L3/L4, and bundled products) were NOT part of this rerun**. Their earlier archived counts are listed above as historical evidence only.
+
+| Rerun L2 product SKU | Newly executed Python unittest cases | Fresh outcome |
+|---|---:|---|
+| `ARAZVERA-L2-AI-EVALUATION-001` | 8 | PASS (fresh, offline) |
+| `ARAZVERA-L2-BACKEND-HARDENING-001` | 9 | PASS (fresh, offline) |
+| `ARAZVERA-L2-CONSENT-LEAD-ROUTING-001` | 8 | PASS (fresh, offline) |
+| `ARAZVERA-L2-CRM-ERP-CONNECTORS-001` | 13 | PASS (fresh, offline) |
+| `ARAZVERA-L2-DATA-RECONCILIATION-LAB-001` | 21 | PASS (fresh, offline) |
+| `ARAZVERA-L2-DOCUMENT-REPORTING-001` | 10 | PASS (fresh, offline) |
+| `ARAZVERA-L2-INCIDENT-RECOVERY-001` | 10 | PASS (fresh, offline) |
+| `ARAZVERA-L2-INTERNAL-REPORTING-001` | 9 | PASS (fresh, offline) |
+| `ARAZVERA-L2-IOT-EVENT-GATEWAY-001` | 10 | PASS (fresh, offline) |
+| `ARAZVERA-L2-N8N-WORKFLOW-AUDIT-001` | 11 | PASS (fresh, offline) |
+| `ARAZVERA-L2-NOTIFICATION-OUTBOX-001` | 12 | PASS (fresh, offline) |
+| `ARAZVERA-L2-OPERATIONS-MONITORING-001` | 7 | PASS (fresh, offline) |
+| `ARAZVERA-L2-OPERATOR-REVIEW-001` | 8 | PASS (fresh, offline) |
+| `ARAZVERA-L2-POSTGRESQL-TENANT-BACKEND-001` | 11 | PASS (fresh, offline) |
+| `ARAZVERA-L2-PRIVATE-RETRIEVAL-LAB-001` | 11 | PASS (fresh, offline) |
+| `ARAZVERA-L2-PROVIDER-NEUTRAL-AI-001` | 10 | PASS (fresh, offline) |
+| `ARAZVERA-L2-RESILIENT-WEBHOOK-PIPELINE-001` | 16 | PASS (fresh, offline) |
+| `ARAZVERA-L2-SCAFFOLD-VERIFIER-001` | 8 | PASS (fresh, offline) |
+| `ARAZVERA-L2-SCHEDULED-ETL-001` | 11 | PASS (fresh, offline) |
+
+**Reproduction for the owner:** use the private repo's `python -B -m tools.run_real_source_tests` after reviewing the local code and the outbound network restriction. Exact SHA digest and private source remain owner-only.
+
 ## Buyer handover requirements
 Actual contract-specific delivery depends on source ownership, dependency and licensing review, legal payment eligibility, authorized API/infrastructure integration, target environment performance and security testing, documentation, agreed warranty, and written customer acceptance.
 

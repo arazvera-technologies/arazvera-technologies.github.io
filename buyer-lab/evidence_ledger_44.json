@@ -1,7 +1,7 @@
 {
   "scope": "Source-free metadata from private owner-side archive audits; does not publish private packages or customer files.",
   "date": "2026-11-18",
-  "methodology": "Full-archive SHA-256 and ZIP CRC/path checks, Python syntax parse, test-source presence. Archived successful test counts were imported from prior lab records; they were NOT rerun in this scan.",
+  "methodology": "Full-archive SHA-256 and ZIP CRC/path checks, Python syntax parse, test-source presence. Archived successful test counts were imported from prior lab records; they were NOT rerun in this scan. As a separate exercise, 19 allowlisted L2 unittest suites were executed from extracted SHA-matched owner archives in disposable directories with a Python-level socket guard; this is not a hardened OS sandbox or a customer deployment.",
   "summary": {
     "registered_skus": 44,
     "integrity_checked": 44,
@@ -9,7 +9,9 @@
     "commercial_license_approved": 0,
     "production_approved": 0,
     "customer_accepted": 0,
-    "distinct_client_deployments_verified": 0
+    "distinct_client_deployments_verified": 0,
+    "fresh_rerun_l2_skus": 19,
+    "fresh_rerun_l2_tests": 203
   },
   "products": [
     {
@@ -24,7 +26,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 8,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-API-INTEGRATION-STARTER-001",
@@ -52,7 +63,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 9,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-CONSENT-LEAD-ROUTING-001",
@@ -66,7 +86,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 8,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-CRM-ERP-CONNECTORS-001",
@@ -80,7 +109,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 13,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-DATA-RECONCILIATION-LAB-001",
@@ -94,7 +132,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 21,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-DOCKER-DELIVERY-TOOLKIT-001",
@@ -122,7 +169,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 10,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-INCIDENT-RECOVERY-001",
@@ -136,7 +192,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 10,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-INTERNAL-REPORTING-001",
@@ -150,7 +215,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 9,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-IOT-EVENT-GATEWAY-001",
@@ -164,7 +238,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 10,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-MULTI-TENANT-API-PLATFORM-001",
@@ -192,7 +275,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 11,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-NOTIFICATION-OUTBOX-001",
@@ -206,7 +298,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 12,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-OIDC-JWKS-BOUNDARY-001",
@@ -234,7 +335,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 7,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-OPERATOR-REVIEW-001",
@@ -248,7 +358,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 8,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-POSTGRESQL-TENANT-BACKEND-001",
@@ -262,7 +381,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 11,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-PRIVATE-RETRIEVAL-LAB-001",
@@ -276,7 +404,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 11,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-PROVIDER-NEUTRAL-AI-001",
@@ -290,7 +427,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 10,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-RELIABLE-LEAD-AUTOMATION-001",
@@ -318,7 +464,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 16,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-SCAFFOLD-VERIFIER-001",
@@ -332,7 +487,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 8,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-SCHEDULED-ETL-001",
@@ -346,7 +510,16 @@
       "independent_live_test_run": false,
       "sale_license": "review_required",
       "production_approved": false,
-      "customer_acceptance": false
+      "customer_acceptance": false,
+      "fresh_unit_test_recheck": {
+        "status": "PASS",
+        "passed_tests": 11,
+        "date": "2026-11-18",
+        "archive_sha_verified": true,
+        "execution": "fresh temporary working directory with Python outbound-socket guard",
+        "customer_production_test": false,
+        "independent_external_security_audit": false
+      }
     },
     {
       "sku": "ARAZVERA-L2-SECURE-AI-INTAKE-ASSISTANT-001",

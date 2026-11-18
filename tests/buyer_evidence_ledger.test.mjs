@@ -17,3 +17,14 @@ test('public ledger must never contain local private paths, source or private Gi
   for(const sensitive of ['D:\\','private-44','releases/','repo_path','source_files','api_key','github_pat_'])
     assert.ok(!raw.includes(sensitive),'private field leaked: '+sensitive);
 });
+
+test('fresh real source reruns are attributed to exactly 19 L2 SKUs and 203 assertions/tests',()=>{
+  const ledger=load('../buyer-lab/evidence_ledger_44.json');
+  const reruns=ledger.products.filter(x=>x.fresh_unit_test_recheck);
+  assert.equal(reruns.length,19);
+  assert.equal(reruns.reduce((s,x)=>s+x.fresh_unit_test_recheck.passed_tests,0),203);
+  assert.ok(reruns.every(x=>x.level==='L2' && x.fresh_unit_test_recheck.status==='PASS' && x.fresh_unit_test_recheck.archive_sha_verified));
+  assert.equal(ledger.summary.fresh_rerun_l2_skus,19);
+  assert.equal(ledger.summary.fresh_rerun_l2_tests,203);
+  assert.ok(ledger.products.filter(x=>!x.fresh_unit_test_recheck).length===25);
+});
