@@ -10,20 +10,21 @@
 <link rel="icon" type="image/png" href="../assets/logo.png">
 <link rel="canonical" href="https://arazvera-technologies.github.io/buyer-lab/">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="matcher.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="topbar">
  <div class="wrap navline">
   <a class="brand" href="/" aria-label="ARAZVERA official home"><img src="../assets/logo.png" width="42" height="42" alt=""><span>ARAZVERA<small>TECHNOLOGIES</small></span></a>
-  <nav aria-label="Primary"><a href="#catalog">Starter catalog</a><a href="#playground">Live lab</a><a href="#delivery">Delivery process</a><a href="https://github.com/arazvera-technologies/arazvera-engineering-portfolio" target="_blank" rel="noopener">GitHub ↗</a></nav>
+  <nav aria-label="Primary"><a href="#catalog">Starter catalog</a><a href="#matcher">Project match</a><a href="#playground">Live lab</a><a href="#delivery">Delivery process</a><a href="https://github.com/arazvera-technologies/arazvera-engineering-portfolio" target="_blank" rel="noopener">GitHub ↗</a></nav>
  </div>
 </header>
 <main id="main">
  <section class="hero wrap">
   <div class="hero-copy">
    <p class="eyebrow"><span class="signal"></span> ENGINEERING PROOF / LIVE SYNTHETIC SANDBOX</p>
-   <h1>See the edge case.<br><em>Then judge the engineering.</em></h1>
+   <h1>Match a foundation.<br><em>Test the edge cases.</em></h1>
    <p class="lede">Find a reusable ARAZVERA engineering starter, run real browser-side checks using fictional data, and inspect public test evidence. We adapt existing private foundations to a written customer specification—rather than presenting a promise as a finished deployment.</p>
    <div class="hero-buttons"><a class="action" href="#playground">Run a technical check <span>↗</span></a><a class="outline" href="#catalog">Search the starter bank</a></div>
    <p class="subtle">No account, server-side processing, customer data or proprietary source access.</p>
@@ -61,8 +62,37 @@
    <p class="filter-foot">Every proof link points to a <strong>related public example</strong>, not to the proprietary private product. Source archives and private GitHub credentials are never provided through this page.</p>
   </div>
  </section>
+ <section class="section wrap" id="matcher">
+  <div class="section-head"><div><p class="eyebrow">02 / REQUIREMENT-TO-STARTER MATCH</p>
+   <h2>Show us the problem. Compare the foundation.</h2>
+   <p>Enter a <strong>fictional or sanitized</strong> engineering brief and get an explicit, rule-based shortlist of private starter IDs with public tests and the work still required. No AI matchmaking claims or automated contact.</p>
+  </div><span class="lab-flag">LOCAL ONLY / NOT SUBMITTED</span></div>
+  <div class="match-layout">
+   <div class="match-inputs">
+    <label for="requirement-input" class="form-title">WHAT NEEDS TO WORK?</label>
+    <textarea id="requirement-input" maxlength="1500" rows="5" placeholder="Example: FastAPI webhook events arrive twice. Need tenant-scoped idempotency and safe retry tests." aria-describedby="brief-privacy"></textarea>
+    <p id="brief-privacy" class="privacy-note">Use fictional examples only. Do not paste confidential briefs, credentials, account details or personal information. Entered text is processed in this browser and is not submitted by this tool. Standard site requests may be logged by the hosting provider.</p>
+    <div class="match-fields">
+     <label>STACK / EXPECTED ENVIRONMENT <input id="stack-input" maxlength="320" placeholder="Python, FastAPI, PostgreSQL"></label>
+     <label>INTERNAL STARTER LEVEL <select id="level-constraint"><option value="all">Any level</option><option value="L1">L1</option><option value="L2">L2</option><option value="L3">L3</option><option value="L4">L4</option><option value="L5">L5</option><option value="L6">L6</option><option value="L7">L7</option></select></label>
+    </div>
+    <label class="form-title" for="scope-input">EXPECTED DELIVERABLE / CONSTRAINTS</label>
+    <input id="scope-input" maxlength="350" placeholder="Pilot with synthetic fixtures, written documentation">
+    <div class="match-actions"><button type="button" id="match-submit" class="action">Find engineering starting points <span>↗</span></button><button type="button" id="brief-download" class="outline" disabled>Download match report ↓</button></div>
+    <div class="preset-heading">TRY AN EXAMPLE / FICTITIOUS REQUEST</div>
+    <div id="match-presets" class="match-presets" role="group" aria-label="Example engineering briefs">
+     <button type="button" data-example="webhook">Webhook retry</button><button type="button" data-example="postgres">PostgreSQL migration</button><button type="button" data-example="agent">Agent permissions</button><button type="button" data-example="supplier">Supplier evidence</button>
+    </div>
+   </div>
+   <div class="match-results" aria-live="polite">
+    <div class="match-results-head"><span>MATCH REPORT / EVIDENCE-GATED</span><span id="match-count">NOT RUN</span></div>
+    <div id="match-output" class="match-output"><p class="match-placeholder">Select a fictional scenario or describe a technical problem to see documented engineering starting points, related public demonstrations and the remaining implementation work.</p></div>
+    <p class="match-disclaimer">This is a deterministic keyword shortlist, not verified customer fit, a fixed-price quote, a contract or production acceptance. Private source archives are never exposed.</p>
+   </div>
+  </div>
+ </section>
  <section class="section section-dark" id="playground"><div class="wrap">
-  <div class="section-head"><div><p class="eyebrow">02 / TRY IT YOURSELF</p><h2>Seven working test benches.</h2><p>Choose an engineering problem, inspect editable fictional JSON, then run the browser-side analysis. The outcome changes when the inputs change.</p></div><span class="lab-flag"><span class="signal"></span> LOCAL JS / NO API</span></div>
+  <div class="section-head"><div><p class="eyebrow">03 / TRY IT YOURSELF</p><h2>Seven working test benches.</h2><p>Choose an engineering problem, inspect editable fictional JSON, then run the browser-side analysis. The outcome changes when the inputs change.</p></div><span class="lab-flag"><span class="signal"></span> LOCAL JS / NO API</span></div>
   <div class="lab-layout">
    <aside class="lab-picker" aria-label="Choose a test bench"><p class="picker-label">TEST BENCHES</p><div id="lab-menu" class="lab-menu"></div><div class="lab-aside-note">All logic on this page is a small standalone teaching/test illustration, not the private ARAZVERA product implementation.</div></aside>
    <div class="lab-workspace">
@@ -86,7 +116,7 @@
   </div></div>
  </div></section>
  <section id="delivery" class="section wrap">
-  <div class="section-head"><div><p class="eyebrow">03 / FROM STARTER TO CONTRACTED DELIVERY</p><h2>Existing foundation. Your acceptance criteria.</h2></div></div>
+  <div class="section-head"><div><p class="eyebrow">04 / FROM STARTER TO CONTRACTED DELIVERY</p><h2>Existing foundation. Your acceptance criteria.</h2></div></div>
   <div class="delivery-grid">
    <article><span>01 / FIT</span><h3>Match your requirement</h3><p>A written problem statement, supported stack, sanitized inputs and measurable output decide the correct starter. New functionality is explicitly scoped.</p></article>
    <article><span>02 / ADAPT</span><h3>Build what differs</h3><p>Authorized API adapters, custom schemas, tenant identity, deployment controls, error cases and tests are added as needed—not assumed to exist.</p></article>

@@ -62,3 +62,23 @@ test('all seven demo types have safe and unsafe fixtures', () => {
 test('unknown analysis fails closed', () => {
   assert.throws(()=>runAnalysis('unknown',{}),/Unsupported demo/);
 });
+
+test('empty evidence must not count as a passing verification',()=>{
+  const empty={
+    webhook:{events:[]},
+    reconcile:{source:[],target:[]},
+    workflow:{steps:[]},
+    supplier:{packs:[],documents:[]},
+    recovery:{snapshots:[],restored:[]}
+  };
+  for(const [kind,input] of Object.entries(empty)){
+    const report=runAnalysis(kind,input);
+    assert.notEqual(report.decision,'PASS',kind+' must fail closed on empty evidence');
+    assert.ok(report.findings.some(x=>/EMPTY|NO_/.test(x.code)),kind);
+  }
+});
+test('supplier duplicate document references cannot silently pass',()=>{
+  const r=analyzeSupplier({packs:[{packId:'P1',supplier:'X',documentRef:'D1'}],documents:[{ref:'D1'},{ref:'D1'}]});
+  assert.equal(r.decision,'REVIEW');
+  assert.ok(r.findings.some(x=>x.code==='DUPLICATE_DOCUMENT_REF'));
+});

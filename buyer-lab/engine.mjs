@@ -26,6 +26,7 @@ export function analyzeWebhook(data){
     seen.set(key,digest);accepted++;queue.push({tenant,id});
   });
   if(!Array.isArray(data?.events))f.push(finding('INVALID_BATCH','events must be an array'));
+  else if(data.events.length===0)f.push(finding('EMPTY_BATCH','No events were supplied for verification'));
   return report(f,{received:asRows(data?.events).length,accepted,replayed,conflicts,invalid,queue});
 }
 export function analyzeReconciliation(data){
@@ -47,6 +48,7 @@ export function analyzeReconciliation(data){
     else if(b.get(k)!==v)f.push(finding('AMOUNT_MISMATCH','Values differ between source and target',k));}
   for(const k of b.keys())if(!a.has(k))f.push(finding('ORPHAN_IN_TARGET','Target has no matching source row',k));
   if(!Array.isArray(data?.source)||!Array.isArray(data?.target))f.push(finding('INVALID_DATA','source and target must be arrays'));
+  else if(source.length===0&&target.length===0)f.push(finding('EMPTY_EVIDENCE','Both compared datasets are empty'));
   return report(f,{sourceRows:source.length,targetRows:target.length,matched:[...a.keys()].filter(k=>b.has(k)&&a.get(k)===b.get(k)).length});
 }
 export function analyzeAgent(data){
@@ -72,7 +74,10 @@ export function analyzeRelease(data){
 }
 export function analyzeSupplier(data){
   const f=[],packs=asRows(data?.packs),docs=asRows(data?.documents);
-  const refSet=new Set(docs.map(x=>str(x?.ref)).filter(Boolean)),seen=new Set();
+  const docRefs=docs.map(x=>str(x?.ref)).filter(Boolean);
+  const refSet=new Set(docRefs),seen=new Set();
+  if(packs.length===0)f.push(finding('EMPTY_PACKS','No supplier packs were supplied'));
+  if(docRefs.length!==refSet.size)f.push(finding('DUPLICATE_DOCUMENT_REF','Evidence index contains repeated document reference'));
   packs.forEach((p,i)=>{
     const id=str(p?.packId),supp=str(p?.supplier),doc=str(p?.documentRef),row='pack '+(i+1);
     if(!id)f.push(finding('MISSING_PACK_ID','Pack identifier required',row));
@@ -87,6 +92,7 @@ export function analyzeSupplier(data){
 }
 export function analyzeRecovery(data){
   const f=[],snap=asRows(data?.snapshots),restore=asRows(data?.restored);
+  if(snap.length===0)f.push(finding('EMPTY_SNAPSHOTS','No snapshot evidence was supplied'));
   const map=new Map();
   for(const row of restore){const key=keyOf({tenant:row?.tenant,id:row?.name});
     if(map.has(key))f.push(finding('DUPLICATE_RESTORE','Duplicate restored dataset',key));
@@ -105,6 +111,7 @@ export function analyzeRecovery(data){
 }
 export function analyzeWorkflow(data){
   const f=[],steps=asRows(data?.steps),seen=new Set();
+  if(steps.length===0)f.push(finding('EMPTY_WORKFLOW','No workflow steps were supplied'));
   steps.forEach((s,i)=>{
     const name=str(s?.id)||'step '+(i+1),retry=Number(s?.retry),timeout=Number(s?.timeoutMs);
     if(seen.has(name))f.push(finding('DUPLICATE_STEP','Step ID is not unique',name));else seen.add(name);

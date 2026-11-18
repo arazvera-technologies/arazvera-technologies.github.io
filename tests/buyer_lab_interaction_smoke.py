@@ -64,6 +64,19 @@ try:
   bad=evaljs("document.querySelector('#fixture-input').value='{invalid';document.querySelector('#run-check').click();document.querySelector('#decision').textContent")
   assert bad=="ERROR",bad
   assert evaljs("document.querySelector('#download-result').disabled") is True
+  # New buyer-intake UI: ensure actual browser events generate recommendations.
+  result=evaljs("document.querySelector('#match-presets [data-example=webhook]').click();document.querySelectorAll('#match-output .match-candidate').length")
+  assert 1<=result<=3,result
+  assert evaljs("document.querySelector('#brief-download').disabled") is False
+  result=evaljs("document.querySelector('#match-presets [data-example=postgres]').click();document.querySelector('#match-output').textContent.includes('reconcile')")
+  assert result is True
+  result=evaljs("document.querySelector('#match-presets [data-example=agent]').click();document.querySelector('#match-output').textContent.includes('Agent')")
+  assert result is True
+  result=evaljs("document.querySelector('#requirement-input').value='Build full Unity game with physics';document.querySelector('#match-submit').click();document.querySelectorAll('#match-output .match-candidate').length")
+  assert result==0,result
+  result=evaljs("document.querySelector('#requirement-input').value='<img src=x onerror=alert(1)> webhook retries';document.querySelector('#match-submit').click();document.querySelectorAll('#match-output img').length")
+  assert result==0,'XSS-injected markup appeared in DOM'
+  print("CDP_MATCHER_PASS presets=3 no_unsupported_claim=true xss_dom=clean",flush=True)
   print("CDP_BROWSER_INTERACTION_PASS initial=68 L5=13 filtered="+str(filtered)+" issue=REVIEW pass=PASS agent=REVIEW invalid=ERROR",flush=True)
   ws.close()
 finally:

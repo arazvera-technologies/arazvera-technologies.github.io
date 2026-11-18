@@ -1,4 +1,5 @@
 import {EXAMPLES,runAnalysis} from './engine.mjs';
+import {initMatcher} from './matcher-ui.mjs';
 const $=id=>document.getElementById(id);
 const BENCHES={
  webhook:{title:'Webhook idempotency',desc:'Tenant-scoped retries, payload conflicts and invalid event boundaries.'},
@@ -116,6 +117,7 @@ async function init(){
    $('family-filter').append(option);
   }
   renderProducts();
+  initMatcher(data.products);
   document.documentElement.dataset.catalogLoaded='true';
  }catch(err){
   $('result-count').textContent='Catalog unavailable. Use the GitHub source-safe index link above.';
