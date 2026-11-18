@@ -1,0 +1,53 @@
+name: Buyer Proof Lab — synthetic verification
+
+on:
+  push:
+    paths:
+      - "buyer-lab/**"
+      - "tests/buyer_proof_engine.test.mjs"
+      - "tools/build_buyer_proof_samples.mjs"
+      - ".github/workflows/buyer-proof-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proof-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Execute public synthetic engine regression tests
+        run: node --test tests/buyer_proof_engine.test.mjs
+      - name: Rebuild deterministic scenario outputs
+        run: node tools/build_buyer_proof_samples.mjs
+      - name: Detect sample-result regression
+        run: git diff --exit-code -- buyer-lab/sample-outputs/
+      - name: Verify source-safe public catalog and proof bundles
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, zipfile
+          from pathlib import Path
+          root=Path("buyer-lab")
+          j=json.loads((root/"catalog.json").read_text(encoding="utf-8"))
+          records=j["products"]
+          assert len(records)==68
+          assert len({x["id"] for x in records})==68
+          assert {f"L{i}" for i in range(1,8)}.issubset({x["level"] for x in records})
+          prohibited=("release_sha256","release_zip","private_source","D:\\ARAZVERA")
+          payload=(root/"catalog.json").read_text(encoding="utf-8")
+          assert not any(t in payload for t in prohibited)
+          assert len(list((root/"sample-outputs").glob("*.json")))==14
+          zips=sorted((root/"downloads").glob("*.zip"))
+          assert len(zips)==8
+          for path in zips:
+              with zipfile.ZipFile(path) as z:
+                  assert z.testzip() is None
+                  assert all(not name.endswith((".py",".db",".sqlite",".key",".pem")) for name in z.namelist())
+          print("PUBLIC_BUYER_PROOF_CI=PASS",len(records),"records,",len(zips),"public ZIPs")
+          PY
