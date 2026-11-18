@@ -47,6 +47,8 @@ try:
   assert evaljs("document.documentElement.dataset.catalogLoaded")=="true"
   initial=evaljs("document.querySelectorAll('#product-grid .product').length")
   assert initial==68,initial
+  example_link=evaljs("Array.from(document.querySelectorAll('#product-grid .product')).find(x=>x.textContent.includes('ARAZVERA-L3-POSTGRES-CDC-RECON-001'))?.querySelector('a.try-demo')?.getAttribute('href') || ''")
+  assert '?bench=reconcile#playground' in example_link,example_link
   level5=evaljs("document.querySelector('[data-level=L5]').click();document.querySelectorAll('#product-grid .product').length")
   assert level5==13,level5
   filtered=evaljs("document.querySelector('#product-search').value='agent';document.querySelector('#product-search').dispatchEvent(new Event('input',{bubbles:true}));document.querySelectorAll('#product-grid .product').length")

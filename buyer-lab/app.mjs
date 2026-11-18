@@ -71,7 +71,10 @@ function renderProducts(){
   const a=el('a','','Related public proof ↗');
   a.href=p.proofUrl;a.target='_blank';a.rel='noopener noreferrer';
   a.title='Representative demonstration only; this is not the private product';
-  card.append(a);chunk.append(card);
+  const demo=el('a','try-demo','Run related synthetic test ↗');
+  demo.href='?bench='+encodeURIComponent(p.demo)+'#playground';
+  demo.title='Browser-side illustration only, not execution of this private SKU';
+  card.append(a,demo);chunk.append(card);
  }
  root.append(chunk);
 }
