@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1017">
+<meta name="description" content="ARAZVERA Supplier Data Preflight: try synthetic record validation, duplicates and data-quality findings without submitting data.">
+<link rel="canonical" href="https://arazvera-technologies.github.io/buyer-lab/supplier-preflight/">
+<title>Supplier Data Preflight | ARAZVERA TECHNOLOGIES</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:#0b1017;color:#edf0f1}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#0b1017,#111923 60%,#0b1017)}
+a{color:#e6c681}a:hover{color:#fff}.wrap{width:min(1100px,calc(100% - 36px));margin:auto}
+header{border-bottom:1px solid #303943;padding:23px 0;background:#0b1017de}
+nav{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.brand{font-weight:850;letter-spacing:.13em;color:#eacb8a;text-decoration:none}.brand small{display:block;font-weight:400;font-size:10px;letter-spacing:.22em}
+nav .links{display:flex;gap:20px;font-size:13px}
+.hero{padding:68px 0 32px}.eyebrow{color:#d3b780;letter-spacing:.14em;font-size:11px;text-transform:uppercase}
+h1{font-size:clamp(34px,5vw,64px);letter-spacing:-.05em;line-height:1.08;margin:17px 0}
+h1 em{font-family:Georgia,serif;font-weight:400;color:#e1bb75}
+.lead{color:#bbc6ce;font-size:17px;line-height:1.7;max-width:770px}
+.metrics{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0}
+.metric{border:1px solid #424b52;background:#141b24;border-radius:10px;padding:15px 18px;min-width:140px}
+.metric strong{color:#e9c989;font-size:22px;display:block}.metric span{color:#aebbc7;font-size:11px}
+.note{color:#b4c2cc;font-size:13px;line-height:1.65}
+.panel{border:1px solid #3e4852;background:#141d28;border-radius:14px;overflow:hidden;box-shadow:0 16px 48px #0004}
+.panel-head{background:#1b2733;padding:17px 24px;border-bottom:1px solid #3e4852;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.panel-head strong{color:#f2d391}.panel-head span{color:#b7c5cc;font-size:12px}
+.workbench{display:grid;grid-template-columns:1fr 1fr}
+section.column{padding:22px;min-width:0}.column+.column{border-left:1px solid #3e4852}
+.label{display:block;color:#d4dbe0;font-size:13px;margin:7px 0 10px;font-weight:600}
+.buttons{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:12px}
+button{cursor:pointer;border:1px solid #a18a5b;background:transparent;color:#f0d59b;padding:10px 15px;border-radius:7px;font-weight:700}
+button.primary{background:#e7c67e;color:#101820;border-color:#e7c67e}
+button:disabled{opacity:.4;cursor:default}
+button:hover:not(:disabled){filter:brightness(1.15)}
+textarea{display:block;resize:vertical;width:100%;min-height:310px;border:1px solid #4d5a63;border-radius:8px;background:#09121b;color:#dbe5ea;padding:14px;font:13px/1.5 Consolas,Monaco,monospace}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.status{display:inline-flex;border:1px solid #5a6370;border-radius:7px;padding:9px 12px;color:#ced7df;font-weight:800;font-size:12px}
+.status.pass{border-color:#35866d;color:#98e2c2}.status.hold{border-color:#ac7655;color:#fac1a2}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:18px 0}
+.stat{border:1px solid #394755;padding:12px;border-radius:8px;background:#111923}
+.stat strong{display:block;font-size:24px;color:#eacb8a}.stat small{color:#aebbc7}
+.issues{padding-left:20px;color:#c9d4dd;font:12px/1.8 Consolas,monospace}
+h2,h3{margin-top:26px}.muted{font-size:12px;color:#98aab9;line-height:1.7}.ok{color:#8ed5b3}
+footer{border-top:1px solid #303943;margin-top:48px;padding:28px 0;color:#98aab9;font-size:13px}
+@media(max-width:760px){.workbench{grid-template-columns:1fr}.column+.column{border-left:0;border-top:1px solid #3e4852}.hero{padding-top:45px}}
+</style>
+</head>
+<body>
+<header><nav class="wrap"><a class="brand" href="/">ARAZVERA<small>TECHNOLOGIES</small></a><div class="links"><a href="/buyer-lab/">Buyer lab</a><a href="/buyer-lab/proof-plus/">Proof Plus</a><a href="https://github.com/arazvera-technologies/arazvera-engineering-portfolio">Portfolio</a></div></nav></header>
+<main class="wrap">
+<section class="hero">
+<p class="eyebrow">Independent engineering proof · Level 7 · synthetic demonstration</p>
+<h1>Supplier data.<br><em>Prove it before import.</em></h1>
+<p class="lead">Explore a browser-only illustration of detecting missing identifiers, duplicate supplier records, numeric type errors and out-of-range measurements. Edit fictional JSON, run the checks and export a non-disclosing summary. No server, login, account or proprietary Python source is used.</p>
+<div class="metrics"><div class="metric"><strong>100/100</strong><span>Private L7 isolated Python tests passed</span></div><div class="metric"><strong>11</strong><span>New Python preflight tests</span></div><div class="metric"><strong>8/8</strong><span>Public JavaScript tests passed</span></div></div>
+<p class="note">The numbers above describe a local AI-assisted private engineering branch (100-test suite) and this separate independent JavaScript illustration (8 tests). Neither establishes a production deployment or third-party certification.</p>
+</section>
+<div class="panel"><div class="panel-head"><strong>SUPPLIER INTAKE · PREFLIGHT CONSOLE</strong><span>Fictional JSON only · no data leaves your browser</span></div>
+<div class="workbench"><section class="column"><label class="label" for="data">Record input · fictional JSON array</label><div class="buttons"><button type="button" id="passing">Load passing example</button><button type="button" id="failing">Load failing example</button></div><textarea id="data" aria-label="Editable fictional JSON input" spellcheck="false"></textarea><div class="actions"><button class="primary" id="run" type="button">Run preflight</button><button id="export" type="button" disabled>Export JSON report</button></div><p class="muted">Up to 100 records. This is a local illustration and does not check conflicts against an actual supplier database.</p></section>
+<section class="column"><div class="label">Result</div><div id="result" class="status" role="status" aria-live="polite">Awaiting run</div><div id="report" aria-live="polite"></div><p class="muted">The browser report contains summary counts and finding codes, not the original supplier values. Do not enter private or production data.</p></section>
+</div></div>
+<section><h2>From demonstration to commercial delivery</h2><p class="lead">ARAZVERA's private Supplier Evidence Network adds an AI-assisted, read-only pre-ingest validator with bounded findings and reproducible SHA-256 fingerprints. This public page is an independent simulation of part of that concept, <strong>not the private Python backend</strong>. Real ERP, customer authentication, production security review and buyer acceptance remain separate work.</p><p><a href="https://github.com/arazvera-technologies/arazvera-engineering-portfolio/blob/main/catalog/level-7/supplier-evidence-network.md">Read the source-free Level 7 technical brief</a> · <a href="mailto:contact.arazvera@gmail.com?subject=Supplier%20Preflight%20paid%20pilot">Request a written paid pilot</a></p></section>
+</main><footer><div class="wrap">ARAZVERA TECHNOLOGIES · Source-free synthetic evidence · No production SLA, certification or rights to private source granted.</div></footer>
+<script type="module" src="./app.mjs"></script>
+</body></html>

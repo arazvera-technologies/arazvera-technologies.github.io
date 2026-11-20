@@ -1,0 +1,9 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {inspect,EXAMPLES} from './preflight.mjs';
+test('valid fictional records pass',()=>{const r=inspect(EXAMPLES.clean);assert.equal(r.total,2);assert.equal(r.accepted,2);assert.equal(r.rejected,0);assert.deepEqual(r.findings,[]);});
+test('missing required value rejected',()=>{const r=inspect([{partId:'P-1',weightKg:2},{partId:'P-2'}]);assert.equal(r.rejected,1);assert.deepEqual(r.findings,[{row:2,field:'weightKg',code:'REQUIRED_MISSING'}]);});
+test('duplicate on second row',()=>{const r=inspect([{partId:'P-1',weightKg:2},{partId:'P-1',weightKg:3}]);assert.equal(r.rejected,1);assert.equal(r.findings[0].code,'DUPLICATE_IN_BATCH');});
+test('out of range and type errors',()=>{const r=inspect([{partId:'P-1',weightKg:110},{partId:'P-2',weightKg:'oops'}]);assert.equal(r.rejected,2);assert.deepEqual(r.counts,{TYPE_MISMATCH:1,OUT_OF_RANGE:1});});
+test('invalid shape fails closed',()=>{assert.throws(()=>inspect({partId:'P-1'}),/array/i);assert.throws(()=>inspect([]),/1 to 100/i);assert.throws(()=>inspect([null]),/object/i);});
+test('report does not echo source raw values',()=>{const r=inspect([{partId:'SENSITIVE-LABEL-456',weightKg:'SECRET-RAW-VALUE'}]);assert.doesNotMatch(JSON.stringify(r),/SENSITIVE-LABEL-456|SECRET-RAW-VALUE/);});
+test('issue limit preserves counts',()=>{const r=inspect(Array.from({length:5},(_,i)=>({partId:'P-'+i})),2);assert.equal(r.rejected,5);assert.equal(r.findings.length,2);assert.equal(r.omitted,3);});
+test('input is unchanged',()=>{const data=[{partId:' P-1 ',weightKg:4}];const before=JSON.stringify(data);inspect(data);assert.equal(JSON.stringify(data),before);});
