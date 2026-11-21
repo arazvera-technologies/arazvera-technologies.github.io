@@ -12,7 +12,7 @@ test('Company home proof area offers a direct path to the already-published Proo
 });
 test('Original company links and brand logo stay present when Proof Plus is surfaced',()=>{
   assert.match(html,/href="\/lab\/"/);
-  assert.match(html,/src="assets\/logo\.png"/);
+  assert.match(html,/src="assets\/logo-128\.webp"/);
   assert.match(html,/href="\/verification\/"/);
   assert.match(html,/https:\/\/arazvera-technologies\.github\.io\/arazvera-workflow-studio\//);
 });
