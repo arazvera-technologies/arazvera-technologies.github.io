@@ -189,3 +189,6 @@ html[lang="fa"] .contact-section .btn{font-size:14px}
 
 /* On small screens prefer the static branded visual to GPU rendering. */
 @media(max-width:760px){#scene{display:none}.visual-fallback{opacity:.9}}
+
+/* Compact English quote link to avoid mobile header crowding. */
+.nav-contact .quote-long{display:inline;margin-left:0;font-size:inherit}.nav-contact .quote-short{display:none;margin-left:0;font-size:inherit}@media(max-width:760px){html[lang="en"] .nav-contact .quote-long{display:none}html[lang="en"] .nav-contact .quote-short{display:inline;margin-left:0;font-size:inherit}html[lang="en"] .nav-contact .nav-arrow{display:none}}

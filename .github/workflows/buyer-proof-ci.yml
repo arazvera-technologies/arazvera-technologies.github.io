@@ -17,6 +17,7 @@ on:
       - "tests/public_site_guard.test.mjs"
       - "tests/buyer_mobile_conversion.test.mjs"
       - "tests/homepage_mobile_performance.test.mjs"
+      - "tests/mobile_quote_header.test.mjs"
       - "tests/homepage_proof_plus_visibility.test.mjs"
       - "tests/buyer_proof_engine.test.mjs"
       - "tests/buyer_matcher.test.mjs"
@@ -39,6 +40,7 @@ on:
       - "tests/public_site_guard.test.mjs"
       - "tests/buyer_mobile_conversion.test.mjs"
       - "tests/homepage_mobile_performance.test.mjs"
+      - "tests/mobile_quote_header.test.mjs"
       - "tests/homepage_proof_plus_visibility.test.mjs"
   workflow_dispatch:
 
@@ -55,7 +57,7 @@ jobs:
         with:
           node-version: "22"
       - name: Guard public links, sitemap and paid-pilot metadata
-        run: node --test tests/public_site_guard.test.mjs tests/buyer_mobile_conversion.test.mjs tests/homepage_mobile_performance.test.mjs tests/homepage_proof_plus_visibility.test.mjs && node tools/audit_public_site.mjs .
+        run: node --test tests/public_site_guard.test.mjs tests/buyer_mobile_conversion.test.mjs tests/homepage_mobile_performance.test.mjs tests/homepage_proof_plus_visibility.test.mjs tests/mobile_quote_header.test.mjs && node tools/audit_public_site.mjs .
       - name: Execute public synthetic engine regression tests
         run: node --test tests/buyer_proof_engine.test.mjs tests/buyer_matcher.test.mjs tests/buyer_evidence_ledger.test.mjs
       - name: Rebuild deterministic scenario outputs
