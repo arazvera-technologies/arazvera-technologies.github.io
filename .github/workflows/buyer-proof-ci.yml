@@ -4,11 +4,36 @@ on:
   push:
     paths:
       - "buyer-lab/**"
+      - "index.html"
+      - "sitemap.xml"
+      - "assets/**"
+      - "company/**"
+      - "fa/**"
+      - "lab/**"
+      - "links/**"
+      - "verification/**"
+      - "workshop/**"
+      - "tools/audit_public_site.mjs"
+      - "tests/public_site_guard.test.mjs"
       - "tests/buyer_proof_engine.test.mjs"
       - "tests/buyer_matcher.test.mjs"
       - "tests/buyer_evidence_ledger.test.mjs"
       - "tools/build_buyer_proof_samples.mjs"
       - ".github/workflows/buyer-proof-ci.yml"
+  pull_request:
+    paths:
+      - "buyer-lab/**"
+      - "index.html"
+      - "sitemap.xml"
+      - "assets/**"
+      - "company/**"
+      - "fa/**"
+      - "lab/**"
+      - "links/**"
+      - "verification/**"
+      - "workshop/**"
+      - "tools/audit_public_site.mjs"
+      - "tests/public_site_guard.test.mjs"
   workflow_dispatch:
 
 permissions:
@@ -23,6 +48,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Guard public links, sitemap and paid-pilot metadata
+        run: node --test tests/public_site_guard.test.mjs && node tools/audit_public_site.mjs .
       - name: Execute public synthetic engine regression tests
         run: node --test tests/buyer_proof_engine.test.mjs tests/buyer_matcher.test.mjs tests/buyer_evidence_ledger.test.mjs
       - name: Rebuild deterministic scenario outputs
