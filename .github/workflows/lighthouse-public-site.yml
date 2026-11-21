@@ -1,0 +1,80 @@
+name: ARAZVERA Website Lighthouse Audit
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lighthouse-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CHROME_PATH: /usr/bin/google-chrome
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify Chrome runtime
+        run: |
+          which google-chrome
+          google-chrome --version
+      - name: Audit mobile homepage
+        continue-on-error: true
+        run: |
+          mkdir -p lighthouse-output
+          npx --yes lighthouse@13.6.0 https://arazvera-technologies.github.io/ \
+            --quiet --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
+            --output=json --output-path=lighthouse-output/home-mobile.json
+      - name: Audit mobile buyer landing
+        continue-on-error: true
+        run: |
+          npx --yes lighthouse@13.6.0 https://arazvera-technologies.github.io/buyer-lab/battery-data-pilot/ \
+            --quiet --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
+            --output=json --output-path=lighthouse-output/battery-mobile.json
+      - name: Audit desktop homepage
+        continue-on-error: true
+        run: |
+          npx --yes lighthouse@13.6.0 https://arazvera-technologies.github.io/ \
+            --preset=desktop --quiet --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
+            --output=json --output-path=lighthouse-output/home-desktop.json
+      - name: Summarize performance and SEO scores
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import glob, json, os, sys
+          names = sorted(glob.glob('lighthouse-output/*.json'))
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as out:
+              print('## ARAZVERA Lighthouse diagnostics', file=out)
+              print('| Audit | Performance | Accessibility | Best practices | SEO | LCP (ms) | CLS |', file=out)
+              print('|---|---:|---:|---:|---:|---:|---:|', file=out)
+              for name in names:
+                  with open(name, encoding='utf-8') as f:
+                      report = json.load(f)
+                  categories = report.get('categories', {})
+                  def score(key):
+                      value = categories.get(key, {}).get('score')
+                      return str(round(value*100)) if value is not None else 'N/A'
+                  audits=report.get('audits', {})
+                  lcp=audits.get('largest-contentful-paint',{}).get('numericValue')
+                  cls=audits.get('cumulative-layout-shift',{}).get('numericValue')
+                  print('| ' + name.split('/')[-1] + ' | ' + ' | '.join([
+                      score('performance'),score('accessibility'),
+                      score('best-practices'),score('seo'),
+                      str(round(lcp)) if lcp is not None else 'N/A',
+                      str(round(cls,3)) if cls is not None else 'N/A'])+' |',file=out)
+          print('REPORT_FILES',len(names))
+          if len(names) != 3:
+              print('Missing one or more Lighthouse reports',file=sys.stderr)
+              sys.exit(1)
+          PY
+      - name: Archive machine-readable audit reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-public-site
+          path: lighthouse-output/*.json
+          if-no-files-found: warn
+          retention-days: 14
