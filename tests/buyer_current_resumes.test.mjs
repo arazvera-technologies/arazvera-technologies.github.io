@@ -1,0 +1,20 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const buyer=fs.readFileSync(path.join(root,'buyer-lab/index.html'),'utf8');
+const base='https://github.com/arazvera-technologies/arazvera-engineering-portfolio/blob/main';
+test('Buyer Lab leads with verified current Level 1 and Level 2 resumes',()=>{
+ const l1=base+'/resumes/level-1/ARAZVERA_Level1_Engineering_Resume_EN.pdf';
+ const l2=base+'/resumes/level-2/ARAZVERA_Level2_Backend_Systems_Resume_EN.pdf';
+ assert.ok(buyer.includes('href="'+l1+'"'),'current L1 resume must be public');
+ assert.ok(buyer.includes('href="'+l2+'"'),'current L2 resume must be public');
+ assert.match(buyer,/Level 1 engineering résumé \(PDF\)/);
+ assert.match(buyer,/Level 2 backend systems résumé \(PDF\)/);
+ const old=buyer.indexOf('Seven-level résumé PDF');
+ const fresh=buyer.indexOf('Level 1 engineering résumé (PDF)');
+ assert.ok(fresh>=0&&fresh<old,'current resumes precede older general overview');
+ assert.ok(buyer.includes('downloads/ARAZVERA_Complete_Resume_Pack_20261118.zip'),'existing download preserved');
+});
