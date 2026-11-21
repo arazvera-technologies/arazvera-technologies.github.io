@@ -23,7 +23,7 @@
     document.querySelectorAll('.work-card,.principles div,.proof-list a,.founder-monogram').forEach(node=>intersectionObserver.observe(node));
   }
   const canvas=document.getElementById('scene');
-  if(!canvas||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  if(!canvas||window.matchMedia('(prefers-reduced-motion: reduce)').matches||window.matchMedia('(max-width: 760px)').matches)return;
   const gl=canvas.getContext('webgl',{alpha:true,premultipliedAlpha:false,antialias:true,powerPreference:'low-power'});
   if(!gl)return;
   const vertexSource=`

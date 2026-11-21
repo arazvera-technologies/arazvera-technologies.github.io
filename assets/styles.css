@@ -186,3 +186,6 @@ html[lang="fa"] .footer{font-size:14px}
 
 /* Make the Persian contact button match the English button's readability. */
 html[lang="fa"] .contact-section .btn{font-size:14px}
+
+/* On small screens prefer the static branded visual to GPU rendering. */
+@media(max-width:760px){#scene{display:none}.visual-fallback{opacity:.9}}
