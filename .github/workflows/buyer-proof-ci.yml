@@ -21,6 +21,7 @@ on:
       - "tests/sales_contact_fallback.test.mjs"
       - "tests/buyer_current_resumes.test.mjs"
       - "tests/homepage_proof_plus_visibility.test.mjs"
+      - "tests/storefront_demo_guard.test.mjs"
       - "tests/buyer_proof_engine.test.mjs"
       - "tests/buyer_matcher.test.mjs"
       - "tests/buyer_evidence_ledger.test.mjs"
@@ -46,6 +47,7 @@ on:
       - "tests/sales_contact_fallback.test.mjs"
       - "tests/buyer_current_resumes.test.mjs"
       - "tests/homepage_proof_plus_visibility.test.mjs"
+      - "tests/storefront_demo_guard.test.mjs"
   workflow_dispatch:
 
 permissions:
@@ -64,6 +66,8 @@ jobs:
         run: node --test tests/public_site_guard.test.mjs tests/buyer_mobile_conversion.test.mjs tests/homepage_mobile_performance.test.mjs tests/homepage_proof_plus_visibility.test.mjs tests/mobile_quote_header.test.mjs tests/sales_contact_fallback.test.mjs tests/buyer_current_resumes.test.mjs && node tools/audit_public_site.mjs .
       - name: Execute public synthetic engine regression tests
         run: node --test tests/buyer_proof_engine.test.mjs tests/buyer_matcher.test.mjs tests/buyer_evidence_ledger.test.mjs
+      - name: Guard demo storefront public-only checkout boundaries
+        run: node --test tests/storefront_demo_guard.test.mjs
       - name: Rebuild deterministic scenario outputs
         run: node tools/build_buyer_proof_samples.mjs
       - name: Detect sample-result regression
