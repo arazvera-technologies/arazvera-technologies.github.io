@@ -1,0 +1,31 @@
+name: ARAZVERA Store Demo — simulated checkout regression
+
+on:
+  push:
+    paths:
+      - "buyer-lab/store-demo/**"
+      - "buyer-lab/catalog.json"
+      - ".github/workflows/store-demo-qa.yml"
+  pull_request:
+    paths:
+      - "buyer-lab/store-demo/**"
+      - "buyer-lab/catalog.json"
+      - ".github/workflows/store-demo-qa.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  storefront-sandbox:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install DOM harness (CI only)
+        run: npm install --no-save --no-package-lock --ignore-scripts jsdom@26.1.0
+      - name: Check storefront rendering, safe checkout and demo receipt
+        run: node --test buyer-lab/store-demo/storefront.test.mjs
