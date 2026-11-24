@@ -6,3 +6,5 @@
 
 .product a.try-demo{display:block;margin-top:6px;padding:8px 9px;border:1px solid #786844;background:#20221e;border-radius:3px;text-align:center;color:#ead093;font-size:11px;letter-spacing:.02em}
 .product a.try-demo:hover{background:#302b20;border-color:#e2c282}
+
+.catalog-art{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;border-radius:8px;margin:12px 0;background:#080b10}.catalog-art-tile{position:relative;overflow:hidden;width:100%;aspect-ratio:1;margin:12px 0;border-radius:8px;background:#080b10}.catalog-art-tile .catalog-art{position:absolute;width:201.3%;height:201.3%;max-width:none;margin:0;left:0;top:0;object-fit:fill}.catalog-art-tr .catalog-art,.catalog-art-br .catalog-art{left:-101.3%}.catalog-art-bl .catalog-art,.catalog-art-br .catalog-art{top:-101.3%}
