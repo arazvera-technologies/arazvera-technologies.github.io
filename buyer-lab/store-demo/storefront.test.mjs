@@ -135,18 +135,20 @@ test('unavailable public catalog fails closed without exposing products or enabl
   dom.window.close();
 });
 
-test('four approved artworks appear only on the corresponding SKU cards', async () => {
+test('eight approved artworks appear only on the corresponding SKU cards', async () => {
   const { document: d, dom } = await session();
-  const expected = {"ARAZVERA-L2-DOCUMENT-REPORTING-001":"images/document-reporting.jpg","ARAZVERA-L2-NOTIFICATION-OUTBOX-001":"images/notification-outbox.jpg","ARAZVERA-L2-RESILIENT-WEBHOOK-PIPELINE-001":"images/resilient-webhook-pipeline.jpg","ARAZVERA-L2-DATA-RECONCILIATION-LAB-001":"images/data-reconciliation-lab.jpg"};
+  const expected = {"ARAZVERA-L2-DOCUMENT-REPORTING-001":"images/document-reporting.jpg","ARAZVERA-L2-NOTIFICATION-OUTBOX-001":"images/notification-outbox.jpg","ARAZVERA-L2-RESILIENT-WEBHOOK-PIPELINE-001":"images/resilient-webhook-pipeline.jpg","ARAZVERA-L2-DATA-RECONCILIATION-LAB-001":"images/data-reconciliation-lab.jpg","ARAZVERA-L2-N8N-WORKFLOW-AUDIT-001":"images/level2-artwork-02.png","ARAZVERA-L2-AI-EVALUATION-001":"images/level2-artwork-02.png","ARAZVERA-L2-API-INTEGRATION-STARTER-001":"images/level2-artwork-02.png","ARAZVERA-L2-BACKEND-HARDENING-001":"images/level2-artwork-02.png"};
+  const quadrants = {"ARAZVERA-L2-N8N-WORKFLOW-AUDIT-001":"tl","ARAZVERA-L2-AI-EVALUATION-001":"tr","ARAZVERA-L2-API-INTEGRATION-STARTER-001":"bl","ARAZVERA-L2-BACKEND-HARDENING-001":"br"};
   const cards = [...d.querySelectorAll('.item')];
   assert.equal(cards.length, 44);
-  assert.equal(d.querySelectorAll('.productArtwork').length, 4);
+  assert.equal(d.querySelectorAll('.productArtwork').length, 8);
   for (const card of cards) {
     const id = card.querySelector('.sku').textContent;
     const artwork = card.querySelector('.productArtwork');
     if (expected[id]) {
       assert.equal(artwork?.getAttribute('src'), expected[id]);
       assert.ok(artwork?.alt);
+      if (quadrants[id]) assert.ok(artwork.parentElement.classList.contains('artwork-' + quadrants[id]));
       assert.ok(fs.existsSync(path.join(here, expected[id])));
     } else assert.equal(artwork, null);
   }
