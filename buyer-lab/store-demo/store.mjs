@@ -2,6 +2,7 @@ const $ = id => document.getElementById(id);
 const money = amount => "$" + Math.round(amount).toLocaleString("en-US");
 const tierPrice = {L2:299,L3:1299,L4:2999,BUNDLE:1999};
 const featuredIds = ["ARAZVERA-L2-DATA-RECONCILIATION-LAB-001","ARAZVERA-L2-RESILIENT-WEBHOOK-PIPELINE-001","ARAZVERA-L2-NOTIFICATION-OUTBOX-001","ARAZVERA-L2-N8N-WORKFLOW-AUDIT-001","ARAZVERA-L2-DOCUMENT-REPORTING-001"];
+const productArtwork = Object.freeze({"ARAZVERA-L2-DOCUMENT-REPORTING-001":"images/document-reporting.jpg","ARAZVERA-L2-NOTIFICATION-OUTBOX-001":"images/notification-outbox.jpg","ARAZVERA-L2-RESILIENT-WEBHOOK-PIPELINE-001":"images/resilient-webhook-pipeline.jpg","ARAZVERA-L2-DATA-RECONCILIATION-LAB-001":"images/data-reconciliation-lab.jpg"});
 let products=[],cart=new Map(),detailId="",receipt=null;
 function el(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n}
 function clean(p){return p && p.bank==="historical-44" && /^ARAZVERA-(L2|L3|L4|BUNDLE)-[A-Z0-9-]+$/.test(p.id) && typeof p.title==="string" && typeof p.evidence==="string"}
@@ -24,7 +25,7 @@ const grid=$("grid");grid.replaceChildren();
 for(const p of arr){const item=el("article","item"),top=el("div","itemTop"),tag=el("span","tag",p.level==="BUNDLE"?"BUNDLE":p.level),ft=el("span","featured",featuredIds.includes(p.id)?"FEATURED LAB":"RELEASE GATED");top.append(tag,ft);
 const title=el("h3","",p.title),id=el("p","sku",p.id),ev=el("p","evidence",p.evidence),bottom=el("div","itemBottom"),price=el("div","price"),pr=el("strong","",money(tierPrice[p.level])),lab=el("small","","FICTIONAL DEMO USD");price.append(pr,lab);
 const btn=el("button","buy"+(cart.has(p.id)?" active":""),cart.has(p.id)?"Added ✓":"+ Add to demo cart");btn.type="button";btn.addEventListener("click",()=>toggle(p.id));
-bottom.append(price,btn);const more=el("button","detailLink","View scope & evidence ↗");more.type="button";more.addEventListener("click",()=>details(p.id));item.append(top,title,id,ev,bottom,more,quoteLink([p]));grid.append(item)}
+bottom.append(price,btn);const more=el("button","detailLink","View scope & evidence ↗");more.type="button";more.addEventListener("click",()=>details(p.id));item.append(top);if(Object.hasOwn(productArtwork,p.id)){const img=el("img","productArtwork");img.src=productArtwork[p.id];img.alt=p.title+" — product illustration";img.width=1248;img.height=1248;img.loading="lazy";img.decoding="async";item.append(img)}item.append(title,id,ev,bottom,more,quoteLink([p]));grid.append(item)}
 }
 function toggle(id){if(cart.has(id))cart.delete(id);else{const p=products.find(x=>x.id===id);if(p)cart.set(id,p)}draw();drawCart()}
 function subtotal(){return [...cart.values()].reduce((a,p)=>a+tierPrice[p.level],0)}

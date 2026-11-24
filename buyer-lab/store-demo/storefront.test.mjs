@@ -91,7 +91,7 @@ test('cart, consent, simulated checkout and unlocked text demo flow', async () =
   assert.equal(d.getElementById('checkout').disabled, false);
   click(d, 'openCart');
   assert.equal(d.getElementById('drawer').getAttribute('aria-hidden'), 'false');
-  assert.equal(d.getElementById('cartItems').children.length, 1);
+  assert.equal(d.getElementById('cartItems').querySelectorAll('.cartLine').length, 1);
   click(d, 'checkout');
   assert.equal(d.getElementById('drawer').getAttribute('aria-hidden'), 'true');
   assert.equal(d.getElementById('pay').open, true);
@@ -116,7 +116,7 @@ test('detail modal provides only public proof; malicious titles are rendered as 
   item.title = '<img src=x onerror=alert(1)>';
   const { document: d, dom } = await session(hostile);
   assert.ok(d.querySelector('.item h3').textContent.length > 0);
-  assert.equal(d.querySelector('.item img'), null);
+  assert.equal(d.querySelector('.item img[onerror]'), null);
   const button = Array.from(d.querySelectorAll('.detailLink')).find(n => !!n);
   button.click();
   assert.equal(d.getElementById('detail').open, true);
@@ -132,5 +132,23 @@ test('unavailable public catalog fails closed without exposing products or enabl
   assert.equal(d.getElementById('grid').children.length, 0);
   assert.equal(d.getElementById('checkout').disabled, true);
   assert.match(d.getElementById('message').textContent, /temporarily unavailable/i);
+  dom.window.close();
+});
+
+test('four approved artworks appear only on the corresponding SKU cards', async () => {
+  const { document: d, dom } = await session();
+  const expected = {"ARAZVERA-L2-DOCUMENT-REPORTING-001":"images/document-reporting.jpg","ARAZVERA-L2-NOTIFICATION-OUTBOX-001":"images/notification-outbox.jpg","ARAZVERA-L2-RESILIENT-WEBHOOK-PIPELINE-001":"images/resilient-webhook-pipeline.jpg","ARAZVERA-L2-DATA-RECONCILIATION-LAB-001":"images/data-reconciliation-lab.jpg"};
+  const cards = [...d.querySelectorAll('.item')];
+  assert.equal(cards.length, 44);
+  assert.equal(d.querySelectorAll('.productArtwork').length, 4);
+  for (const card of cards) {
+    const id = card.querySelector('.sku').textContent;
+    const artwork = card.querySelector('.productArtwork');
+    if (expected[id]) {
+      assert.equal(artwork?.getAttribute('src'), expected[id]);
+      assert.ok(artwork?.alt);
+      assert.ok(fs.existsSync(path.join(here, expected[id])));
+    } else assert.equal(artwork, null);
+  }
   dom.window.close();
 });
