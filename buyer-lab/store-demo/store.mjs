@@ -5,6 +5,16 @@ const featuredIds = ["ARAZVERA-L2-DATA-RECONCILIATION-LAB-001","ARAZVERA-L2-RESI
 let products=[],cart=new Map(),detailId="",receipt=null;
 function el(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n}
 function clean(p){return p && p.bank==="historical-44" && /^ARAZVERA-(L2|L3|L4|BUNDLE)-[A-Z0-9-]+$/.test(p.id) && typeof p.title==="string" && typeof p.evidence==="string"}
+
+// Real enquiries are drafts only; no payment, price commitment, or source delivery.
+function quoteLink(items){
+  const link=el("a","detailLink",items.length===1?"Request USD quote by email ↗":"Request USD quote for selected items ↗");
+  const subject="ARAZVERA USD quote request";
+  const body=["Hello ARAZVERA,","", "Please provide a written USD quote and licensing terms for:",...items.map(p=>"- "+p.id+" / "+p.title),"","Project requirements: ","Delivery timeline: ","","I understand this is an enquiry only, not an order or payment."].join("\r\n");
+  link.href="mailto:contact.arazvera@gmail.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
+  return link;
+}
+
 function setState(msg){$("message").textContent=msg}
 function draw(){const term=$("query").value.toLowerCase().trim(),lvl=$("level").value,sort=$("sort").value;
 let arr=products.filter(p=>(lvl==="all"||p.level===lvl)&&(!term||(p.title+" "+p.id+" "+p.evidence).toLowerCase().includes(term)));
@@ -14,13 +24,13 @@ const grid=$("grid");grid.replaceChildren();
 for(const p of arr){const item=el("article","item"),top=el("div","itemTop"),tag=el("span","tag",p.level==="BUNDLE"?"BUNDLE":p.level),ft=el("span","featured",featuredIds.includes(p.id)?"FEATURED LAB":"RELEASE GATED");top.append(tag,ft);
 const title=el("h3","",p.title),id=el("p","sku",p.id),ev=el("p","evidence",p.evidence),bottom=el("div","itemBottom"),price=el("div","price"),pr=el("strong","",money(tierPrice[p.level])),lab=el("small","","FICTIONAL DEMO USD");price.append(pr,lab);
 const btn=el("button","buy"+(cart.has(p.id)?" active":""),cart.has(p.id)?"Added ✓":"+ Add to demo cart");btn.type="button";btn.addEventListener("click",()=>toggle(p.id));
-bottom.append(price,btn);const more=el("button","detailLink","View scope & evidence ↗");more.type="button";more.addEventListener("click",()=>details(p.id));item.append(top,title,id,ev,bottom,more);grid.append(item)}
+bottom.append(price,btn);const more=el("button","detailLink","View scope & evidence ↗");more.type="button";more.addEventListener("click",()=>details(p.id));item.append(top,title,id,ev,bottom,more,quoteLink([p]));grid.append(item)}
 }
 function toggle(id){if(cart.has(id))cart.delete(id);else{const p=products.find(x=>x.id===id);if(p)cart.set(id,p)}draw();drawCart()}
 function subtotal(){return [...cart.values()].reduce((a,p)=>a+tierPrice[p.level],0)}
 function drawCart(){$("cartCount").textContent=cart.size;$("subtotal").textContent=money(subtotal());$("checkout").disabled=cart.size===0;const root=$("cartItems");root.replaceChildren();
 if(!cart.size){root.append(el("p","micro","Your demo cart is empty. Select any foundation to try the flow."));return}
-for(const p of cart.values()){const line=el("div","cartLine"),left=el("div"),title=el("b","",p.title),small=el("small","",p.level+" · "+money(tierPrice[p.level])+" example"),remove=el("button","remove","Remove");remove.type="button";remove.addEventListener("click",()=>toggle(p.id));left.append(title,small);line.append(left,remove);root.append(line)}}
+for(const p of cart.values()){const line=el("div","cartLine"),left=el("div"),title=el("b","",p.title),small=el("small","",p.level+" · "+money(tierPrice[p.level])+" example"),remove=el("button","remove","Remove");remove.type="button";remove.addEventListener("click",()=>toggle(p.id));left.append(title,small);line.append(left,remove);root.append(line)}root.append(quoteLink([...cart.values()]))}
 function openCart(){$("veil").hidden=false;$("drawer").classList.add("open");$("drawer").setAttribute("aria-hidden","false");document.body.style.overflow="hidden";$("closeCart").focus()}
 function closeCart(){$("drawer").classList.remove("open");$("drawer").setAttribute("aria-hidden","true");$("veil").hidden=true;document.body.style.overflow=""}
 function details(id){const p=products.find(x=>x.id===id);if(!p)return;detailId=id;$("dLevel").textContent=p.level;$("dTitle").textContent=p.title;$("dId").textContent=p.id;$("dEvidence").textContent=p.evidence;$("dReadiness").textContent=p.readiness||"Engineering lab; not production or sale-cleared.";
