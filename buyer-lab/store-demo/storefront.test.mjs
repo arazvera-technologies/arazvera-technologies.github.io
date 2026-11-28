@@ -64,7 +64,7 @@ test('quote list selects products and opens a product-specific email enquiry',as
 });
 
 test('detail modal uses safe text and includes a written quote link',async()=>{
- const hostile=JSON.parse(JSON.stringify(catalog)),product=hostile.products.find(p=>p.bank==='historical-44');
+ const hostile=JSON.parse(JSON.stringify(catalog)),product=hostile.products.find(p=>p.id==='ARAZVERA-L2-DATA-RECONCILIATION-LAB-001');
  const id=product.id;product.title='<img src=x onerror=alert(1)>';
  const{document:d,dom}=await session(hostile);
  assert.equal(d.querySelector('.item img[onerror]'),null);
