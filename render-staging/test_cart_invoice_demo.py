@@ -1,7 +1,11 @@
 import unittest
+import io
+import re
+import time
+from html import unescape
 from unittest.mock import patch
 from urllib.parse import urlencode
-from cart_invoice_demo import quote_cart,invoice_page
+from cart_invoice_demo import quote_cart,invoice_page,confirm_page,sample_download,_sign
 from app import application
 
 class CartInvoiceTests(unittest.TestCase):
@@ -31,3 +35,28 @@ class CartInvoiceTests(unittest.TestCase):
         self.assertIn(b"NO LIVE PAYMENT",body)
         self.assertIn(b"1598.00",body)
         self.assertNotIn(b"bitcoin:",body)
+
+    @patch("cart_invoice_demo.rates_snapshot")
+    def test_confirm_then_download(self,m):
+        m.return_value={"rates":{"USDT":{"usd":"1","last_updated_at":int(time.time()),"source":"test"}}}
+        status,body,_=invoice_page(urlencode(self.items))
+        self.assertEqual(status,"200 OK")
+        self.assertNotIn(b"/demo/cart-download?",body)
+        quote=re.search(r'name="quote" value="([^"]+)"',body.decode()).group(1)
+        raw=urlencode({"quote":quote,"consent":"yes"}).encode()
+        env={"HTTP_ORIGIN":"https://arazvera-store.onrender.com","CONTENT_TYPE":"application/x-www-form-urlencoded","CONTENT_LENGTH":str(len(raw)),"wsgi.input":io.BytesIO(raw)}
+        status,body,_=confirm_page(env)
+        self.assertEqual(status,"200 OK")
+        link=unescape(re.search(r'href="(/demo/cart-download\?[^"]+)"',body.decode()).group(1))
+        status,content,_=sample_download(link.split("?",1)[1])
+        self.assertEqual(status,"200 OK")
+        self.assertIn(b"NO PAYMENT, LICENSE OR PRIVATE PRODUCT",content)
+        self.assertEqual(sample_download("ticket=invalid")[0],"400 Bad Request")
+        self.assertEqual(sample_download(urlencode({"ticket":quote}))[0],"400 Bad Request")
+        self.assertEqual(sample_download(urlencode({"ticket":_sign("sample",{},time.time()-1)}))[0],"400 Bad Request")
+    def test_no_consent_or_cross_origin(self):
+        raw=b"quote=fake&consent=no"
+        env={"HTTP_ORIGIN":"https://example.com","CONTENT_TYPE":"application/x-www-form-urlencoded","CONTENT_LENGTH":str(len(raw)),"wsgi.input":io.BytesIO(raw)}
+        self.assertEqual(confirm_page(env)[0],"403 Forbidden")
+        env["HTTP_ORIGIN"]="https://arazvera-store.onrender.com"
+        self.assertEqual(confirm_page(env)[0],"400 Bad Request")
