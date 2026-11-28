@@ -68,6 +68,8 @@ def application(environ, start_response):
         status, content, kind = '200 OK', HOME, 'text/html; charset=utf-8'
         if google_demo_enabled():
             content = HOME.replace(b'</body>', b'<p><a style="color:#8ce3ef" href="/api/auth/google">Test Google sign-in (no account created)</a></p></body>')
+        if os.getenv('CUSTOMER_PREVIEW_ENABLED') == '1':
+            content = content.replace(b'</body>', b'<p><a style="color:#8ce3ef" href="/customer-preview/">Sign in with email / Create account (test)</a></p><p>Use a test email only. No live orders or payments.</p></body>')
     else:
         status, content, kind = '404 Not Found', b'Not found', 'text/plain'
     start_response(status, headers + [('Content-Type', kind), ('Content-Length', str(len(content)))])
