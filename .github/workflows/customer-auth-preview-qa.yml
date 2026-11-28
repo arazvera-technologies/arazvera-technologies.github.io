@@ -5,6 +5,7 @@ on:
     paths:
       - 'customer-auth-preview/**'
       - '.github/workflows/customer-auth-preview-qa.yml'
+      - 'render-staging/**'
 permissions:
   contents: read
 jobs:
@@ -31,3 +32,16 @@ jobs:
             customer-auth-preview/dist
             customer-auth-preview/package-lock.json
           retention-days: 7
+  backend-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    defaults:
+      run:
+        working-directory: render-staging
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - run: python -m unittest -v
