@@ -5,6 +5,7 @@ from price_preview import rates_snapshot, demo_quote
 from db_probe import startup_database_status
 from wsgiref.simple_server import make_server, WSGIRequestHandler
 from oauth_demo import oauth, enabled as google_demo_enabled
+from customer_requests import handle as customer_requests
 
 HOME = b'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ARAZVERA Store Staging</title><body style="background:#101820;color:#eee;font:18px system-ui;max-width:700px;margin:40px auto;padding:20px"><h1>ARAZVERA TECHNOLOGIES</h1><h2>Staging server</h2><p>Infrastructure check only. Customer authentication, ticket storage, purchases and private downloads are disabled. Do not submit personal data here.</p><p><a style="color:#8ce3ef" href="https://arazvera-technologies.github.io/buyer-lab/">Browse public demos</a></p><p><a style="color:#8ce3ef" href="https://arazvera-technologies.github.io/buyer-lab/freelance.html">Freelance enquiry via email</a></p></body></html>'''
 HEALTH = b'{"status":"ok","mode":"staging","accounts":false,"tickets":false,"payment":false,"private_download":false}'
@@ -13,7 +14,9 @@ def application(environ, start_response):
     path = environ.get('PATH_INFO', '/')
     method = environ.get('REQUEST_METHOD', 'GET')
     headers = [('Cache-Control', 'no-store'), ('X-Content-Type-Options', 'nosniff'), ('Referrer-Policy', 'no-referrer')]
-    if method not in ('GET', 'HEAD'):
+    if path == '/api/demo/customer/requests':
+        status, content, kind = customer_requests(environ)
+    elif method not in ('GET', 'HEAD'):
         status, content, kind = '405 Method Not Allowed', b'Method not allowed', 'text/plain'
         headers.append(('Allow', 'GET, HEAD'))
     elif path in ('/api/auth/google', '/api/auth/google/callback'):
