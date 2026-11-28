@@ -14,6 +14,9 @@ class StagingTests(unittest.TestCase):
         status,body=self.request('/')
         self.assertEqual(status,'200 OK')
         self.assertIn(b'Staging',body)
+        self.assertIn(b'No account or payment is required to browse',body)
+        self.assertIn(b'https://arazvera-technologies.github.io/buyer-lab/store-demo/',body)
+        self.assertIn(b'https://arazvera-technologies.github.io/buyer-lab/freelance.html',body)
     def test_post_blocked(self):
         self.assertEqual(self.request('/api/tickets','POST')[0],'405 Method Not Allowed')
     def test_unknown(self):
