@@ -1,4 +1,7 @@
 import os
+import json
+from urllib.parse import parse_qs
+from price_preview import rates_snapshot, demo_quote
 from db_probe import startup_database_status
 from wsgiref.simple_server import make_server
 
@@ -15,6 +18,26 @@ def application(environ, start_response):
     elif path == '/db-healthz':
         code, content = startup_database_status()
         status, kind = ('200 OK' if code == 200 else '503 Service Unavailable'), 'application/json'
+    elif path in ('/api/demo/crypto-rates', '/api/demo/crypto-quote'):
+        kind = 'application/json'
+        try:
+            if path.endswith('crypto-rates'):
+                result = rates_snapshot()
+                status = '200 OK' if result['rates'] else '503 Service Unavailable'
+            else:
+                raw = environ.get('QUERY_STRING', '')
+                if len(raw) > 256:
+                    raise ValueError('Invalid query')
+                params = parse_qs(raw, strict_parsing=True, max_num_fields=2)
+                if set(params) != {'usd', 'asset'} or any(len(v) != 1 for v in params.values()):
+                    raise ValueError('Invalid query')
+                result = demo_quote(params['usd'][0], params['asset'][0], rates_snapshot())
+                status = '200 OK'
+        except ValueError:
+            result, status = {'error': 'Invalid demo quote', 'payment_enabled': False}, '400 Bad Request'
+        except LookupError:
+            result, status = {'error': 'Fresh rate unavailable', 'payment_enabled': False}, '503 Service Unavailable'
+        content = json.dumps(result).encode('utf-8')
     elif path == '/healthz':
         status, content, kind = '200 OK', HEALTH, 'application/json'
     elif path == '/':
