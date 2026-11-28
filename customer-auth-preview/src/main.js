@@ -28,6 +28,8 @@ function select(next) {
 function profile(user) {
   const valid = user && user.emailVerified === true;
   show('profile', Boolean(valid)); show('account-form', !valid);
+  show('google-option', !valid);
+  $('quote-result').textContent = '';
   show('verification-form', false);
   $('mode-otp').hidden = $('mode-in').hidden = $('mode-up').hidden = Boolean(valid);
   $('profile-name').textContent = valid ? user.name || 'Customer' : '';
@@ -61,6 +63,11 @@ async function run(fn) {
   try { await fn(); } catch { message('Unable to complete the request. Please try again.'); }
   finally { busy = false; buttons.forEach(b => b.disabled = false); }
 }
+$('google-signin').addEventListener('click',()=>run(async()=>{
+  const {error}=await auth.signIn.social({provider:'google',callbackURL:'https://arazvera-store.onrender.com/customer-preview/'});
+  if(error){message('Google sign-in is unavailable. Try email code instead.');return;}
+  if(await refresh())message('Signed in to the test account.');
+}));
 $('mode-otp').addEventListener('click',()=>select('otp'));
 $('change-email').addEventListener('click',()=>select(mode));
 $('mode-in').addEventListener('click',()=>select('in'));
@@ -144,3 +151,14 @@ $('request-form').addEventListener('submit',e=>{
   });
 });
 $('reload-requests').addEventListener('click',()=>run(listRequests));
+
+$('quote-form').addEventListener('input',()=>{$('quote-result').textContent='';});
+$('quote-form').addEventListener('submit',e=>{e.preventDefault();run(async()=>{
+  const out=$('quote-result');out.textContent='Checking current rate…';
+  try{const params=new URLSearchParams({usd:$('quote-usd').value,asset:$('quote-asset').value});
+  const response=await fetch('/api/demo/crypto-quote?'+params,{cache:'no-store'});
+  if(!response.ok)throw new Error('Rate unavailable');const q=await response.json();
+  if(q.payment_enabled!==false||q.transfer_requested!==false)throw new Error('Unexpected quote');
+  out.textContent='$'+q.usd+' USD ≈ '+q.estimated_amount+' '+q.asset+' · '+q.source+' · Estimate only — do not send funds.';
+  }catch{out.textContent='A fresh rate is unavailable. Try again later. No payment was requested.';}
+});});
