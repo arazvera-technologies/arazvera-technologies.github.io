@@ -5,7 +5,7 @@ const $ = id => document.getElementById(id);
 const show = (id, yes) => { $(id).hidden = !yes; };
 const message = text => { $('message').textContent = text; };
 const account = $('account-form'), verification = $('verification-form');
-let mode = 'in', verifyEmail = '', busy = false, pendingKey = '';
+let mode = 'otp', verifyEmail = '', busy = false, pendingKey = '', codePurpose = 'sign-in', resendAt = 0;
 if (!base) {
   message('Test service is not configured.');
   account.querySelectorAll('input,button').forEach(el => {el.disabled = true;});
@@ -15,8 +15,12 @@ const auth = createAuthClient(base);
 function select(next) {
   mode = next;
   show('name-row', next === 'up');
+  show('password-row', next !== 'otp');
+  $('password').required = next !== 'otp';
+  $('password').disabled = next === 'otp';
+  for (const [id,value] of [['mode-otp','otp'],['mode-in','in'],['mode-up','up']]) $(id).setAttribute('aria-pressed',String(next===value));
   $('password').autocomplete = next === 'up' ? 'new-password' : 'current-password';
-  $('submit-account').textContent = next === 'up' ? 'Create account' : 'Sign in';
+  $('submit-account').textContent = next === 'otp' ? 'Send sign-in code' : next === 'up' ? 'Create account' : 'Sign in';
   show('account-form', true); show('verification-form', false);
   $('password').value = ''; $('otp').value = '';
   message('');
@@ -25,7 +29,7 @@ function profile(user) {
   const valid = user && user.emailVerified === true;
   show('profile', Boolean(valid)); show('account-form', !valid);
   show('verification-form', false);
-  $('mode-in').hidden = $('mode-up').hidden = Boolean(valid);
+  $('mode-otp').hidden = $('mode-in').hidden = $('mode-up').hidden = Boolean(valid);
   $('profile-name').textContent = valid ? user.name || 'Customer' : '';
   $('profile-email').textContent = valid ? user.email || '' : '';
   if (!valid) { $('request-list').replaceChildren(); $('request-form').reset(); pendingKey = ''; }
@@ -39,8 +43,12 @@ async function refresh() {
   if (valid) await listRequests();
   return valid;
 }
-function requireCode(email) {
+function requireCode(email, purpose = 'email-verification') {
   verifyEmail = email;
+  codePurpose = purpose;
+  resendAt = Date.now()+60000;
+  $('code-heading').textContent = purpose === 'sign-in' ? 'Enter your sign-in code' : 'Verify your email';
+  $('submit-code').textContent = purpose === 'sign-in' ? 'Sign in' : 'Verify email';
   $('password').value = '';
   show('account-form', false); show('verification-form', true);
   message('Check your email for the verification code.');
@@ -53,12 +61,19 @@ async function run(fn) {
   try { await fn(); } catch { message('Unable to complete the request. Please try again.'); }
   finally { busy = false; buttons.forEach(b => b.disabled = false); }
 }
+$('mode-otp').addEventListener('click',()=>select('otp'));
+$('change-email').addEventListener('click',()=>select(mode));
 $('mode-in').addEventListener('click',()=>select('in'));
 $('mode-up').addEventListener('click',()=>select('up'));
 account.addEventListener('submit',e=>{
   e.preventDefault(); run(async()=>{
     const email=$('email').value.trim(), password=$('password').value;
     message('Checking…');
+    if (mode === 'otp') {
+      const {error}=await auth.emailOtp.sendVerificationOtp({email,type:'sign-in'});
+      if(error){message('Unable to request a code. Please try again later.');return;}
+      requireCode(email,'sign-in'); return;
+    }
     if (mode === 'up') {
       const {error}=await auth.signUp.email({email,password,name:$('name').value.trim()||'Customer'});
       if (error) { message('Account could not be created. Try signing in or use a different test email.'); return; }
@@ -76,7 +91,7 @@ account.addEventListener('submit',e=>{
 verification.addEventListener('submit',e=>{
   e.preventDefault();run(async()=>{
     const otp=$('otp').value.trim();
-    const {error}=await auth.emailOtp.verifyEmail({email:verifyEmail,otp});
+    const {error}=codePurpose==='sign-in' ? await auth.signIn.emailOtp({email:verifyEmail,otp}) : await auth.emailOtp.verifyEmail({email:verifyEmail,otp});
     $('otp').value='';
     if (error) {message('Code invalid or expired. Request a new one.');return;}
     if (await refresh()) message('Email verified. You are signed in.');
@@ -85,14 +100,17 @@ verification.addEventListener('submit',e=>{
 });
 $('resend').addEventListener('click',()=>run(async()=>{
   if (!verifyEmail) return;
-  const {error}=await auth.emailOtp.sendVerificationOtp({email:verifyEmail,type:'email-verification'});
+  if(Date.now()<resendAt){message('Please wait one minute before requesting another code.');return;}
+  resendAt=Date.now()+60000;
+  const {error}=await auth.emailOtp.sendVerificationOtp({email:verifyEmail,type:codePurpose});
   message(error?'Unable to send a new code. Try later.':'If eligible, a new code has been requested.');
 }));
 $('signout').addEventListener('click',()=>run(async()=>{
   const {error}=await auth.signOut();
   if(error){message('Sign-out failed. Try again.');return;}
-  profile(null);select('in');message('Signed out.');
+  profile(null);select('otp');message('Signed out.');
 }));
+select('otp');
 run(async()=>{if(await refresh())message('Test session restored.');});
 
 async function apiRequest(method, body) {
