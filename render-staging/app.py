@@ -28,7 +28,10 @@ def application(environ, start_response):
     elif path == '/google-demo-success':
         status, kind = '200 OK', 'text/plain; charset=utf-8'
         content = b'Google sign-in demo completed if you arrived from a verified callback. No customer account or order has been created.'
-    elif path == '/customer-preview' or path == '/customer-preview/' or re.fullmatch(r'/customer-preview/assets/[A-Za-z0-9_-]+\.(?:js|css)', path):
+    elif path == '/customer-preview':
+        status, content, kind = '308 Permanent Redirect', b'', 'text/plain'
+        headers.append(('Location', '/customer-preview/'))
+    elif path == '/customer-preview/' or re.fullmatch(r'/customer-preview/assets/[A-Za-z0-9_-]+\.(?:js|css)', path):
         if os.getenv('CUSTOMER_PREVIEW_ENABLED') != '1':
             status, content, kind = '503 Service Unavailable', b'Private test preview is not enabled.', 'text/plain'
         else:
