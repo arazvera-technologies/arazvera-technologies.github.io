@@ -2,3 +2,6 @@
 .productArtwork{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;border-radius:5px;margin:16px 0 0;background:#080b10;border:1px solid #443a27}
 
 .artworkTile{position:relative;overflow:hidden;aspect-ratio:1;width:100%;margin:16px 0 0;border-radius:5px;background:#080b10}.artworkTile .productArtwork{position:absolute;width:201.3%;height:201.3%;max-width:none;margin:0;border:0;border-radius:0;object-fit:fill;left:0;top:0}.artwork-tr .productArtwork,.artwork-br .productArtwork{left:-101.3%}.artwork-bl .productArtwork,.artwork-br .productArtwork{top:-101.3%}
+
+/* Account bar is deliberately outside the desktop-only navigation. */
+.accountBar{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:0 0 12px;flex-wrap:wrap}.accountBar a{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:7px 13px;border:1px solid #6f5c3c;border-radius:5px;color:var(--gold);font-size:13px;font-weight:700;white-space:nowrap}.accountBar a:first-child{background:var(--gold);color:#10151b}.accountBar a:focus-visible{outline:2px solid #fff;outline-offset:3px}@media(max-width:620px){.accountBar{justify-content:stretch;gap:6px;padding:0 0 10px}.accountBar a{flex:1;padding:6px 7px;font-size:12px}.accountBar a:last-child{flex:1.2}}
