@@ -1,52 +1,232 @@
 const $ = id => document.getElementById(id);
-const money = amount => "$" + Math.round(amount).toLocaleString("en-US");
-const tierPrice = {L2:299,L3:1299,L4:2999,BUNDLE:1999};
-const featuredIds = ["ARAZVERA-L2-DATA-RECONCILIATION-LAB-001","ARAZVERA-L2-RESILIENT-WEBHOOK-PIPELINE-001","ARAZVERA-L2-NOTIFICATION-OUTBOX-001","ARAZVERA-L2-N8N-WORKFLOW-AUDIT-001","ARAZVERA-L2-DOCUMENT-REPORTING-001"];
-const productArtwork = Object.freeze({"ARAZVERA-L2-AI-EVALUATION-001":"images/level2-artwork-02.png","ARAZVERA-L2-API-INTEGRATION-STARTER-001":"images/level2-artwork-02.png","ARAZVERA-L2-BACKEND-HARDENING-001":"images/level2-artwork-02.png","ARAZVERA-L2-CONSENT-LEAD-ROUTING-001":"images/arazvera-l2-consent-lead-routing-001.svg","ARAZVERA-L2-CRM-ERP-CONNECTORS-001":"images/arazvera-l2-crm-erp-connectors-001.svg","ARAZVERA-L2-DATA-RECONCILIATION-LAB-001":"images/data-reconciliation-lab.jpg","ARAZVERA-L2-DOCKER-DELIVERY-TOOLKIT-001":"images/arazvera-l2-docker-delivery-toolkit-001.svg","ARAZVERA-L2-DOCUMENT-REPORTING-001":"images/document-reporting.jpg","ARAZVERA-L2-INCIDENT-RECOVERY-001":"images/arazvera-l2-incident-recovery-001.svg","ARAZVERA-L2-INTERNAL-REPORTING-001":"images/arazvera-l2-internal-reporting-001.svg","ARAZVERA-L2-IOT-EVENT-GATEWAY-001":"images/arazvera-l2-iot-event-gateway-001.svg","ARAZVERA-L2-MULTI-TENANT-API-PLATFORM-001":"images/arazvera-l2-multi-tenant-api-platform-001.svg","ARAZVERA-L2-N8N-WORKFLOW-AUDIT-001":"images/level2-artwork-02.png","ARAZVERA-L2-NOTIFICATION-OUTBOX-001":"images/notification-outbox.jpg","ARAZVERA-L2-OIDC-JWKS-BOUNDARY-001":"images/arazvera-l2-oidc-jwks-boundary-001.svg","ARAZVERA-L2-OPERATIONS-MONITORING-001":"images/arazvera-l2-operations-monitoring-001.svg","ARAZVERA-L2-OPERATOR-REVIEW-001":"images/arazvera-l2-operator-review-001.svg","ARAZVERA-L2-POSTGRESQL-TENANT-BACKEND-001":"images/arazvera-l2-postgresql-tenant-backend-001.svg","ARAZVERA-L2-PRIVATE-RETRIEVAL-LAB-001":"images/arazvera-l2-private-retrieval-lab-001.svg","ARAZVERA-L2-PROVIDER-NEUTRAL-AI-001":"images/arazvera-l2-provider-neutral-ai-001.svg","ARAZVERA-L2-RELIABLE-LEAD-AUTOMATION-001":"images/arazvera-l2-reliable-lead-automation-001.svg","ARAZVERA-L2-RESILIENT-WEBHOOK-PIPELINE-001":"images/resilient-webhook-pipeline.jpg","ARAZVERA-L2-SCAFFOLD-VERIFIER-001":"images/arazvera-l2-scaffold-verifier-001.svg","ARAZVERA-L2-SCHEDULED-ETL-001":"images/arazvera-l2-scheduled-etl-001.svg","ARAZVERA-L2-SECURE-AI-INTAKE-ASSISTANT-001":"images/arazvera-l2-secure-ai-intake-assistant-001.svg","ARAZVERA-L3-B2B-INTEGRATION-HUB-001":"images/arazvera-l3-b2b-integration-hub-001.svg","ARAZVERA-L3-DATA-QUALITY-ETL-001":"images/arazvera-l3-data-quality-etl-001.svg","ARAZVERA-L3-OUTBOX-RECOVERY-001":"images/arazvera-l3-outbox-recovery-001.svg","ARAZVERA-L3-POSTGRES-CDC-RECON-001":"images/arazvera-l3-postgres-cdc-recon-001.svg","ARAZVERA-L3-RELEASE-SLO-001":"images/arazvera-l3-release-slo-001.svg","ARAZVERA-L3-SAGA-COMPENSATION-001":"images/arazvera-l3-saga-compensation-001.svg","ARAZVERA-L3-TENANT-RECOVERY-001":"images/arazvera-l3-tenant-recovery-001.svg","ARAZVERA-L3-ZERO-DOWNTIME-MIGRATION-001":"images/arazvera-l3-zero-downtime-migration-001.svg","ARAZVERA-L4-DEVELOPER-PLATFORM-001":"images/arazvera-l4-developer-platform-001.svg","ARAZVERA-L4-K8S-GITOPS-001":"images/arazvera-l4-k8s-gitops-001.svg","ARAZVERA-L4-OTEL-SLO-OPERATIONS-001":"images/arazvera-l4-otel-slo-operations-001.svg","ARAZVERA-L4-POSTGRES-PITR-DR-001":"images/arazvera-l4-postgres-pitr-dr-001.svg","ARAZVERA-L4-RESILIENCE-LAB-001":"images/arazvera-l4-resilience-lab-001.svg","ARAZVERA-L4-SOFTWARE-SUPPLY-CHAIN-001":"images/arazvera-l4-software-supply-chain-001.svg","ARAZVERA-BUNDLE-OFFLINE-OPS-001":"images/arazvera-bundle-offline-ops-001.svg","ARAZVERA-BUNDLE-TENANT-RLS-001":"images/arazvera-bundle-tenant-rls-001.svg","ARAZVERA-BUNDLE-WEBHOOK-API-001":"images/arazvera-bundle-webhook-api-001.svg","ARAZVERA-BUNDLE-WEBHOOK-APPROVAL-RECOVERY-001":"images/arazvera-bundle-webhook-approval-recovery-001.svg","ARAZVERA-BUNDLE-WEBHOOK-REVIEW-001":"images/arazvera-bundle-webhook-review-001.svg"});
-const artworkQuadrants = Object.freeze({"ARAZVERA-L2-N8N-WORKFLOW-AUDIT-001":"tl","ARAZVERA-L2-AI-EVALUATION-001":"tr","ARAZVERA-L2-API-INTEGRATION-STARTER-001":"bl","ARAZVERA-L2-BACKEND-HARDENING-001":"br"});
-let products=[],cart=new Map(),detailId="",receipt=null;
-function el(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n}
-function clean(p){return p && p.bank==="historical-44" && /^ARAZVERA-(L2|L3|L4|BUNDLE)-[A-Z0-9-]+$/.test(p.id) && typeof p.title==="string" && typeof p.evidence==="string"}
-
-// Real enquiries are drafts only; no payment, price commitment, or source delivery.
-function quoteLink(items){
-  const link=el("a","detailLink",items.length===1?"Request USD quote by email ↗":"Request USD quote for selected items ↗");
-  const subject="ARAZVERA USD quote request";
-  const body=["Hello ARAZVERA,","", "Please provide a written USD quote and licensing terms for:",...items.map(p=>"- "+p.id+" / "+p.title),"","Project requirements: ","Delivery timeline: ","","I understand this is an enquiry only, not an order or payment."].join("\r\n");
-  link.href="mailto:contact.arazvera@gmail.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
-  return link;
+const featuredIds = [
+ "ARAZVERA-L2-DATA-RECONCILIATION-LAB-001",
+ "ARAZVERA-L2-RESILIENT-WEBHOOK-PIPELINE-001",
+ "ARAZVERA-L2-NOTIFICATION-OUTBOX-001",
+ "ARAZVERA-L2-N8N-WORKFLOW-AUDIT-001",
+ "ARAZVERA-L2-DOCUMENT-REPORTING-001"
+];
+const productArtwork = Object.freeze({
+ "ARAZVERA-L2-AI-EVALUATION-001":"images/level2-artwork-02.png",
+ "ARAZVERA-L2-API-INTEGRATION-STARTER-001":"images/level2-artwork-02.png",
+ "ARAZVERA-L2-BACKEND-HARDENING-001":"images/level2-artwork-02.png",
+ "ARAZVERA-L2-CONSENT-LEAD-ROUTING-001":"images/arazvera-l2-consent-lead-routing-001.svg",
+ "ARAZVERA-L2-CRM-ERP-CONNECTORS-001":"images/arazvera-l2-crm-erp-connectors-001.svg",
+ "ARAZVERA-L2-DATA-RECONCILIATION-LAB-001":"images/data-reconciliation-lab.jpg",
+ "ARAZVERA-L2-DOCKER-DELIVERY-TOOLKIT-001":"images/arazvera-l2-docker-delivery-toolkit-001.svg",
+ "ARAZVERA-L2-DOCUMENT-REPORTING-001":"images/document-reporting.jpg",
+ "ARAZVERA-L2-INCIDENT-RECOVERY-001":"images/arazvera-l2-incident-recovery-001.svg",
+ "ARAZVERA-L2-INTERNAL-REPORTING-001":"images/arazvera-l2-internal-reporting-001.svg",
+ "ARAZVERA-L2-IOT-EVENT-GATEWAY-001":"images/arazvera-l2-iot-event-gateway-001.svg",
+ "ARAZVERA-L2-MULTI-TENANT-API-PLATFORM-001":"images/arazvera-l2-multi-tenant-api-platform-001.svg",
+ "ARAZVERA-L2-N8N-WORKFLOW-AUDIT-001":"images/level2-artwork-02.png",
+ "ARAZVERA-L2-NOTIFICATION-OUTBOX-001":"images/notification-outbox.jpg",
+ "ARAZVERA-L2-OIDC-JWKS-BOUNDARY-001":"images/arazvera-l2-oidc-jwks-boundary-001.svg",
+ "ARAZVERA-L2-OPERATIONS-MONITORING-001":"images/arazvera-l2-operations-monitoring-001.svg",
+ "ARAZVERA-L2-OPERATOR-REVIEW-001":"images/arazvera-l2-operator-review-001.svg",
+ "ARAZVERA-L2-POSTGRESQL-TENANT-BACKEND-001":"images/arazvera-l2-postgresql-tenant-backend-001.svg",
+ "ARAZVERA-L2-PRIVATE-RETRIEVAL-LAB-001":"images/arazvera-l2-private-retrieval-lab-001.svg",
+ "ARAZVERA-L2-PROVIDER-NEUTRAL-AI-001":"images/arazvera-l2-provider-neutral-ai-001.svg",
+ "ARAZVERA-L2-RELIABLE-LEAD-AUTOMATION-001":"images/arazvera-l2-reliable-lead-automation-001.svg",
+ "ARAZVERA-L2-RESILIENT-WEBHOOK-PIPELINE-001":"images/resilient-webhook-pipeline.jpg",
+ "ARAZVERA-L2-SCAFFOLD-VERIFIER-001":"images/arazvera-l2-scaffold-verifier-001.svg",
+ "ARAZVERA-L2-SCHEDULED-ETL-001":"images/arazvera-l2-scheduled-etl-001.svg",
+ "ARAZVERA-L2-SECURE-AI-INTAKE-ASSISTANT-001":"images/arazvera-l2-secure-ai-intake-assistant-001.svg",
+ "ARAZVERA-L3-B2B-INTEGRATION-HUB-001":"images/arazvera-l3-b2b-integration-hub-001.svg",
+ "ARAZVERA-L3-DATA-QUALITY-ETL-001":"images/arazvera-l3-data-quality-etl-001.svg",
+ "ARAZVERA-L3-OUTBOX-RECOVERY-001":"images/arazvera-l3-outbox-recovery-001.svg",
+ "ARAZVERA-L3-POSTGRES-CDC-RECON-001":"images/arazvera-l3-postgres-cdc-recon-001.svg",
+ "ARAZVERA-L3-RELEASE-SLO-001":"images/arazvera-l3-release-slo-001.svg",
+ "ARAZVERA-L3-SAGA-COMPENSATION-001":"images/arazvera-l3-saga-compensation-001.svg",
+ "ARAZVERA-L3-TENANT-RECOVERY-001":"images/arazvera-l3-tenant-recovery-001.svg",
+ "ARAZVERA-L3-ZERO-DOWNTIME-MIGRATION-001":"images/arazvera-l3-zero-downtime-migration-001.svg",
+ "ARAZVERA-L4-DEVELOPER-PLATFORM-001":"images/arazvera-l4-developer-platform-001.svg",
+ "ARAZVERA-L4-K8S-GITOPS-001":"images/arazvera-l4-k8s-gitops-001.svg",
+ "ARAZVERA-L4-OTEL-SLO-OPERATIONS-001":"images/arazvera-l4-otel-slo-operations-001.svg",
+ "ARAZVERA-L4-POSTGRES-PITR-DR-001":"images/arazvera-l4-postgres-pitr-dr-001.svg",
+ "ARAZVERA-L4-RESILIENCE-LAB-001":"images/arazvera-l4-resilience-lab-001.svg",
+ "ARAZVERA-L4-SOFTWARE-SUPPLY-CHAIN-001":"images/arazvera-l4-software-supply-chain-001.svg",
+ "ARAZVERA-BUNDLE-OFFLINE-OPS-001":"images/arazvera-bundle-offline-ops-001.svg",
+ "ARAZVERA-BUNDLE-TENANT-RLS-001":"images/arazvera-bundle-tenant-rls-001.svg",
+ "ARAZVERA-BUNDLE-WEBHOOK-API-001":"images/arazvera-bundle-webhook-api-001.svg",
+ "ARAZVERA-BUNDLE-WEBHOOK-APPROVAL-RECOVERY-001":"images/arazvera-bundle-webhook-approval-recovery-001.svg",
+ "ARAZVERA-BUNDLE-WEBHOOK-REVIEW-001":"images/arazvera-bundle-webhook-review-001.svg"
+});
+const artworkQuadrants = Object.freeze({
+ "ARAZVERA-L2-N8N-WORKFLOW-AUDIT-001":"tl",
+ "ARAZVERA-L2-AI-EVALUATION-001":"tr",
+ "ARAZVERA-L2-API-INTEGRATION-STARTER-001":"bl",
+ "ARAZVERA-L2-BACKEND-HARDENING-001":"br"
+});
+let products=[],selected=new Map(),detailId="";
+function el(tag,cls,txt){
+ const node=document.createElement(tag);
+ if(cls)node.className=cls;
+ if(txt!==undefined)node.textContent=txt;
+ return node;
 }
-
-function setState(msg){$("message").textContent=msg}
-function draw(){const term=$("query").value.toLowerCase().trim(),lvl=$("level").value,sort=$("sort").value;
-let arr=products.filter(p=>(lvl==="all"||p.level===lvl)&&(!term||(p.title+" "+p.id+" "+p.evidence).toLowerCase().includes(term)));
-arr.sort((a,b)=>sort==="alpha"?a.title.localeCompare(b.title):sort==="price"?(tierPrice[a.level]-tierPrice[b.level]||a.title.localeCompare(b.title)):(featuredIds.indexOf(a.id)===-1?99:featuredIds.indexOf(a.id))-(featuredIds.indexOf(b.id)===-1?99:featuredIds.indexOf(b.id))||a.title.localeCompare(b.title));
-$("count").textContent=String(arr.length);setState(arr.length===0?"No matching foundations. Try a different search.":arr.length+" of "+products.length+" catalog entries · prices are fictional.");
-const grid=$("grid");grid.replaceChildren();
-for(const p of arr){const item=el("article","item"),top=el("div","itemTop"),tag=el("span","tag",p.level==="BUNDLE"?"BUNDLE":p.level),ft=el("span","featured",featuredIds.includes(p.id)?"FEATURED LAB":"RELEASE GATED");top.append(tag,ft);
-const title=el("h3","",p.title),id=el("p","sku",p.id),ev=el("p","evidence",p.evidence),bottom=el("div","itemBottom"),price=el("div","price"),pr=el("strong","",money(tierPrice[p.level])),lab=el("small","","FICTIONAL DEMO USD");price.append(pr,lab);
-const btn=el("button","buy"+(cart.has(p.id)?" active":""),cart.has(p.id)?"Added ✓":"+ Add to demo cart");btn.type="button";btn.addEventListener("click",()=>toggle(p.id));
-bottom.append(price,btn);const more=el("button","detailLink","View scope & evidence ↗");more.type="button";more.addEventListener("click",()=>details(p.id));item.append(top);if(Object.hasOwn(productArtwork,p.id)){const img=el("img","productArtwork");img.src=productArtwork[p.id];img.alt=p.title+" — product illustration";img.width=1248;img.height=1248;img.loading="lazy";img.decoding="async";if(Object.hasOwn(artworkQuadrants,p.id)){const frame=el("div","artworkTile artwork-"+artworkQuadrants[p.id]);frame.append(img);item.append(frame)}else item.append(img)}const demo=el("a","detailLink","Open product demo ↗");demo.href="../product-demo.html?sku="+encodeURIComponent(p.id);demo.title="SKU-specific synthetic checks; not the private product";item.append(title,id,ev,bottom,more,demo,quoteLink([p]));grid.append(item)}
+function clean(product){
+ return product && product.bank==="historical-44" &&
+  /^ARAZVERA-(L2|L3|L4|BUNDLE)-[A-Z0-9-]+$/.test(product.id) &&
+  typeof product.title==="string" && typeof product.evidence==="string";
 }
-function toggle(id){if(cart.has(id))cart.delete(id);else{const p=products.find(x=>x.id===id);if(p)cart.set(id,p)}draw();drawCart()}
-function subtotal(){return [...cart.values()].reduce((a,p)=>a+tierPrice[p.level],0)}
-function drawCart(){$("cartCount").textContent=cart.size;$("subtotal").textContent=money(subtotal());$("checkout").disabled=cart.size===0;const root=$("cartItems");root.replaceChildren();
-if(!cart.size){root.append(el("p","micro","Your demo cart is empty. Select any foundation to try the flow."));return}
-for(const p of cart.values()){const line=el("div","cartLine"),left=el("div"),title=el("b","",p.title),small=el("small","",p.level+" · "+money(tierPrice[p.level])+" example"),remove=el("button","remove","Remove");remove.type="button";remove.addEventListener("click",()=>toggle(p.id));left.append(title,small);line.append(left,remove);root.append(line)}root.append(quoteLink([...cart.values()]))}
-function openCart(){$("veil").hidden=false;$("drawer").classList.add("open");$("drawer").setAttribute("aria-hidden","false");document.body.style.overflow="hidden";$("closeCart").focus()}
-function closeCart(){$("drawer").classList.remove("open");$("drawer").setAttribute("aria-hidden","true");$("veil").hidden=true;document.body.style.overflow=""}
-function details(id){const p=products.find(x=>x.id===id);if(!p)return;detailId=id;$("dLevel").textContent=p.level;$("dTitle").textContent=p.title;$("dId").textContent=p.id;$("dEvidence").textContent=p.evidence;$("dReadiness").textContent=p.readiness||"Engineering lab; not production or sale-cleared.";
-const url=typeof p.proofUrl==="string"?p.proofUrl:"";const safe=/^https:\/\/(github\.com\/arazvera-technologies\/|arazvera-technologies\.github\.io\/)/.test(url);
-$("dProof").hidden=!safe;if(safe)$("dProof").href=url;$("dAdd").textContent=cart.has(id)?"Remove from demo cart":"Add to demo cart";$("detail").showModal()}
-function updateInvoice(){const link=$("cryptoInvoice");if(!cart.size){link.removeAttribute("href");link.setAttribute("aria-disabled","true");return}const [asset,network]=$("cryptoNetwork").value.split("|");const url=new URL("https://arazvera-store.onrender.com/demo/cart-invoice");for(const sku of cart.keys())url.searchParams.append("sku",sku);url.searchParams.set("asset",asset);url.searchParams.set("network",network);link.href=url.href;link.removeAttribute("aria-disabled")}
-$("cryptoNetwork").addEventListener("change",updateInvoice);
-function startCheckout(){if(!cart.size)return;closeCart();$("payForm").hidden=false;$("success").hidden=true;$("agree").checked=false;$("approve").disabled=true;$("payTotal").textContent=money(subtotal());updateInvoice();$("pay").showModal()}
-function download(){if(!receipt)return;const lines=["ARAZVERA | STOREFRONT SANDBOX","==========================","NOT A RECEIPT FOR PAYMENT","NO SOURCE CODE, LICENSE, OR PURCHASE WAS PROVIDED","","Demo order: "+receipt.id,"Fictional total: "+money(receipt.total),"Simulated SKUs:"] .concat(receipt.products.map(p=>"- "+p.id+" / "+p.title)).concat(["","This text document is a harmless preview of a delivery gate.","All prices and payment events are fictional.","For real engineering enquiries: contact.arazvera@gmail.com",""]);const data=new Blob([lines.join("\n")],{type:"text/plain;charset=utf-8"}),u=URL.createObjectURL(data),a=document.createElement("a");a.href=u;a.download="ARAZVERA_DEMO_UNLOCK.txt";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000)}
-$("openCart").addEventListener("click",openCart);$("closeCart").addEventListener("click",closeCart);$("veil").addEventListener("click",closeCart);$("clear").addEventListener("click",()=>{cart.clear();drawCart();draw()});$("checkout").addEventListener("click",startCheckout);
-$("query").addEventListener("input",draw);$("level").addEventListener("change",draw);$("sort").addEventListener("change",draw);
-$("hideDetail").addEventListener("click",()=>$("detail").close());$("dAdd").addEventListener("click",()=>{toggle(detailId);$("detail").close()});
-$("hidePay").addEventListener("click",()=>$("pay").close());$("agree").addEventListener("change",()=>{$("approve").disabled=!$("agree").checked});
-$("approve").addEventListener("click",()=>{if(!$("agree").checked||!cart.size)return;receipt={id:"DEMO-"+String(Date.now()).slice(-9),total:subtotal(),products:[...cart.values()]};$("orderId").textContent=receipt.id;$("orderTotal").textContent=money(receipt.total);$("payForm").hidden=true;$("success").hidden=false;cart.clear();drawCart();draw()});
-$("getSample").addEventListener("click",download);$("restart").addEventListener("click",()=>{$("pay").close();openCart()});
-window.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("drawer").classList.contains("open"))closeCart()});
-(async()=>{try{const response=await fetch("../catalog.json",{cache:"no-store"});if(!response.ok)throw new Error("Catalog HTTP "+response.status);const data=await response.json();if(!Array.isArray(data.products))throw new Error("Invalid public catalog");products=data.products.filter(clean);if(products.length!==44)throw new Error("Expected 44 public metadata SKUs; got "+products.length);draw();drawCart()}catch(err){setState("Catalog temporarily unavailable. Return to the Buyer Lab while this demo loads.");$("count").textContent="0";console.error("Store demo metadata unavailable:",err)}})();
+function quoteHref(items){
+ const subject=items.length===1
+  ? "ARAZVERA written quotation — "+items[0].title
+  : "ARAZVERA written quotation — "+items.length+" selected foundations";
+ const body=[
+  "Hello ARAZVERA,","",
+  "Please send a written proposal and USD quotation for:",
+  ...items.map(product=>"- "+product.id+" / "+product.title),
+  "","Business problem / intended use:",
+  "Required deliverables:","Preferred timeframe:",
+  "Budget range (optional):","",
+  "Please confirm scope, availability, licensing, payment and delivery terms in writing.",
+  "I understand this is an enquiry only, not an order or payment."
+ ].join("\r\n");
+ return "mailto:contact.arazvera@gmail.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
+}
+function quoteLink(items,label){
+ const link=el("a","quoteLink",label||"Request written quote ↗");
+ link.href=quoteHref(items);
+ return link;
+}
+function setState(message){$("message").textContent=message;}
+function draw(){
+ const term=$("query").value.toLowerCase().trim();
+ const level=$("level").value;
+ const sort=$("sort").value;
+ const visible=products.filter(product=>
+  (level==="all"||product.level===level) &&
+  (!term||(product.title+" "+product.id+" "+product.evidence+" "+(product.readiness||"")).toLowerCase().includes(term))
+ );
+ visible.sort((a,b)=>sort==="alpha"
+  ? a.title.localeCompare(b.title)
+  : (featuredIds.indexOf(a.id)===-1?99:featuredIds.indexOf(a.id))-
+    (featuredIds.indexOf(b.id)===-1?99:featuredIds.indexOf(b.id))||a.title.localeCompare(b.title));
+ $("count").textContent=String(visible.length);
+ setState(visible.length
+  ? visible.length+" of "+products.length+" catalogue entries · request a written quote for scope and pricing."
+  : "No matching foundations. Try a different search.");
+ const grid=$("grid");
+ grid.replaceChildren();
+ for(const product of visible){
+  const item=el("article","item");
+  const top=el("div","itemTop");
+  top.append(el("span","tag",product.level==="BUNDLE"?"BUNDLE":product.level));
+  top.append(el("span","featured",featuredIds.includes(product.id)?"FEATURED LAB":"SCOPE REVIEW REQUIRED"));
+  item.append(top);
+  if(Object.hasOwn(productArtwork,product.id)){
+   const image=el("img","productArtwork");
+   image.src=productArtwork[product.id];
+   image.alt=product.title+" — product illustration";
+   image.width=1248;image.height=1248;image.loading="lazy";image.decoding="async";
+   if(Object.hasOwn(artworkQuadrants,product.id)){
+    const frame=el("div","artworkTile artwork-"+artworkQuadrants[product.id]);
+    frame.append(image);item.append(frame);
+   }else item.append(image);
+  }
+  item.append(el("h3","",product.title));
+  item.append(el("p","sku",product.id));
+  item.append(el("p","evidence",product.evidence));
+  item.append(el("p","readiness",product.readiness||"Readiness and sale eligibility must be confirmed in writing."));
+  const bottom=el("div","itemBottom");
+  const quote=el("div","price");
+  quote.append(el("strong","","Quote required"));
+  quote.append(el("small","","Final USD price confirmed in writing"));
+  const add=el("button","buy"+(selected.has(product.id)?" active":""),selected.has(product.id)?"Added ✓":"+ Add to quote list");
+  add.type="button";add.addEventListener("click",()=>toggle(product.id));
+  bottom.append(quote,add);item.append(bottom);
+  const more=el("button","detailLink","View scope & evidence ↗");
+  more.type="button";more.addEventListener("click",()=>details(product.id));
+  const proof=el("a","detailLink","Open related public proof ↗");
+  proof.href="../product-demo.html?sku="+encodeURIComponent(product.id);
+  proof.title="Related synthetic checks; not the private product";
+  item.append(more,proof,quoteLink([product],"Request written quote ↗"));
+  grid.append(item);
+ }
+}
+function toggle(id){
+ if(selected.has(id))selected.delete(id);
+ else{
+  const product=products.find(item=>item.id===id);
+  if(product)selected.set(id,product);
+ }
+ draw();drawQuoteList();
+}
+function drawQuoteList(){
+ $("cartCount").textContent=String(selected.size);
+ const root=$("cartItems");
+ root.replaceChildren();
+ if(!selected.size){
+  root.append(el("p","micro","Your quote list is empty. Add a foundation from the catalogue to prepare a written enquiry."));
+  return;
+ }
+ for(const product of selected.values()){
+  const line=el("div","cartLine");
+  const left=el("div","");
+  left.append(el("b","",product.title));
+  left.append(el("small","",product.level+" · "+product.id));
+  const remove=el("button","remove","Remove");
+  remove.type="button";remove.addEventListener("click",()=>toggle(product.id));
+  line.append(left,remove);root.append(line);
+ }
+ root.append(quoteLink([...selected.values()],"Request a quote for selected items ↗"));
+}
+function openQuoteList(){
+ $("veil").hidden=false;
+ $("drawer").classList.add("open");
+ $("drawer").setAttribute("aria-hidden","false");
+ document.body.style.overflow="hidden";
+ $("closeCart").focus();
+}
+function closeQuoteList(){
+ $("drawer").classList.remove("open");
+ $("drawer").setAttribute("aria-hidden","true");
+ $("veil").hidden=true;
+ document.body.style.overflow="";
+}
+function details(id){
+ const product=products.find(item=>item.id===id);
+ if(!product)return;
+ detailId=id;
+ $("dLevel").textContent=product.level;
+ $("dTitle").textContent=product.title;
+ $("dId").textContent=product.id;
+ $("dEvidence").textContent=product.evidence;
+ $("dReadiness").textContent=product.readiness||"Readiness and sale eligibility must be confirmed in writing.";
+ const url=typeof product.proofUrl==="string"?product.proofUrl:"";
+ const safe=/^https:\/\/(github\.com\/arazvera-technologies\/|arazvera-technologies\.github\.io\/)/.test(url);
+ $("dProof").hidden=!safe;
+ if(safe)$("dProof").href=url;
+ $("dQuote").href=quoteHref([product]);
+ $("dAdd").textContent=selected.has(id)?"Remove from quote list":"Add to quote list";
+ $("detail").showModal();
+}
+$("openCart").addEventListener("click",openQuoteList);
+$("closeCart").addEventListener("click",closeQuoteList);
+$("veil").addEventListener("click",closeQuoteList);
+$("clear").addEventListener("click",()=>{selected.clear();drawQuoteList();draw();});
+$("query").addEventListener("input",draw);
+$("level").addEventListener("change",draw);
+$("sort").addEventListener("change",draw);
+$("hideDetail").addEventListener("click",()=>$("detail").close());
+$("dAdd").addEventListener("click",()=>{toggle(detailId);$("detail").close();});
+window.addEventListener("keydown",event=>{
+ if(event.key==="Escape"&&$("drawer").classList.contains("open"))closeQuoteList();
+});
+(async()=>{
+ try{
+  const response=await fetch("../catalog.json",{cache:"no-store"});
+  if(!response.ok)throw new Error("Catalog HTTP "+response.status);
+  const data=await response.json();
+  if(!Array.isArray(data.products))throw new Error("Invalid public catalogue");
+  products=data.products.filter(clean);
+  if(products.length!==44)throw new Error("Expected 44 public metadata entries; got "+products.length);
+  draw();drawQuoteList();
+ }catch(error){
+  setState("Catalogue temporarily unavailable. Please contact contact.arazvera@gmail.com.");
+  $("count").textContent="0";
+  console.error("Public catalogue unavailable:",error);
+ }
+})();
