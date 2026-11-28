@@ -5,7 +5,7 @@ const $ = id => document.getElementById(id);
 const show = (id, yes) => { $(id).hidden = !yes; };
 const message = text => { $('message').textContent = text; };
 const account = $('account-form'), verification = $('verification-form');
-let mode = 'in', verifyEmail = '', busy = false;
+let mode = 'in', verifyEmail = '', busy = false, pendingKey = '';
 if (!base) {
   message('Test service is not configured.');
   account.querySelectorAll('input,button').forEach(el => {el.disabled = true;});
@@ -28,13 +28,16 @@ function profile(user) {
   $('mode-in').hidden = $('mode-up').hidden = Boolean(valid);
   $('profile-name').textContent = valid ? user.name || 'Customer' : '';
   $('profile-email').textContent = valid ? user.email || '' : '';
+  if (!valid) { $('request-list').replaceChildren(); $('request-form').reset(); pendingKey = ''; }
   $('password').value = ''; $('otp').value = '';
   return Boolean(valid);
 }
 async function refresh() {
   const {data,error} = await auth.getSession();
   if (error) return false;
-  return profile(data?.user);
+  const valid=profile(data?.user);
+  if (valid) await listRequests();
+  return valid;
 }
 function requireCode(email) {
   verifyEmail = email;
@@ -91,3 +94,35 @@ $('signout').addEventListener('click',()=>run(async()=>{
   profile(null);select('in');message('Signed out.');
 }));
 run(async()=>{if(await refresh())message('Test session restored.');});
+
+async function apiRequest(method, body) {
+  const {data,error}=await auth.token();
+  if (error || !data?.token) throw new Error('No token');
+  const response=await fetch('/api/demo/customer/requests',{
+    method,headers:{Authorization:'Bearer '+data.token,...(body?{'Content-Type':'application/json'}:{})},
+    ...(body?{body:JSON.stringify(body)}:{}),cache:'no-store',credentials:'omit'});
+  if(!response.ok) throw new Error('Request unavailable');
+  return response.json();
+}
+async function listRequests() {
+  const list=$('request-list');
+  list.replaceChildren();
+  try{
+    const {requests}=await apiRequest('GET');
+    for(const request of requests){
+      const li=document.createElement('li');
+      li.textContent=request.kind+' · '+request.subject+' · '+request.status+' · '+request.id;
+      list.append(li);
+    }
+    if(!requests.length) {const li=document.createElement('li');li.textContent='No test requests yet.';list.append(li);}
+  }catch{const li=document.createElement('li');li.textContent='Test request service is not available yet.';list.append(li);}
+}
+$('request-form').addEventListener('input',()=>{pendingKey='';});
+$('request-form').addEventListener('submit',e=>{
+  e.preventDefault();run(async()=>{
+    pendingKey ||= crypto.randomUUID();
+    await apiRequest('POST',{kind:$('request-kind').value,subject:$('request-subject').value,description:$('request-description').value,request_key:pendingKey});
+    pendingKey='';$('request-form').reset();await listRequests();message('Test request received.');
+  });
+});
+$('reload-requests').addEventListener('click',()=>run(listRequests));
