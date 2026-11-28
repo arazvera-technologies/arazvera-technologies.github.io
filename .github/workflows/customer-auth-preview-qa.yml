@@ -1,0 +1,33 @@
+name: Customer auth preview QA
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'customer-auth-preview/**'
+      - '.github/workflows/customer-auth-preview-qa.yml'
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    defaults:
+      run:
+        working-directory: customer-auth-preview
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --save-exact @neon/auth vite
+      - run: node --check src/main.js
+      - run: npx vite build
+        env:
+          VITE_NEON_AUTH_URL: https://ep-orange-art-bcq396ri.neonauth.c-16.us-east-1.aws.neon.tech/neondb/auth
+      - uses: actions/upload-artifact@v4
+        with:
+          name: isolated-auth-preview
+          path: |
+            customer-auth-preview/dist
+            customer-auth-preview/package-lock.json
+          retention-days: 7
