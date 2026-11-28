@@ -36,7 +36,7 @@ def application(environ, start_response):
             if file.is_file():
                 status, content = '200 OK', file.read_bytes()
                 kind = 'text/html; charset=utf-8' if rel.endswith('.html') else ('text/javascript; charset=utf-8' if rel.endswith('.js') else 'text/css; charset=utf-8')
-                headers += [('X-Robots-Tag','noindex, nofollow'), ('Content-Security-Policy',"default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' https://ep-orange-art-bcq396ri.neonauth.c-16.us-east-1.aws.neon.tech; img-src 'self' data:; base-uri 'none'; frame-ancestors 'none'; form-action 'none'")]
+                headers += [('X-Robots-Tag','noindex, nofollow'), ('Content-Security-Policy',"default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' https://ep-orange-art-bcq396ri.neonauth.c-16.us-east-1.aws.neon.tech; frame-src https://ep-orange-art-bcq396ri.neonauth.c-16.us-east-1.aws.neon.tech; img-src 'self' data:; base-uri 'none'; frame-ancestors 'none'; form-action 'none'")]
             else:
                 status, content, kind = '404 Not Found', b'Preview not built', 'text/plain'
     elif path == '/db-healthz':
