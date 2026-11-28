@@ -1,5 +1,9 @@
 import unittest
 from unittest.mock import patch
+import price_preview as pp
+import json
+from datetime import datetime, timezone
+from io import BytesIO
 from price_preview import validated_rates, demo_quote, rates_snapshot
 from app import application
 
@@ -37,3 +41,20 @@ class PricePreviewTests(unittest.TestCase):
             response=[]
             application({"PATH_INFO":"/api/demo/crypto-rates","REQUEST_METHOD":"GET"},lambda s,h:response.append(s))
             self.assertEqual(response[0],"503 Service Unavailable")
+
+    def test_kraken_timestamp_and_pair(self):
+        def payload(symbol, stamp):
+            return BytesIO(json.dumps({"result":{"trades":[{"symbol":symbol,"price":"42.125","trade_ts":datetime.fromtimestamp(stamp,timezone.utc).isoformat()}]}}).encode())
+        for symbol, stamp, valid in [("TRX/USD",1000,True),("ETH/USD",1000,False),("TRX/USD",700,False)]:
+            with patch("price_preview.urlopen",return_value=payload(symbol,stamp)),patch("price_preview.time.time",return_value=1000):
+                value=pp._kraken_trade("TRX")
+                self.assertEqual(bool(value),valid)
+                if valid: self.assertEqual(value["source"],"Kraken")
+
+    def test_fallback_source_and_fail_closed(self):
+        with patch.object(pp,"_cache",{}),patch.object(pp,"_fetched",0),patch.object(pp,"_retry_after",0),patch("price_preview.time.time",return_value=1000),patch("price_preview._download",side_effect=TimeoutError),patch("price_preview._fallback",return_value={"BTC":{"usd":"50000","last_updated_at":999,"source":"Kraken"}}):
+            snapshot=pp.rates_snapshot()
+            self.assertEqual(snapshot["source"],"Kraken")
+            self.assertEqual(demo_quote("100","BTC",snapshot)["source"],"Kraken")
+            self.assertFalse(snapshot["payment_enabled"])
+            with self.assertRaises(LookupError): demo_quote("100","ETH",snapshot)
