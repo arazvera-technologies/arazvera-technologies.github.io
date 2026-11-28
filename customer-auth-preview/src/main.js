@@ -12,6 +12,12 @@ if (!base) {
   throw new Error('Missing test auth URL');
 }
 const auth = createAuthClient(base);
+const query = new URLSearchParams(location.search);
+const destinations = Object.freeze({home:'https://arazvera-technologies.github.io/',store:'https://arazvera-technologies.github.io/buyer-lab/store-demo/'});
+const returnKey = ['home','store'].includes(query.get('return')) ? query.get('return') : '';
+const returnURL = returnKey ? destinations[returnKey] : '';
+const callbackURL = 'https://arazvera-store.onrender.com/customer-preview/' + (returnKey ? '?return='+returnKey : '');
+
 function select(next) {
   mode = next;
   show('name-row', next === 'up');
@@ -42,6 +48,7 @@ async function refresh() {
   const {data,error} = await auth.getSession();
   if (error) return false;
   const valid=profile(data?.user);
+  if (valid && returnURL) { location.replace(returnURL); return true; }
   if (valid) await listRequests();
   return valid;
 }
@@ -64,7 +71,7 @@ async function run(fn) {
   finally { busy = false; buttons.forEach(b => b.disabled = false); }
 }
 $('google-signin').addEventListener('click',()=>run(async()=>{
-  const {error}=await auth.signIn.social({provider:'google',callbackURL:'https://arazvera-store.onrender.com/customer-preview/'});
+  const {error}=await auth.signIn.social({provider:'google',callbackURL});
   if(error){message('Google sign-in is unavailable. Try email code instead.');return;}
   if(await refresh())message('Signed in to the test account.');
 }));
@@ -117,7 +124,7 @@ $('signout').addEventListener('click',()=>run(async()=>{
   if(error){message('Sign-out failed. Try again.');return;}
   profile(null);select('otp');message('Signed out.');
 }));
-select('otp');
+select(query.get('mode')==='up'?'up':'otp');
 run(async()=>{if(await refresh())message('Test session restored.');});
 
 async function apiRequest(method, body) {
