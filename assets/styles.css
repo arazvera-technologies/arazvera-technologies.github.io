@@ -192,3 +192,6 @@ html[lang="fa"] .contact-section .btn{font-size:14px}
 
 /* Compact English quote link to avoid mobile header crowding. */
 .nav-contact .quote-long{display:inline;margin-left:0;font-size:inherit}.nav-contact .quote-short{display:none;margin-left:0;font-size:inherit}@media(max-width:760px){html[lang="en"] .nav-contact .quote-long{display:none}html[lang="en"] .nav-contact .quote-short{display:inline;margin-left:0;font-size:inherit}html[lang="en"] .nav-contact .nav-arrow{display:none}}
+
+/* Optional account access; visible independently of mobile navigation. */
+.account-nav{display:flex;align-items:center;gap:8px;white-space:nowrap;flex-shrink:0}.account-nav a{font-size:.8rem;color:inherit;text-decoration:none;padding:7px 9px;border:1px solid currentColor;border-radius:6px}.account-nav a:hover,.account-nav a:focus-visible{color:#d7b76b}@media(max-width:700px){.account-nav{gap:4px}.account-nav a{padding:5px;font-size:.72rem}.nav-shell{flex-wrap:wrap}}
