@@ -17,6 +17,8 @@ def application(environ, start_response):
     path = environ.get('PATH_INFO', '/')
     method = environ.get('REQUEST_METHOD', 'GET')
     headers = [('Cache-Control', 'no-store'), ('X-Content-Type-Options', 'nosniff'), ('Referrer-Policy', 'no-referrer')]
+    if path in ('/demo/cart-invoice','/demo/cart-confirm'):
+        headers = [(k,v) for k,v in headers if k != 'Referrer-Policy'] + [('Referrer-Policy','same-origin'), ('Content-Security-Policy',"default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'")]
     if path == '/api/demo/customer/requests':
         status, content, kind = customer_requests(environ)
     elif path == '/demo/cart-confirm' and method == 'POST':
@@ -90,7 +92,7 @@ def application(environ, start_response):
 class PrivateQueryHandler(WSGIRequestHandler):
     def log_request(self, code='-', size='-'):
         if self.path.startswith(('/api/auth/google','/demo/cart-download')):
-            self.log_message('OAuth demo request %s', code)
+            self.log_message('Redacted demo request %s', code)
         else:
             super().log_request(code, size)
 
