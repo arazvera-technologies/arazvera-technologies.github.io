@@ -30,8 +30,9 @@ test('Every sandbox checkout entry point is clearly labeled and contains no real
   assert.match(html, /NO LIVE PAYMENT/);
   assert.match(html, /NO PRIVATE SOURCE ACCESS/);
   assert.match(html, /id="pay"/);
-  assert.match(html, /Simulate successful card payment/);
-  assert.match(html, /NO CARD FIELDS/);
+  assert.match(html, /Simulate demo purchase/);
+  assert.match(html, /NO PROCESSOR CONNECTED/);
+  assert.match(html, /Do not send funds/);
   assert.match(html, /all prices are fictitious/i);
   assert.doesNotMatch(html, /<input[^>]+(?:name|id)=["'](?:card|cvv|cvc|pan|expiry|expiration)/i);
   assert.doesNotMatch(html, /<iframe\b/i);
