@@ -154,3 +154,21 @@ test('all 44 storefront artworks appear on their corresponding SKU cards', async
   }
   dom.window.close();
 });
+
+test('cart crypto estimate link contains only known SKU identifiers and network, no client amount', async () => {
+  const {document:d,dom}=await session();
+  d.querySelector('.buy').click();
+  click(d,'openCart');click(d,'checkout');
+  const net=d.getElementById('cryptoNetwork');
+  net.value='USDT|Tron';
+  net.dispatchEvent(new dom.window.Event('change'));
+  const u=new URL(d.getElementById('cryptoInvoice').href);
+  assert.equal(u.origin,'https://arazvera-store.onrender.com');
+  assert.equal(u.pathname,'/demo/cart-invoice');
+  assert.equal(u.searchParams.get('asset'),'USDT');
+  assert.equal(u.searchParams.get('network'),'Tron');
+  assert.equal(u.searchParams.getAll('sku').length,1);
+  assert.ok(official.some(p=>p.id===u.searchParams.get('sku')));
+  assert.equal(u.searchParams.has('usd'),false);
+  dom.window.close();
+});
