@@ -11,3 +11,9 @@
 .quoteLink:hover{background:var(--gold2)}
 .readiness{font-size:11px;line-height:1.55;color:#e0bb83;margin:0 0 8px}
 .cartBottom{padding-top:12px}
+
+/* Keep the paid-pilot route visible when the desktop navigation collapses. */
+.headerPilot{display:none;align-items:center;justify-content:center;min-height:40px;padding:8px 11px;background:var(--gold);color:#10151b;border:1px solid var(--gold);border-radius:5px;font-size:11px;font-weight:800;white-space:nowrap}
+.headerPilot:hover{background:var(--gold2)}
+@media(max-width:920px){.headerPilot{display:inline-flex}}
+@media(max-width:620px){.nav{gap:8px}.headerPilot{font-size:10px;padding:7px 8px;min-height:36px}.cartButton{padding:8px 8px;font-size:10px}.cartButton b{height:20px;min-width:20px;margin-left:4px}}
