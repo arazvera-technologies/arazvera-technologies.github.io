@@ -1,4 +1,4 @@
-name: ARAZVERA Store Demo — simulated checkout regression
+name: ARAZVERA Public Catalogue — quote-flow regression
 
 on:
   push:
@@ -17,7 +17,7 @@ permissions:
   contents: read
 
 jobs:
-  storefront-sandbox:
+  public-catalogue:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -27,5 +27,5 @@ jobs:
           node-version: "22"
       - name: Install DOM harness (CI only)
         run: npm install --no-save --no-package-lock --ignore-scripts jsdom@26.1.0
-      - name: Check storefront rendering, safe checkout and demo receipt
-        run: node --test buyer-lab/store-demo/storefront.test.mjs
+      - name: Check public catalogue, quote list and payment boundaries
+        run: node --test buyer-lab/store-demo/storefront.test.mjs tests/storefront_demo_guard.test.mjs
