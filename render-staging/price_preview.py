@@ -1,5 +1,9 @@
 """Public, informational price previews. Never authorizes payments."""
 import json
+import logging
+from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor
+from urllib.error import HTTPError
 import os
 import time
 from decimal import Decimal, InvalidOperation, ROUND_UP, localcontext
@@ -42,22 +46,61 @@ def validated_rates(data, now):
             continue
     return rates
 
+def _log_failure(source, exc):
+    logging.warning("Price preview provider=%s error=%s status=%s", source,
+                    type(exc).__name__, exc.code if isinstance(exc, HTTPError) else "-")
+
+def _kraken_trade(symbol):
+    pair = symbol + "/USD"
+    query = urlencode({"symbol": pair, "count": 1})
+    request = Request("https://api.kraken.com/0/public/PostTrade?" + query,
+                      headers={"Accept": "application/json", "User-Agent": "ARAZVERA-Store/1.0"})
+    try:
+        with urlopen(request, timeout=4) as response:
+            data = json.loads(response.read(65536), parse_float=Decimal)
+        if data.get("error"):
+            return None
+        trade = data["result"]["trades"][-1]
+        if trade["symbol"] != pair:
+            return None
+        stamp = datetime.fromisoformat(trade["trade_ts"].replace("Z", "+00:00"))
+        if stamp.tzinfo is None:
+            return None
+        seconds = int(stamp.timestamp())
+        price = Decimal(str(trade["price"]))
+        if price.is_finite() and price > 0 and -15 <= time.time() - seconds <= MAX_AGE:
+            return {"usd": format(price, "f"), "last_updated_at": seconds, "source": "Kraken"}
+    except Exception as exc:
+        _log_failure("Kraken", exc)
+    return None
+
+def _fallback(symbols):
+    if not symbols:
+        return {}
+    with ThreadPoolExecutor(max_workers=5) as pool:
+        return {s: r for s, r in zip(symbols, pool.map(_kraken_trade, symbols)) if r}
+
 def rates_snapshot():
     global _cache, _fetched, _retry_after
     with _lock:
         now = time.time()
         if now >= _retry_after and (not _fetched or now - _fetched >= CACHE_TTL):
             try:
-                _cache = validated_rates(_download(), time.time())
-                _fetched = time.time()
-                _retry_after = _fetched + CACHE_TTL
-            except Exception:
+                _cache = {s: dict(r, source="CoinGecko")
+                          for s, r in validated_rates(_download(), time.time()).items()}
+                if not _cache:
+                    logging.warning("Price preview CoinGecko: no fresh valid rates")
+            except Exception as exc:
+                _log_failure("CoinGecko", exc)
                 _cache = {}
-                _fetched = 0
-                _retry_after = time.time() + CACHE_TTL
+            _cache.update(_fallback([s for s in ASSETS if s not in _cache]))
+            _fetched = time.time()
+            _retry_after = _fetched + CACHE_TTL
+        now = time.time()
         fresh = {s: r for s, r in _cache.items()
                  if -15 <= now - r["last_updated_at"] <= MAX_AGE}
-        return {"source": "CoinGecko", "mode": "informational",
+        sources = sorted({r["source"] for r in fresh.values()})
+        return {"source": " + ".join(sources) if sources else "unavailable", "mode": "informational",
                 "currency": "USD", "payment_enabled": False, "rates": fresh}
 
 def demo_quote(usd, asset, snapshot):
@@ -78,7 +121,7 @@ def demo_quote(usd, asset, snapshot):
         ctx.prec = 48
         units = (amount / Decimal(rate["usd"])).quantize(
             Decimal(1).scaleb(-ASSETS[asset][1]), rounding=ROUND_UP)
-    return {"mode": "demo_only", "source": "CoinGecko",
+    return {"mode": "demo_only", "source": rate.get("source", "CoinGecko"),
             "usd": format(amount, ".2f"), "asset": asset,
             "estimated_amount": format(units, "f"),
             "rate_usd": rate["usd"], "last_updated_at": rate["last_updated_at"],
