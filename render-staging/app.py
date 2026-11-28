@@ -1,5 +1,7 @@
 import os
 import json
+import re
+from pathlib import Path
 from urllib.parse import parse_qs
 from price_preview import rates_snapshot, demo_quote
 from db_probe import startup_database_status
@@ -25,6 +27,18 @@ def application(environ, start_response):
     elif path == '/google-demo-success':
         status, kind = '200 OK', 'text/plain; charset=utf-8'
         content = b'Google sign-in demo completed if you arrived from a verified callback. No customer account or order has been created.'
+    elif path == '/customer-preview' or path == '/customer-preview/' or re.fullmatch(r'/customer-preview/assets/[A-Za-z0-9_-]+\.(?:js|css)', path):
+        if os.getenv('CUSTOMER_PREVIEW_ENABLED') != '1':
+            status, content, kind = '503 Service Unavailable', b'Private test preview is not enabled.', 'text/plain'
+        else:
+            rel = 'index.html' if path in ('/customer-preview', '/customer-preview/') else path.removeprefix('/customer-preview/')
+            file = Path(__file__).parent / 'customer_ui' / rel
+            if file.is_file():
+                status, content = '200 OK', file.read_bytes()
+                kind = 'text/html; charset=utf-8' if rel.endswith('.html') else ('text/javascript; charset=utf-8' if rel.endswith('.js') else 'text/css; charset=utf-8')
+                headers += [('X-Robots-Tag','noindex, nofollow'), ('Content-Security-Policy',"default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self' https://ep-orange-art-bcq396ri.neonauth.c-16.us-east-1.aws.neon.tech; img-src 'self' data:; base-uri 'none'; frame-ancestors 'none'; form-action 'none'")]
+            else:
+                status, content, kind = '404 Not Found', b'Preview not built', 'text/plain'
     elif path == '/db-healthz':
         code, content = startup_database_status()
         status, kind = ('200 OK' if code == 200 else '503 Service Unavailable'), 'application/json'
